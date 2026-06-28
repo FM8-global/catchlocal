@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catch Local — FM8 Seafood & Fishing Rules</title>
+  <meta name="theme-color" content="#0a1b29">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Catch Local">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
+<style>
+  /* FM8 corporate styling per FQP-001-3. Heading brand font: Ethnocentric RG (required, licensed embed);
+     Roboto used for all body text. */
+  :root{
+    --deep:#0a1b29; --mid:#123247; --sea:#1c6e8c; --aqua:#3aa9c6; --foam:#eaf3f7;
+    --sand:#f5efe1; --ink:#16232c; --grey:#5f7785; --line:#d3e0e8;
+    --good:#1f9d57; --warn:#e08a1e; --bad:#cc3b3b; --card:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Roboto',Arial,sans-serif;
+    background:linear-gradient(180deg,#eaf6f9 0%,#dceef3 100%);color:var(--ink);min-height:100vh;padding-bottom:80px}
+  .wrap{max-width:760px;margin:0 auto;padding:0 14px}
+  header{background:linear-gradient(135deg,var(--deep),var(--sea));color:#fff;padding:18px 0 16px;box-shadow:0 3px 14px rgba(6,42,61,.25)}
+  header .wrap{display:flex;align-items:center;gap:12px}
+  .logo{font-size:30px;line-height:1}
+  header h1{font-size:19px;font-weight:900;letter-spacing:2.5px;text-transform:uppercase}
+  header p{font-size:12px;opacity:.85;margin-top:2px}
+  .region-pill{margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+    padding:6px 11px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap}
+
+  .disclaimer{background:#fff6e6;border:1px solid #f3d79a;color:#7a541a;font-size:12.5px;
+    border-radius:10px;padding:10px 13px;margin:14px 0;line-height:1.45}
+  .disclaimer b{color:#5a3d0f}
+
+  .tabs{display:flex;gap:6px;margin:14px 0 4px;background:#fff;border-radius:12px;padding:5px;
+    box-shadow:0 2px 8px rgba(6,42,61,.08);position:sticky;top:8px;z-index:20}
+  .tab{flex:1;text-align:center;padding:10px 4px;border-radius:9px;font-size:13px;font-weight:600;
+    color:var(--grey);cursor:pointer;border:none;background:none;transition:.15s}
+  .tab.active{background:linear-gradient(135deg,var(--sea),var(--aqua));color:#fff;box-shadow:0 2px 7px rgba(19,138,166,.4)}
+  .tab .ic{display:block;font-size:18px;margin-bottom:2px}
+
+  .panel{display:none;animation:fade .25s}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  .card{background:var(--card);border-radius:14px;padding:16px;margin:12px 0;box-shadow:0 2px 10px rgba(6,42,61,.08)}
+  .card h2{font-size:15px;margin-bottom:4px;display:flex;align-items:center;gap:7px}
+  .muted{color:var(--grey);font-size:12.5px;line-height:1.5}
+
+  .loc-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+  .btn{background:linear-gradient(135deg,var(--sea),var(--aqua));color:#fff;border:none;padding:11px 16px;
+    border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer;box-shadow:0 2px 7px rgba(19,138,166,.35)}
+  .btn:active{transform:translateY(1px)}
+  .btn.sec{background:#fff;color:var(--sea);border:1.5px solid var(--sea);box-shadow:none}
+  select,input[type=text]{padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:13.5px;
+    background:#fff;color:var(--ink);width:100%}
+  label.fld{font-size:12px;font-weight:600;color:var(--mid);display:block;margin:10px 0 5px}
+
+  .radius-box{margin-top:14px}
+  .radius-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .radius-val{font-weight:700;color:var(--sea);font-size:15px}
+  input[type=range]{width:100%;accent-color:var(--sea);height:6px}
+  .unit-toggle{display:inline-flex;border:1.5px solid var(--sea);border-radius:8px;overflow:hidden}
+  .unit-toggle button{border:none;background:#fff;color:var(--sea);padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer}
+  .unit-toggle button.on{background:var(--sea);color:#fff}
+
+  .count-line{font-size:13px;color:var(--mid);margin:14px 2px 4px;font-weight:600}
+
+  .sp{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:11px 12px;margin:9px 0;cursor:pointer;transition:.15s}
+  .sp:hover{border-color:var(--aqua);box-shadow:0 3px 10px rgba(19,138,166,.15)}
+  .sp .ava{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--foam),#cfeaf1);
+    display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+  .sp .info{flex:1;min-width:0}
+  .sp .nm{font-weight:700;font-size:14px}
+  .sp .sci{font-style:italic;color:var(--grey);font-size:11.5px}
+  .sp .meta{font-size:11.5px;color:var(--mid);margin-top:2px}
+  .sp .chev{color:var(--aqua);font-size:18px}
+  .badge{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:5px;vertical-align:middle}
+  .b-closed{background:#fdecea;color:var(--bad)}
+  .b-sex{background:#fff2e0;color:var(--warn)}
+  .b-notake{background:#fdecea;color:var(--bad)}
+  .b-season{background:#e3f7ec;color:var(--good)}
+  .seasonchip{display:inline-block;margin:2px 0 10px;padding:8px 14px;border-radius:20px;font-size:12.5px;
+    font-weight:700;cursor:pointer;border:1.5px solid var(--sea);color:var(--sea);background:#fff;user-select:none}
+  .seasonchip.on{background:var(--sea);color:#fff}
+
+  /* identify */
+  .drop{border:2px dashed var(--aqua);border-radius:14px;padding:26px 16px;text-align:center;background:var(--foam);cursor:pointer;display:block}
+  .drop .big{font-size:40px}
+  .drop p{font-size:13px;color:var(--mid);margin-top:6px}
+  #preview{max-width:100%;max-height:230px;border-radius:12px;margin:12px auto 0;display:none}
+  #aiOut{margin-top:10px}
+  .aibanner{border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.5;margin:10px 0}
+  .aibanner.warn{background:#fff6e6;border:1px solid #f3d79a;color:#7a541a}
+  .aibanner.red{background:#fdecea;border:1px solid #f3b4ad;color:#9b2c2c}
+  .aicand{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+  .aicand .cf{font-weight:800;font-size:14px;color:var(--deep);min-width:44px;text-align:center}
+  .aicand .nm{font-weight:700;font-size:13.5px}
+  .aicand .wy{font-size:11.5px;color:var(--mid)}
+  .aibar{height:5px;background:#e7f1f4;border-radius:4px;margin-top:5px;overflow:hidden}
+  .aibar > i{display:block;height:100%;background:linear-gradient(90deg,#138aa6,#2bc4d6)}
+  .qgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+  .opt{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:10px 8px;font-size:12.5px;
+    font-weight:600;color:var(--mid);cursor:pointer;text-align:center;transition:.12s}
+  .opt.on{border-color:var(--sea);background:var(--sea);color:#fff}
+  .opt .e{display:block;font-size:18px;margin-bottom:3px}
+  .matchscore{font-size:11px;font-weight:700;color:var(--sea);background:var(--foam);padding:2px 8px;border-radius:20px}
+
+  /* detail modal */
+  .modal{position:fixed;inset:0;background:rgba(6,30,42,.55);display:none;align-items:flex-end;justify-content:center;z-index:50}
+  .modal.show{display:flex}
+  .sheet{background:#fff;width:100%;max-width:760px;border-radius:18px 18px 0 0;max-height:90vh;overflow-y:auto;
+    animation:up .28s}
+  @keyframes up{from{transform:translateY(40px);opacity:.6}to{transform:none;opacity:1}}
+  .sheet-hd{background:linear-gradient(135deg,var(--deep),var(--sea));color:#fff;padding:18px 18px 16px;
+    position:sticky;top:0;border-radius:18px 18px 0 0}
+  .sheet-hd .x{position:absolute;top:14px;right:16px;font-size:22px;cursor:pointer;opacity:.8}
+  .sheet-hd .e{font-size:34px}
+  .sheet-hd h3{font-size:20px;margin-top:4px}
+  .sheet-hd .sci{font-style:italic;opacity:.85;font-size:13px}
+  .sheet-bd{padding:16px 18px 30px}
+  .sp .ava.img{padding:0;overflow:hidden;background:#eef5f7}
+  .sp .ava.img img{width:100%;height:100%;object-fit:cover;display:block}
+  .shero{position:relative;margin:-16px -18px 14px;background:#0a2330;cursor:zoom-in}
+  .shero img{width:100%;max-height:230px;object-fit:cover;display:block}
+  .shero .cap{position:absolute;left:0;right:0;bottom:0;font-size:10px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.65));padding:16px 10px 5px}
+  .shero .zoom{position:absolute;top:9px;right:11px;background:rgba(0,0,0,.5);color:#fff;border-radius:20px;font-size:11px;padding:3px 10px}
+  .lb{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:90;flex-direction:column;cursor:zoom-out}
+  .lb.show{display:flex}
+  .lb img{max-width:96vw;max-height:80vh;object-fit:contain;border-radius:6px}
+  .lb .cap{color:#cfe6ee;font-size:11.5px;margin-top:12px;max-width:92vw;text-align:center;padding:0 12px;line-height:1.5}
+  .lb .x{position:absolute;top:12px;right:18px;color:#fff;font-size:30px;cursor:pointer;opacity:.85}
+  .modeseg{display:flex;gap:6px;background:#e7f1f4;border:1px solid var(--line);border-radius:12px;padding:4px;margin:14px 0 4px}
+  .modeseg .seg{flex:1;border:0;background:transparent;border-radius:9px;padding:9px 8px;font-weight:700;font-size:13px;color:var(--mid);cursor:pointer;font-family:inherit}
+  .modeseg .seg.active{background:#fff;color:var(--deep);box-shadow:0 1px 4px rgba(6,42,61,.12)}
+  .cust{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:4px}
+  .cust .ch{background:linear-gradient(135deg,#3a5a40,#588157);color:#fff;padding:15px 16px}
+  .cust .ch h3{font-size:17px;margin:0}
+  .cust .ch .au{font-size:12px;opacity:.92;margin-top:3px}
+  .cust .cb{padding:14px 16px;font-size:13.5px;line-height:1.55;color:#0a2330}
+  .cust .row{margin-bottom:12px}
+  .cust .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--grey);font-weight:700;margin-bottom:3px}
+  .cust .src{font-size:11.5px;color:var(--mid);margin-top:6px}
+  .cust .warn{background:#fff6e6;border:1px solid #f3d79a;border-radius:9px;padding:10px 12px;font-size:12px;color:#7a541a;line-height:1.5;margin-top:4px}
+  .rule{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .rule .ic{font-size:20px;width:26px;text-align:center}
+  .rule .k{font-size:11.5px;color:var(--grey);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+  .rule .v{font-size:14.5px;font-weight:600;margin-top:1px}
+  .rule .v.red{color:var(--bad)}
+  .alert{border-radius:10px;padding:11px 13px;font-size:13px;margin-top:12px;line-height:1.45}
+  .alert.r{background:#fdecea;color:#8a2020;border:1px solid #f3b9b9}
+  .alert.o{background:#fff4e3;color:#7a541a;border:1px solid #f0cd92}
+  .src{font-size:11px;color:var(--grey);margin-top:16px;line-height:1.5}
+  .src a{color:var(--sea)}
+  .empty{text-align:center;color:var(--grey);font-size:13.5px;padding:30px 10px}
+  footer{text-align:center;font-size:11px;color:var(--grey);padding:20px 0 6px}
+  /* ---- auth gate ---- */
+  .auth-gate{position:fixed;inset:0;background:linear-gradient(160deg,#0a1b29,#1c6e8c);
+    display:flex;align-items:center;justify-content:center;z-index:2000;padding:20px}
+  .auth-gate.hidden{display:none}
+  .auth-box{background:#fff;border-radius:18px;padding:28px 22px;max-width:380px;width:100%;
+    text-align:center;box-shadow:0 14px 44px rgba(0,0,0,.35)}
+  .auth-logo{font-size:46px;line-height:1}
+  .auth-box h2{font-size:20px;margin-top:8px;color:#16232c;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+  .auth-sub{font-size:13px;color:#6b8a98;margin:6px 0 16px;line-height:1.5}
+  .auth-box input{width:100%;padding:12px 13px;border:1.5px solid #d4e6ec;border-radius:10px;font-size:15px;margin-bottom:10px}
+  .auth-msg{font-size:13px;margin-top:12px;line-height:1.5;min-height:18px}
+  .auth-msg.ok{color:#1f9d57}
+  .auth-msg.err{color:#cc3b3b}
+  .auth-foot{font-size:11px;color:#9fb4c0;margin-top:14px;line-height:1.5}
+  .auth-signout{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);color:#fff;
+    padding:6px 11px;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer;margin-left:8px;white-space:nowrap}
+</style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="authGate" class="auth-gate">
+  <div class="auth-box">
+    <div class="auth-logo">🎣</div>
+    <h2>Catch Local</h2>
+    <p class="auth-sub">Enter your email and we'll send you a secure 6-digit code — no password needed.</p>
+    <input type="email" id="authEmail" placeholder="you@example.com" autocomplete="email" inputmode="email">
+    <button class="btn" id="authSend" style="width:100%">Email me a sign-in code</button>
+    <div id="authCodeBox" style="display:none;margin-top:12px">
+      <input type="text" id="authCode" placeholder="Enter the 6-digit code" autocomplete="one-time-code" inputmode="numeric" maxlength="6" style="text-align:center;letter-spacing:.3em;font-size:1.2em">
+      <button class="btn" id="authVerify" style="width:100%;margin-top:8px">Verify code &amp; sign in</button>
+      <div class="auth-foot" style="margin-top:8px">Tip: you can also just tap the link in the same email. Entering the code here keeps you signed in inside the installed app.</div>
+    </div>
+    <div id="authMsg" class="auth-msg"></div>
+    <div class="auth-foot">New here? Enter your email to request access — an administrator approves new users before their first sign-in. By continuing you accept that this is a guide only and you are responsible for obeying local fishing laws.</div>
+  </div>
+</div>
+<header>
+  <div class="wrap">
+    <div class="logo">🎣</div>
+    <div>
+      <h1>Catch&nbsp;Local</h1>
+      <p>An FM8 Pty Ltd application · Local seafood &amp; recreational catch rules</p>
+    </div>
+    <div class="region-pill" id="regionPill">📍 Locating…</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="disclaimer">
+    <b>⚠️ A guide only — you are ultimately responsible for obeying local fisheries laws.</b>
+    CatchLocal provides guidance to help you, but it does not replace the official rules. Species
+    identification is an educated estimate, not a definitive determination, and regulations change.
+    You alone are responsible for correctly identifying your catch and for complying with the current
+    size, bag, sex and seasonal limits in your jurisdiction. Always confirm against the official source
+    before keeping anything. Rules shown are Queensland tidal-water recreational limits
+    (Qld Govt, reviewed 26 Mar 2026).
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="near"><span class="ic">🗺️</span>Near Me</button>
+    <button class="tab" data-tab="id"><span class="ic">📷</span>Identify</button>
+    <button class="tab" data-tab="search"><span class="ic">🔎</span>Search</button>
+    <button class="tab" data-tab="catches"><span class="ic">🐟</span>Catches</button>
+    <button class="tab" data-tab="admin" id="adminTab" style="display:none"><span class="ic">🛡️</span>Admin</button>
+  </div>
+
+  <!-- NEAR ME -->
+  <section class="panel active" id="panel-near">
+    <div class="card">
+      <h2>📍 Your region</h2>
+      <p class="muted">Catch Local shows the legal catch rules for your region. We detect your region automatically, or choose it below.</p>
+      <div class="loc-row">
+        <button class="btn" id="geoBtn">📡 Find my region</button>
+        <select id="jurSel" style="flex:1;min-width:170px"><option value="">Loading…</option></select>
+      </div>
+      <div class="muted" id="jurNote" style="margin-top:10px"></div>
+    </div>
+
+    <div class="modeseg" id="modeSeg"><button class="seg active" data-mode="recreational">🎣 Recreational</button><button class="seg" data-mode="customary">🪶 Customary</button></div>
+
+    <div class="count-line" id="countLine">Sign in to load species…</div>
+    <div id="nearList"></div>
+  </section>
+
+  <!-- IDENTIFY -->
+  <section class="panel" id="panel-id">
+    <div class="card">
+      <h2>📷 Identify your catch</h2>
+      <p class="muted">Add a photo, then answer a few quick questions. We rank the most likely local species
+        and show the rules for each. <b>This is an educated guess — confirm before you keep anything.</b></p>
+
+      <label for="photo" class="drop" id="dropZone">
+        <div class="big">📸</div>
+        <p><b>Tap to add a photo</b><br>camera or gallery</p>
+      </label>
+      <input type="file" id="photo" accept="image/*" style="display:none">
+      <img id="preview" alt="your catch">
+      <button class="btn" id="aiGo" style="width:100%;margin-top:12px;display:none">🤖 Identify from photo (AI)</button>
+      <div id="aiOut"></div>
+
+      <label class="fld">Body shape</label>
+      <div class="qgrid" data-q="shape"></div>
+      <label class="fld">Main colour</label>
+      <div class="qgrid" data-q="colour"></div>
+      <label class="fld">Where did you catch it?</label>
+      <div class="qgrid" data-q="habitat"></div>
+      <label class="fld">Standout features (optional, pick any)</label>
+      <div class="qgrid" data-q="feature"></div>
+
+      <button class="btn" id="idGo" style="width:100%;margin-top:16px">🔍 Identify most likely species</button>
+    </div>
+    <div id="idResults"></div>
+  </section>
+
+  <!-- SEARCH -->
+  <section class="panel" id="panel-search">
+    <div class="card">
+      <h2>🔎 Look up a species</h2>
+      <p class="muted">Search by name to read the current catch rules.</p>
+      <input type="text" id="searchBox" placeholder="e.g. barramundi, mud crab, snapper…" style="margin-top:10px">
+    </div>
+    <div id="searchList"></div>
+  </section>
+
+  <!-- CATCHES -->
+  <section class="panel" id="panel-catches">
+    <div class="card">
+      <h2>🐟 Community catches</h2>
+      <p class="muted">See what others are landing near you — shared <b>by region only</b>, never an exact spot. Sharing is completely optional. You can also create a <b>private link</b> to send one person your catch, and (only if you choose) the exact GPS spot.</p>
+      <button class="btn" id="shareOpen" style="width:100%">＋ Share your catch</button>
+    </div>
+    <div class="count-line" id="catchCount">Loading catches…</div>
+    <div id="catchList"></div>
+  </section>
+
+  <!-- ADMIN -->
+  <section class="panel" id="panel-admin">
+    <div class="card">
+      <h2>🛡️ Admin — user management</h2>
+      <p class="muted">You're an administrator. New people who request access appear below as <b>Pending approval</b> — tap <b>Approve</b> to let them in. You can also invite people directly, promote admins, and block or revoke access at any time. Changes take effect the next time that person opens the app.</p>
+      <label class="fld">Invite a new user (pre-approved)</label>
+      <div class="loc-row">
+        <input type="text" id="invEmail" placeholder="name@example.com" style="flex:1;min-width:180px" autocomplete="off" inputmode="email">
+        <button class="btn" id="invAdd">Add &amp; copy invite</button>
+      </div>
+      <div class="muted" id="invMsg" style="margin-top:8px"></div>
+    </div>
+    <div class="count-line" id="admCount">Loading users…</div>
+    <div id="admList"></div>
+
+    <div class="card" style="margin-top:18px">
+      <h2>💡 Suggestions from users</h2>
+      <p class="muted">Ideas, data corrections and problem reports submitted from the app. Mark each as <b>Reviewed</b> or <b>Done</b> once you've actioned it.</p>
+    </div>
+    <div class="count-line" id="suggCount">Loading suggestions…</div>
+    <div id="suggList"></div>
+  </section>
+
+</div>
+
+<!-- DETAIL SHEET -->
+<div class="modal" id="modal">
+  <div class="sheet">
+    <div class="sheet-hd">
+      <span class="x" id="closeSheet">✕</span>
+      <div class="e" id="dEmoji">🐟</div>
+      <h3 id="dName">—</h3>
+      <div class="sci" id="dSci">—</div>
+    </div>
+    <div class="sheet-bd" id="dBody"></div>
+  </div>
+</div>
+
+<div class="lb" id="lightbox"><span class="x">✕</span><img id="lbImg" src="" alt=""><div class="cap" id="lbCap"></div></div>
+
+<div class="modal" id="shareModal">
+  <div class="sheet">
+    <div class="sheet-hd">
+      <span class="x" id="shareClose">✕</span>
+      <div class="e">🎣</div>
+      <h3>Share your catch</h3>
+      <div class="sci">Region only by default — your exact spot is never shared unless you add it to a private link.</div>
+    </div>
+    <div class="sheet-bd">
+      <label class="fld">Species</label>
+      <select id="shSpecies" style="width:100%"></select>
+      <label class="fld">Length (cm, optional)</label>
+      <input type="number" id="shLen" inputmode="numeric" placeholder="e.g. 45" style="width:100%">
+      <label class="fld">Show your name as (optional)</label>
+      <input type="text" id="shName" placeholder="An angler" style="width:100%" autocomplete="off">
+      <label class="fld">Notes (optional)</label>
+      <textarea id="shNotes" rows="3" placeholder="e.g. on the run-out tide, gold lure" style="width:100%;resize:vertical"></textarea>
+      <div class="muted" id="shRegion" style="margin-top:8px"></div>
+      <button class="btn" id="shPostBtn" style="width:100%;margin-top:12px">📣 Post to community feed (region only)</button>
+      <div style="margin:14px 0 8px;border-top:1px solid var(--line);padding-top:12px">
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="checkbox" id="shExact"> Include my exact GPS spot in the private link</label>
+        <button class="btn" id="shLinkBtn" style="width:100%;margin-top:10px;background:#0a4a2f">🔗 Create a private one-to-one link</button>
+      </div>
+      <div class="auth-msg" id="shOut" style="margin-top:8px;white-space:pre-wrap;word-break:break-word"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="catchView" style="z-index:9999">
+  <div class="sheet">
+    <div class="sheet-hd">
+      <span class="x" id="cvClose">✕</span>
+      <div class="e" id="cvEmoji">🐟</div>
+      <h3 id="cvName">—</h3>
+      <div class="sci">A catch shared with you via Catch Local</div>
+    </div>
+    <div class="sheet-bd" id="cvBody"></div>
+  </div>
+</div>
+
+<div class="modal" id="suggModal">
+  <div class="sheet">
+    <div class="sheet-hd">
+      <span class="x" id="suggClose">✕</span>
+      <div class="e">💡</div>
+      <h3>Suggest an improvement</h3>
+      <div class="sci">Spotted a wrong rule, a missing species, or have an idea? Tell us.</div>
+    </div>
+    <div class="sheet-bd">
+      <label class="fld">What's this about?</label>
+      <div class="qgrid" id="suggCat"></div>
+      <label class="fld">Your suggestion</label>
+      <textarea id="suggMsg" rows="5" placeholder="e.g. The size limit for snapper in my region looks out of date / please add King George whiting / the GPS picked the wrong zone…" style="width:100%;resize:vertical"></textarea>
+      <div class="muted" id="suggCtx" style="margin-top:8px"></div>
+      <button class="btn" id="suggSend" style="width:100%;margin-top:12px">Send suggestion</button>
+      <div class="auth-msg" id="suggMsgOut" style="margin-top:8px"></div>
+    </div>
+  </div>
+</div>
+
+<footer><button id="suggOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0">💡 Suggest an improvement or report a problem</button><br>CATCH LOCAL · An FM8 Pty Ltd application · Multi-jurisdiction recreational dataset · Not affiliated with any State regulator · CONFIDENTIAL — FM8 PTY LTD</footer>
+
+<script>
+/* ===== Catch Local — Supabase-backed, multi-jurisdiction data layer ===== */
+const SB_URL="https://xjjpgdhcavmewelzmvbs.supabase.co";
+const SB_KEY="sb_publishable_jFybpsD7SVOZ2x5dg7kF5A_PhRWuD3v";
+const sbData=(window.supabase&&window.supabase.createClient)?window.supabase.createClient(SB_URL,SB_KEY):null;
+
+let SPECIES=[], SEASON={}, JURS=[], activeJur=null, inited=false, seasonOnly=false;
+const sel={shape:null,colour:null,habitat:null,feature:new Set()};
+const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function curMonth(){return new Date().getMonth()+1;}
+function inSeason(sp){const m=SEASON[sp.sci];return m?m.indexOf(curMonth())>=0:false;}
+function seasonText(sp){const m=SEASON[sp.sci];if(!m||!m.length)return"Year-round";
+  return m.slice().sort((a,b)=>a-b).map(x=>MONTHS[x-1]).join(", ");}
+function sizeText(sp){if(sp.min==null&&sp.max==null)return"No legal size limit";
+  if(sp.min!=null&&sp.max!=null)return"Min "+sp.min+" cm · Max "+sp.max+" cm ("+sp.measure+")";
+  if(sp.min!=null)return"Min "+sp.min+" cm ("+sp.measure+")";
+  return"Max "+sp.max+" cm ("+sp.measure+")";}
+function esc(x){return (x||"").replace(/"/g,'&quot;');}
+
+/* ---------- identify question options ---------- */
+const QOPTS = {
+ shape:[["elongated","🐟","Long / slender"],["oval-deep","🐠","Deep / oval"],["torpedo","🚀","Torpedo pelagic"],
+   ["flat-bottom","🛸","Flat-bodied"],["crab","🦀","Crab"],["bug-lobster","🦞","Bug / lobster"],
+   ["squid","🦑","Squid"],["shrimp","🦐","Prawn"],["shell","🦪","Shellfish"]],
+ colour:[["silver","⚪","Silver"],["pink-red","🔴","Red / pink"],["green-olive","🟢","Green / olive"],
+   ["dark","⚫","Dark / black"],["blue","🔵","Blue"],["yellow","🟡","Yellow"],["gold","🟠","Gold"],["spotted","🐆","Spotted"]],
+ habitat:[["reef","🪸","Reef"],["estuary-mangrove","🌿","Estuary / mangrove"],["open-ocean","🌊","Open ocean"],
+   ["beach-surf","🏖️","Beach / surf"],["sand-flats","🏝️","Sand flats / bay"],["rocks-headland","🪨","Rocks / headland"],
+   ["freshwater-tidal","💧","Tidal freshwater"]],
+ feature:[["spots","⚬","Spots"],["stripes","〰️","Stripes / bars"],["forked-tail","🔱","Forked tail"],
+   ["large-mouth","👄","Large mouth"],["claws","🦾","Claws"],["spiny-fins","📌","Spiny"],["tentacles","🐙","Tentacles"],["long-snout","📏","Long snout"]]
+};
+
+/* ---------- tabs ---------- */
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
+  t.classList.add("active");
+  document.getElementById("panel-"+t.dataset.tab).classList.add("active");
+});
+var viewMode="recreational"; var activeCustomary=null;
+document.querySelectorAll("#modeSeg .seg").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#modeSeg .seg").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active"); viewMode=b.dataset.mode; renderNear();
+});
+function setRegion(txt){const p=document.getElementById("regionPill");if(p)p.textContent="📍 "+txt;}
+function countryShort(c){var m={"Australia":"AU","New Zealand":"NZ","United States":"US","Canada":"CA","Fiji":"FJ","New Caledonia":"NC","Papua New Guinea":"PNG"};return m[c]||c||"";}
+
+/* ---------- build SPECIES from Supabase rows ---------- */
+function buildFromRows(rows){
+  SPECIES=rows.map(r=>{const sp=r.species||{};return {
+    e:sp.emoji||"🐟", nm:sp.common_name||"", sci:sp.scientific_name||"", grp:sp.grp||"",
+    min:r.min_cm, max:r.max_cm, measure:r.measure||"total length",
+    limit:r.possession_limit||"", boat:r.boat_limit, sex:r.sex_rule, closed:r.closed_season, notes:r.notes,
+    shape:sp.shape||"", colours:sp.colours||[], features:sp.features||[], habitats:sp.habitats||[],
+    img:sp.image_url||"", imgPage:sp.image_page||"", imgCredit:sp.image_credit||"", imgLic:sp.image_license||"",
+    angling:sp.angling||null, joke:sp.dad_joke||"",
+    peak:r.peak_months||[], source_url:r.source_url, last_verified:r.last_verified };
+  });
+  SEASON={}; SPECIES.forEach(s=>{SEASON[s.sci]=s.peak;});
+  SPECIES.sort((a,b)=>a.nm.localeCompare(b.nm));
+}
+
+/* ---------- load one jurisdiction (online -> cache; offline -> cache) ---------- */
+async function loadJurisdiction(jid){
+  activeJur=JURS.find(j=>j.id===jid)||activeJur;
+  localStorage.setItem("cl_active_jur",jid);
+  setRegion(activeJur?activeJur.region:jid);
+  const cl=document.getElementById("countLine"); if(cl) cl.textContent="Loading species…";
+  let rows=null;
+  if(sbData){
+    try{
+      const r=await sbData.from("rules")
+        .select("min_cm,max_cm,measure,possession_limit,boat_limit,sex_rule,closed_season,notes,peak_months,source_url,last_verified,species(common_name,scientific_name,grp,emoji,shape,colours,features,habitats,image_url,image_page,image_credit,image_license,angling,dad_joke)")
+        .eq("jurisdiction_id",jid);
+      if(!r.error&&r.data) rows=r.data;
+    }catch(e){}
+  }
+  if(rows){ try{localStorage.setItem("cl_rows_"+jid,JSON.stringify(rows));}catch(e){} }
+  else { const c=localStorage.getItem("cl_rows_"+jid); if(c){ try{rows=JSON.parse(c);}catch(e){} } }
+  if(!rows){ if(cl) cl.textContent="Couldn't load species — connect to the internet once to download this region."; return; }
+  buildFromRows(rows);
+  await loadCustomary(jid);
+  const note=document.getElementById("jurNote");
+  if(note&&activeJur){
+    let h="Showing <b>"+activeJur.region+"</b> rules · source verified "+(activeJur.last_verified||"")+". Saved on this device for offline use.";
+    if(activeJur.source_url) h+=' &middot; <a href="'+activeJur.source_url+'" target="_blank" rel="noopener" style="color:var(--sea)">Official rules \u2197</a>';
+    if(activeJur.licence_required) h+='<div style="margin-top:7px;color:#0a4a2f;background:#eafaf0;border:1px solid #b9e6cc;border-radius:8px;padding:8px 10px;font-size:11.5px;line-height:1.45">\uD83C\uDFAB <b>Licence:</b> '+activeJur.licence_required+(activeJur.licence_url?' &middot; <a href="'+activeJur.licence_url+'" target="_blank" rel="noopener" style="color:#138a55;font-weight:700">Get your licence \u2197</a>':'')+'</div>';
+    if(activeJur.data_note) h+='<div style="margin-top:7px;color:#7a541a;background:#fff6e6;border:1px solid #f3d79a;border-radius:8px;padding:8px 10px;font-size:11.5px;line-height:1.45">\u26A0\uFE0F '+activeJur.data_note+'</div>';
+    note.innerHTML=h;
+  }
+  renderNear(); renderSearch();
+}
+
+/* ---------- jurisdiction dropdown ---------- */
+function fillJurSelect(){
+  const s2=document.getElementById("jurSel"); if(!s2) return;
+  const groups={};
+  JURS.forEach(j=>{ const g=(j.country||"Other"); (groups[g]=groups[g]||[]).push(j); });
+  const names=Object.keys(groups).sort();
+  const optLabel=j=>(j.state&&j.state!==j.country)?(j.state+" \u00B7 "+(j.region||"")):(j.region||j.country||"");
+  s2.innerHTML=names.map(c=>{
+    const opts=groups[c].slice().sort((a,b)=>optLabel(a).localeCompare(optLabel(b)))
+      .map(j=>'<option value="'+j.id+'">'+optLabel(j).replace(/</g,"&lt;").replace(/>/g,"&gt;")+'</option>').join("");
+    return '<optgroup label="'+String(c).replace(/"/g,'&quot;')+'">'+opts+'</optgroup>';
+  }).join("");
+  if(activeJur) s2.value=activeJur.id;
+  s2.onchange=()=>{ if(s2.value) loadJurisdiction(s2.value); };
+}
+
+/* ---------- reverse-geocode: GPS -> jurisdiction ---------- */
+async function detect(lat,lng){
+  const r=await fetch("https://api.bigdatacloud.net/data/reverse-geocode-client?latitude="+lat+"&longitude="+lng+"&localityLanguage=en");
+  const d=await r.json();
+  const sub=(d.principalSubdivision||"").toLowerCase().trim();
+  const ctry=(d.countryName||"").toLowerCase().trim();
+  let matches=[];
+  if(sub) matches=JURS.filter(j=>(j.region||"").toLowerCase()===sub||(Array.isArray(j.geo_terms)&&j.geo_terms.some(t=>String(t).toLowerCase()===sub)));
+  if(!matches.length&&ctry){ const inC=JURS.filter(j=>(j.country||"").toLowerCase()===ctry);
+    if(inC.length===1) matches=inC; else if(inC.length>1){ const def=inC.find(j=>j.is_country_default); if(def) matches=[def]; } }
+  return {matches:matches, label:d.principalSubdivision||d.countryName||"your area", country:d.countryName||""};
+}
+function setSel(id){ const s2=document.getElementById("jurSel"); if(s2) s2.value=id; }
+async function handleDetect(res){
+  const m=res.matches||[];
+  if(m.length===1){ setSel(m[0].id); await loadJurisdiction(m[0].id); return; }
+  if(m.length>1){
+    const zones=m.slice().sort((a,b)=>(a.region||"").localeCompare(b.region||""));
+    const st=zones[0].state||res.label;
+    setSel(zones[0].id); await loadJurisdiction(zones[0].id); setRegion(st);
+    const note=document.getElementById("jurNote");
+    if(note) note.innerHTML='<b>⌖ '+st+'</b> has '+zones.length+' fishing zones. Showing <b>'+zones[0].region+'</b> — not your spot? Choose your zone above.';
+    return;
+  }
+  setRegion(res.label);
+  const note=document.getElementById("jurNote");
+  if(note) note.innerHTML="We don't have rules for <b>"+res.label+"</b> yet — more regions are being added. Showing "+(activeJur?activeJur.region:"")+" for now.";
+}
+document.getElementById("geoBtn").onclick=()=>{
+  if(!navigator.geolocation){alert("Geolocation not available — choose your region from the list.");return;}
+  setRegion("Locating…");
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    try{ const res=await detect(pos.coords.latitude,pos.coords.longitude); await handleDetect(res); }
+    catch(e){ alert("Couldn't detect your area. Choose your region from the list."); setRegion(activeJur?activeJur.region:"Pick a region"); }
+  }, err=>{ alert("Couldn't detect your region ("+err.message+"). Choose your region from the list."); }, {enableHighAccuracy:true,timeout:12000,maximumAge:60000});
+};
+
+/* ---------- render Near Me (all species in active jurisdiction) ---------- */
+async function loadCustomary(jid){
+  activeCustomary=null;
+  if(sbData){ try{ const r=await sbData.from("customary_frameworks").select("framework,authority,provisions,permit_required,source_url,last_verified").eq("jurisdiction_id",jid).limit(1); if(!r.error&&r.data&&r.data.length){ activeCustomary=r.data[0]; try{localStorage.setItem("cl_cust_"+jid,JSON.stringify(activeCustomary));}catch(e){} } }catch(e){} }
+  if(!activeCustomary){ const c=localStorage.getItem("cl_cust_"+jid); if(c){ try{activeCustomary=JSON.parse(c);}catch(e){} } }
+}
+function renderCustomary(list,cl){
+  if(cl) cl.textContent="Customary / traditional fishing"+(activeJur?(" \u00B7 "+activeJur.region):"");
+  const c=activeCustomary;
+  if(!c){ list.innerHTML='<div class="empty">No customary information for this region yet.</div>'; return; }
+  let h='<div class="cust"><div class="ch"><h3>\uD83E\uDDB6 '+esc(c.framework||"Customary fishing")+'</h3><div class="au">'+esc(c.authority||"")+'</div></div><div class="cb">';
+  h+='<div class="row"><div class="lbl">Framework</div>'+esc(c.provisions||"")+'</div>';
+  if(c.permit_required) h+='<div class="row"><div class="lbl">Permit / authorisation</div>'+esc(c.permit_required)+'</div>';
+  h+='<div class="warn">\u26A0\uFE0F <b>Guidance only.</b> Customary and traditional fishing rights are complex and vary by community, native title determination and permit. This is general information \u2014 confirm your specific entitlements with the authority below or your community before fishing.</div>';
+  if(c.source_url) h+='<div class="src">Source: <a href="'+esc(c.source_url)+'" target="_blank" rel="noopener" style="color:var(--sea)">official authority \u2197</a>'+(c.last_verified?" \u00B7 verified "+c.last_verified:"")+'</div>';
+  h+='</div></div>'; list.innerHTML=h;
+}
+function renderNear(){
+  const list=document.getElementById("nearList"),cl=document.getElementById("countLine");
+  if(!list) return;
+  if(viewMode==="customary"){ renderCustomary(list,cl); return; }
+  let arr=SPECIES.slice();
+  if(seasonOnly) arr=arr.filter(inSeason);
+  const chip='<div class="seasonchip'+(seasonOnly?" on":"")+'" id="seasonChip">🗓️ In season now'+(seasonOnly?" ✓":"")+'</div>';
+  if(cl) cl.textContent=arr.length+" species"+(seasonOnly?" in season":"")+(activeJur?(" · "+activeJur.region):"");
+  list.innerHTML=chip+(arr.length?arr.map(spRow).join(""):'<div class="empty">No species'+(seasonOnly?" in season right now":"")+'.</div>');
+  const sc=document.getElementById("seasonChip"); if(sc) sc.onclick=()=>{seasonOnly=!seasonOnly;renderNear();};
+  bindRows(list);
+}
+function badges(s){let b="";if(inSeason(s))b+='<span class="badge b-season">🗓️ In season</span>';
+  if(s.closed)b+='<span class="badge b-closed">Closed season/waters</span>';
+  if(s.sex)b+='<span class="badge b-sex">Sex rule</span>';return b;}
+function avaHtml(s){
+  return s.img
+    ? '<div class="ava img" data-e="'+esc(s.e)+'"><img loading="lazy" src="'+esc(s.img)+'" alt="'+esc(s.nm)+'" onerror="avaFail(this)"></div>'
+    : '<div class="ava">'+s.e+'</div>';
+}
+function avaFail(im){var d=im.parentNode; d.className="ava"; d.textContent=d.getAttribute("data-e")||"\uD83D\uDC1F";}
+function spRow(s){return '<div class="sp" data-sci="'+esc(s.sci)+'">'
+  +avaHtml(s)
+  +'<div class="info"><div class="nm">'+s.nm+badges(s)+'</div>'
+  +'<div class="sci">'+s.sci+'</div>'
+  +'<div class="meta">'+sizeText(s)+' · '+s.limit+'</div></div>'
+  +'<div class="chev">›</div></div>';}
+function bindRows(c){c.querySelectorAll(".sp").forEach(r=>r.onclick=()=>openSheet(SPECIES.find(s=>s.sci===r.dataset.sci)));}
+
+/* ---------- detail sheet ---------- */
+const modal=document.getElementById("modal");
+document.getElementById("closeSheet").onclick=()=>modal.classList.remove("show");
+modal.onclick=e=>{if(e.target===modal)modal.classList.remove("show");};
+function rule(ic,k,v,red){return '<div class="rule"><div class="ic">'+ic+'</div><div><div class="k">'+k+'</div><div class="v'+(red?' red':'')+'">'+v+'</div></div></div>';}
+function anglingHtml(a){
+  if(!a) return "";
+  if(a.note){ return '<div class="rule"><div class="ic">\uD83C\uDFA3</div><div><div class="k">How to catch it</div><div class="v">'+esc(a.note)+'</div></div></div>'; }
+  var rows=[["\uD83E\uDEB1","Bait",a.bait],["\uD83C\uDF8F","Lures",a.lures],["\uD83C\uDFA3","Tackle / line",a.tackle],["\uD83E\uDE9D","Rig",a.rig],["\uD83C\uDFAF","Technique",a.technique],["\uD83D\uDCCD","Where to find",a.where],["\uD83D\uDD51","Best timing",a.timing]];
+  var inner="";
+  rows.forEach(function(r){ if(r[2]&&r[2]!=="\u2014") inner+='<div style="margin:5px 0;line-height:1.5"><b>'+r[0]+' '+r[1]+':</b> '+esc(r[2])+'</div>'; });
+  if(!inner) return "";
+  return '<div class="rule"><div class="ic">\uD83C\uDFA3</div><div><div class="k">How to catch it \u2014 bait, lures, tackle &amp; technique</div><div class="v">'+inner+'</div></div></div>';
+}
+function openSheet(s){
+  if(!s)return;
+  document.getElementById("dEmoji").textContent=s.e;
+  document.getElementById("dName").textContent=s.nm;
+  document.getElementById("dSci").textContent=s.sci+(s.grp?" · "+s.grp:"");
+  let h="";
+  if(s.img){
+    CL_HERO={src:s.img, cap:((s.joke?"\uD83D\uDE04 "+s.joke+" \u00B7 ":"")+(s.imgCredit||"Wikimedia Commons")+(s.imgLic?" \u00B7 "+s.imgLic:"")+" \u00B7 via Wikimedia")};
+    h+='<div class="shero" onclick="openLb(CL_HERO.src,CL_HERO.cap)"><img src="'+esc(s.img)+'" alt="'+esc(s.nm)+'"><span class="zoom">\u2922 Tap to enlarge</span><div class="cap">\uD83D\uDCF7 '+esc(s.imgCredit||"Wikimedia Commons")+(s.imgLic?" \u00B7 "+esc(s.imgLic):"")+'</div></div>';
+  }
+  if(s.joke) h+='<div style="text-align:center;font-style:italic;color:var(--sea);margin:0 0 12px;font-size:13.5px">\uD83D\uDE04 '+esc(s.joke)+'</div>';
+  h+=rule("📏","Size limit",sizeText(s));
+  h+=rule("🪣","Possession / bag limit",s.limit);
+  if(s.boat)h+=rule("⛴️","Boat limit",s.boat);
+  if(s.sex)h+=rule("🚫","Sex restriction",s.sex,true);
+  if(s.closed)h+=rule("📅","Closed season / waters",s.closed,true);
+  if(s.notes)h+=rule("💡","Field notes",s.notes);
+  h+=rule("🗓️","Best season"+(activeJur?" ("+activeJur.region+")":""),seasonText(s)+(inSeason(s)?" — in season now":""));
+  h+=anglingHtml(s.angling);
+  h+='<div class="alert o">⚠️ <b>A guide only.</b> Identification is an educated estimate. Confirm the species, measure carefully, and verify the current rules before keeping anything.</div>';
+  const src=s.source_url||(activeJur&&activeJur.source_url);
+  const srcname=(activeJur&&activeJur.source_name)||"the official regulator";
+  h+='<div class="src">Source: '+srcname+(src?' — <a href="'+src+'" target="_blank" rel="noopener">official rules</a>':'')+(s.last_verified?' (verified '+s.last_verified+')':'')+'. You are responsible for complying with the current rules in your jurisdiction.</div>';
+  document.getElementById("dBody").innerHTML=h;
+  modal.classList.add("show");
+}
+
+/* ---------- image lightbox ---------- */
+var CL_HERO={src:"",cap:""};
+function openLb(src,cap){var lb=document.getElementById("lightbox");if(!lb)return;document.getElementById("lbImg").src=src;document.getElementById("lbCap").textContent=cap||"";lb.classList.add("show");}
+(function(){var lb=document.getElementById("lightbox");if(lb)lb.onclick=function(){lb.classList.remove("show");document.getElementById("lbImg").src="";};})();
+
+/* ---------- identify ---------- */
+function buildOpts(){
+  Object.keys(QOPTS).forEach(q=>{
+    const grid=document.querySelector('.qgrid[data-q="'+q+'"]');
+    if(!grid)return;
+    grid.innerHTML=QOPTS[q].map(o=>
+      '<div class="opt" data-q="'+q+'" data-v="'+o[0]+'"><span class="e">'+o[1]+'</span>'+o[2]+'</div>').join("");
+  });
+  document.querySelectorAll(".opt").forEach(o=>o.onclick=()=>{
+    const q=o.dataset.q,v=o.dataset.v;
+    if(q==="feature"){o.classList.toggle("on");
+      o.classList.contains("on")?sel.feature.add(v):sel.feature.delete(v);}
+    else{document.querySelectorAll('.opt[data-q="'+q+'"]').forEach(x=>x.classList.remove("on"));
+      o.classList.add("on");sel[q]=v;}
+  });
+}
+buildOpts();
+
+const photo=document.getElementById("photo"),preview=document.getElementById("preview");
+document.getElementById("dropZone").onclick=e=>{e.preventDefault();photo.click();};
+var PHOTO_B64=null,PHOTO_MT=null;
+photo.onchange=()=>{const f=photo.files[0];if(!f)return;
+  preview.src=URL.createObjectURL(f);preview.style.display="block";
+  const rd=new FileReader();rd.onload=()=>{const s=String(rd.result);const i=s.indexOf(",");PHOTO_B64=i>=0?s.slice(i+1):s;PHOTO_MT=f.type||"image/jpeg";const b=document.getElementById("aiGo");if(b)b.style.display="block";document.getElementById("aiOut").innerHTML="";};rd.readAsDataURL(f);};
+
+document.getElementById("aiGo").onclick=async()=>{
+  const out=document.getElementById("aiOut");
+  if(!PHOTO_B64){out.innerHTML='<div class="empty">Add a photo first.</div>';return;}
+  out.innerHTML='<div class="empty">\U0001F916 Identifying… this can take a few seconds.</div>';
+  try{
+    const r=await fetch(SB_URL+"/functions/v1/identify-species",{method:"POST",headers:{"Authorization":"Bearer "+SB_KEY,"apikey":SB_KEY,"Content-Type":"application/json"},body:JSON.stringify({image:PHOTO_B64,media_type:PHOTO_MT})});
+    let d={}; try{d=await r.json();}catch(e){}
+    if(r.status===503){out.innerHTML='<div class="aibanner warn">\U0001F4F7 Photo AI isn\'t switched on yet. (Admin: add the ANTHROPIC_API_KEY secret in Supabase.)</div>';return;}
+    if(!r.ok){out.innerHTML='<div class="aibanner warn">Couldn\'t identify right now. '+esc(d.message||"")+'</div>';return;}
+    renderAi(d,out);
+  }catch(e){out.innerHTML='<div class="aibanner warn">Network error — try again.</div>';}
+};
+function renderAi(d,out){
+  const cands=(d&&d.candidates)||[];
+  if(!cands.length){out.innerHTML='<div class="aibanner warn">Couldn\'t confidently identify this one. Try a clearer, side-on photo — or use the questions below.</div>';return;}
+  let h="";
+  if(d.protected_warning) h+='<div class="aibanner red">\U0001F6D1 <b>Possible protected / no-take species.</b> Do not keep it unless you are certain it is legal. When in doubt, release.</div>';
+  h+='<div class="aibanner warn">⚠️ <b>AI estimate only.</b> These are the most likely matches — confirm the species yourself and measure carefully before keeping anything. When in doubt, release.</div>';
+  cands.forEach(c=>{
+    const sp=SPECIES.find(s=>s.nm===c.common||s.sci===c.scientific);
+    const cf=Math.max(0,Math.min(100,parseInt(c.confidence)||0));
+    h+='<div class="aicand"'+(sp?' data-sci="'+esc(sp.sci)+'"':'')+'>'
+      +'<div class="cf">'+cf+'%</div>'
+      +'<div style="flex:1;min-width:0"><div class="nm">'+esc(c.common||"")+'</div>'
+      +'<div class="wy">'+esc(c.scientific||"")+(c.why?" · "+esc(c.why):"")+'</div>'
+      +'<div class="aibar"><i style="width:'+cf+'%"></i></div>'
+      +(sp?'<div class="wy" style="color:var(--sea)">Tap for '+esc(activeJur?activeJur.region:"local")+' rules ›</div>':'<div class="wy">Not in your current region — switch region to see its rules</div>')
+      +'</div></div>';
+  });
+  out.innerHTML=h;
+  out.querySelectorAll(".aicand[data-sci]").forEach(el=>el.onclick=()=>openSheet(SPECIES.find(s=>s.sci===el.dataset.sci)));
+}
+document.getElementById("idGo").onclick=()=>{
+  const out=document.getElementById("idResults");
+  if(!sel.shape&&!sel.colour&&!sel.habitat&&sel.feature.size===0){
+    out.innerHTML='<div class="empty">Pick at least a body shape or colour so we can estimate.</div>';return;}
+  const scored=SPECIES.map(s=>{
+    let sc=0,max=0;
+    max+=3;if(sel.shape&&s.shape===sel.shape)sc+=3;
+    max+=3;if(sel.colour&&s.colours.includes(sel.colour))sc+=3;
+    max+=2;if(sel.habitat&&s.habitats.includes(sel.habitat))sc+=2;
+    if(sel.feature.size){max+=2;let hit=0;sel.feature.forEach(f=>{if(s.features.includes(f))hit++;});
+      sc+=2*(hit/sel.feature.size);}
+    return {s:s,pct:max?sc/max:0};
+  }).filter(x=>x.pct>0).sort((a,b)=>b.pct-a.pct).slice(0,4);
+  if(!scored.length){out.innerHTML='<div class="empty">No close match. Try different attributes.</div>';return;}
+  out.innerHTML='<div class="card"><h2>🎯 Most likely matches</h2>'
+    +'<p class="muted">Ranked by your description'+(activeJur?(" for "+activeJur.region):"")
+    +'. <b>Educated guess only</b> — tap one to read its rules, then confirm the species yourself.</p></div>'
+    +scored.map(x=>{const s=x.s,conf=Math.round(x.pct*100);
+      return '<div class="sp" data-sci="'+esc(s.sci)+'">'
+        +avaHtml(s)
+        +'<div class="info"><div class="nm">'+s.nm+badges(s)+'</div>'
+        +'<div class="sci">'+s.sci+'</div>'
+        +'<div class="meta">'+sizeText(s)+' · '+s.limit+'</div></div>'
+        +'<div style="text-align:right"><span class="matchscore">'+conf+'% match</span><div class="chev">›</div></div></div>';
+    }).join("");
+  bindRows(out);
+  out.scrollIntoView({behavior:"smooth",block:"start"});
+};
+
+/* ---------- search ---------- */
+const searchBox=document.getElementById("searchBox"),searchList=document.getElementById("searchList");
+function renderSearch(){
+  const q=searchBox.value.trim().toLowerCase();
+  const res=q?SPECIES.filter(s=>(s.nm+" "+s.sci+" "+s.grp).toLowerCase().includes(q)):SPECIES.slice();
+  searchList.innerHTML=res.length?res.map(spRow).join("")
+    :'<div class="empty">No species match “'+searchBox.value+'”.</div>';
+  bindRows(searchList);
+}
+searchBox.oninput=renderSearch;
+
+/* ---------- init (runs once user is authenticated) ---------- */
+async function loadJurs(){
+  let list=null;
+  if(sbData){ try{ const r=await sbData.from("jurisdictions").select("*").order("region"); if(!r.error&&r.data) list=r.data; }catch(e){} }
+  if(list){ try{localStorage.setItem("cl_jurs",JSON.stringify(list));}catch(e){} }
+  else { const c=localStorage.getItem("cl_jurs"); if(c){ try{list=JSON.parse(c);}catch(e){} } }
+  JURS=list||[];
+}
+async function init(){
+  if(inited)return; inited=true;
+  await loadJurs();
+  if(!JURS.length){ const cl=document.getElementById("countLine"); if(cl) cl.textContent="Couldn't load jurisdictions — check your connection."; inited=false; return; }
+  const saved=localStorage.getItem("cl_active_jur");
+  const jid=(saved&&JURS.find(j=>j.id===saved))?saved:(JURS.find(j=>j.id==="AU-QLD")?"AU-QLD":JURS[0].id);
+  activeJur=JURS.find(j=>j.id===jid);
+  fillJurSelect();
+  await loadJurisdiction(jid);
+  /* silent auto-detect on first load */
+  if(navigator.geolocation && navigator.onLine){
+    navigator.geolocation.getCurrentPosition(async pos=>{
+      try{ const res=await detect(pos.coords.latitude,pos.coords.longitude);
+        if(res.matches && res.matches.length) await handleDetect(res);
+      }catch(e){}
+    }, function(){}, {enableHighAccuracy:true,timeout:12000,maximumAge:60000});
+  }
+}
+if(sbData){
+  sbData.auth.getSession().then(({data})=>{ if(data&&data.session) init(); });
+  sbData.auth.onAuthStateChange((_e,session)=>{ if(session) init(); });
+} else {
+  init(); /* offline / no library: fall back to cached data */
+}
+
+</script>
+<script>
+(function(){
+  if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}
+  var ua=navigator.userAgent||"";
+  var isiOS=/iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && navigator.maxTouchPoints>1);
+  var standalone=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone===true;
+  if(standalone) return;
+  let deferred=null;
+  const btn=document.createElement("button");
+  btn.textContent="📲 Install app";
+  btn.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:999;display:none;border:none;border-radius:24px;padding:12px 20px;font-size:14px;font-weight:700;color:#06141b;background:linear-gradient(135deg,#1c6e8c,#3aa9c6);box-shadow:0 4px 16px rgba(6,42,61,.4);cursor:pointer";
+  document.body.appendChild(btn);
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferred=e;btn.style.display="block";});
+  window.addEventListener("appinstalled",function(){btn.style.display="none";});
+  if(isiOS){
+    btn.style.display="block";
+    btn.onclick=function(){ alert("Install Catch Local on your iPhone/iPad:\n\n1. Tap the Share button (a square with an up arrow) in Safari's toolbar.\n2. Scroll down and tap \"Add to Home Screen\".\n3. Tap Add.\n\nIt then opens like a normal app and works offline."); };
+  } else {
+    btn.onclick=async function(){ if(deferred){ deferred.prompt(); await deferred.userChoice; deferred=null; btn.style.display="none"; } else { alert("To install: open the browser menu and choose \"Install Catch Local\" / \"Add to Home screen\". (Chrome, Edge and Android browsers support this.)"); } };
+  }
+})();
+</script>
+<script>
+/* ===== Admin panel — only visible to administrators ===== */
+(function(){
+  const SB_URL="https://xjjpgdhcavmewelzmvbs.supabase.co";
+  const SB_KEY="sb_publishable_jFybpsD7SVOZ2x5dg7kF5A_PhRWuD3v";
+  const APP_URL="https://catch-local.netlify.app";
+  const sb=(window.supabase&&window.supabase.createClient)?window.supabase.createClient(SB_URL,SB_KEY):null;
+  if(!sb)return;
+  let me=null, revealed=false;
+  function esc(x){return (x||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+  async function check(){
+    try{
+      const {data}=await sb.auth.getSession();
+      if(!data||!data.session)return;
+      me=(data.session.user&&data.session.user.email)||null;
+      const r=await sb.from("admins").select("email").limit(1);
+      if(!r.error&&r.data&&r.data.length) reveal();
+    }catch(e){}
+  }
+  function reveal(){
+    if(revealed)return; revealed=true;
+    const t=document.getElementById("adminTab"); if(t) t.style.display="";
+    load();
+  }
+  async function rpc(fn,args){ const {error}=await sb.rpc(fn,args||{}); if(error) throw error; }
+
+  async function load(){
+    const cnt=document.getElementById("admCount"), list=document.getElementById("admList");
+    if(cnt) cnt.textContent="Loading users…";
+    try{
+      const {data,error}=await sb.rpc("admin_list_users");
+      if(error) throw error;
+      const users=data||[];
+      const pending=users.filter(u=>!u.approved&&!u.is_admin&&!u.blocked).length;
+      if(cnt) cnt.textContent=users.length+" registered user"+(users.length===1?"":"s")+(pending?(" · "+pending+" pending approval"):"");
+      if(list) list.innerHTML=users.map(rowHtml).join("")||'<div class="empty">No users yet.</div>';
+      bind();
+    }catch(e){ if(cnt) cnt.textContent="Couldn't load users — "+((e&&e.message)||e); }
+    loadSuggestions();
+  }
+
+  async function loadSuggestions(){
+    const cnt=document.getElementById("suggCount"), list=document.getElementById("suggList");
+    if(!cnt||!list) return;
+    cnt.textContent="Loading suggestions…";
+    try{
+      const {data,error}=await sb.from("cl_suggestions").select("*").order("created_at",{ascending:false}).limit(200);
+      if(error) throw error;
+      const rows=data||[];
+      const open=rows.filter(r=>r.status!=="done").length;
+      cnt.textContent=rows.length+" suggestion"+(rows.length===1?"":"s")+(open?(" · "+open+" open"):"");
+      list.innerHTML=rows.map(suggHtml).join("")||'<div class="empty">No suggestions yet.</div>';
+      bindSugg();
+    }catch(e){ cnt.textContent="Couldn't load suggestions — "+((e&&e.message)||e); }
+  }
+  function suggHtml(s){
+    const when=s.created_at?new Date(s.created_at).toLocaleString():"";
+    const st=s.status||"new";
+    const badge=st==="done"?'<span class="badge b-season">Done</span>':(st==="reviewed"?'<span class="badge b-sex">Reviewed</span>':'<span class="badge b-closed">New</span>');
+    let acts='';
+    if(st!=="reviewed"&&st!=="done") acts+='<button class="seasonchip" data-sugg="reviewed" data-id="'+s.id+'">Mark reviewed</button>';
+    if(st!=="done") acts+='<button class="seasonchip" data-sugg="done" data-id="'+s.id+'">Mark done</button>';
+    return '<div class="sp" style="cursor:default;align-items:flex-start">'
+      +'<div class="ava">💡</div>'
+      +'<div class="info"><div class="nm">'+esc(s.category||"Other")+' '+badge+'</div>'
+      +'<div class="meta">'+esc(s.email||"anonymous")+(s.region?(" · "+esc(s.region)):"")+' · '+esc(when)+'</div>'
+      +'<div style="margin-top:6px;white-space:pre-wrap;color:var(--ink)">'+esc(s.message||"")+'</div></div>'
+      +'<div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end">'+acts+'</div></div>';
+  }
+  function bindSugg(){
+    document.querySelectorAll('#suggList [data-sugg]').forEach(btn=>btn.onclick=async()=>{
+      const status=btn.dataset.sugg, id=btn.dataset.id;
+      btn.disabled=true;
+      try{ const {error}=await sb.from("cl_suggestions").update({status}).eq("id",id); if(error) throw error; }
+      catch(e){ alert("Couldn't update: "+((e&&e.message)||e)); }
+      loadSuggestions();
+    });
+  }
+  function rowHtml(u){
+    const pend=(!u.approved && !u.is_admin && !u.blocked);
+    const b=(u.is_admin?'<span class="badge b-season">Admin</span>':'')
+      +(u.blocked?'<span class="badge b-closed">Blocked</span>':'')
+      +(pend?'<span class="badge b-sex">Pending approval</span>':'')
+      +((u.approved&&!u.is_admin&&!u.blocked)?'<span class="badge b-season">Approved</span>':'');
+    const last=u.last_sign_in_at?new Date(u.last_sign_in_at).toLocaleDateString():"never";
+    const em=esc(u.email);
+    let actions='';
+    if(!u.is_admin){
+      actions+=(u.approved
+        ?'<button class="seasonchip" data-act="revoke" data-em="'+em+'">Revoke access</button>'
+        :'<button class="seasonchip" data-act="approve" data-em="'+em+'">✓ Approve</button>');
+    }
+    actions+=(u.blocked
+        ?'<button class="seasonchip" data-act="unblock" data-em="'+em+'">Restore</button>'
+        :'<button class="seasonchip" data-act="block" data-em="'+em+'">Block</button>');
+    actions+=(u.is_admin
+        ?'<button class="seasonchip" data-act="demote" data-em="'+em+'">Remove admin</button>'
+        :'<button class="seasonchip" data-act="promote" data-em="'+em+'">Make admin</button>');
+    return '<div class="sp" style="cursor:default">'
+      +'<div class="ava">'+(u.is_admin?'🛡️':(pend?'⏳':'👤'))+'</div>'
+      +'<div class="info"><div class="nm">'+em+b+'</div>'
+      +'<div class="meta">last sign-in '+last+'</div></div>'
+      +'<div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end">'+actions+'</div></div>';
+  }
+  function bind(){
+    document.querySelectorAll('#admList [data-act]').forEach(btn=>btn.onclick=async()=>{
+      const act=btn.dataset.act, em=btn.dataset.em;
+      if((act==="block"||act==="demote")&&me&&em.toLowerCase()===me.toLowerCase()){ alert("You can't "+(act==="block"?"block":"remove admin from")+" your own account."); return; }
+      const verb={approve:"Approve access for",revoke:"Revoke access for",block:"Block",unblock:"Restore access for",promote:"Make admin:",demote:"Remove admin from"}[act];
+      if(!confirm(verb+" "+em+"?")) return;
+      btn.disabled=true;
+      try{
+        if(act==="approve") await rpc("admin_add_allowed",{p_email:em});
+        if(act==="revoke")  await rpc("admin_revoke_allowed",{p_email:em});
+        if(act==="block")   await rpc("admin_block_user",{p_email:em});
+        if(act==="unblock") await rpc("admin_unblock_user",{p_email:em});
+        if(act==="promote") await rpc("admin_add_admin",{p_email:em});
+        if(act==="demote")  await rpc("admin_remove_admin",{p_email:em});
+      }catch(e){ alert("Action failed: "+((e&&e.message)||e)); }
+      load();
+    });
+  }
+
+  const invAdd=document.getElementById("invAdd");
+  if(invAdd) invAdd.onclick=async()=>{
+    const inp=document.getElementById("invEmail"), msg=document.getElementById("invMsg");
+    const em=((inp&&inp.value)||"").trim();
+    if(!em||em.indexOf("@")<1){ if(msg) msg.textContent="Enter a valid email address."; return; }
+    invAdd.disabled=true;
+    try{ await rpc("admin_add_allowed",{p_email:em}); }catch(e){}
+    const txt="You've been invited to Catch Local — FM8's seafood & fishing-rules app.\n\nInstall it here: "+APP_URL+"\n\nOpen the link, enter your email, then tap the magic link we send you to sign in. Your access is already approved.";
+    try{ await navigator.clipboard.writeText(txt); if(msg) msg.textContent="✅ "+em+" approved & added. Invite message copied to your clipboard — paste it into an email or text to them."; }
+    catch(e){ if(msg) msg.textContent="✅ "+em+" approved & added. Send them this link: "+APP_URL; }
+    if(inp) inp.value="";
+    invAdd.disabled=false;
+    load();
+  };
+
+  sb.auth.getSession().then(()=>check());
+  sb.auth.onAuthStateChange((_e,s)=>{ if(s) check(); });
+})();
+</script>
+<script>
+(function(){
+  const SB_URL="https://xjjpgdhcavmewelzmvbs.supabase.co";
+  const SB_KEY="sb_publishable_jFybpsD7SVOZ2x5dg7kF5A_PhRWuD3v";
+  const gate=document.getElementById("authGate");
+  const emailIn=document.getElementById("authEmail");
+  const sendBtn=document.getElementById("authSend");
+  const codeBox=document.getElementById("authCodeBox");
+  const codeIn=document.getElementById("authCode");
+  const verifyBtn=document.getElementById("authVerify");
+  const msg=document.getElementById("authMsg");
+  function setMsg(t,c){ if(msg){ msg.textContent=t||""; msg.className="auth-msg "+(c||"");} }
+  function showApp(){ if(gate) gate.classList.add("hidden"); document.body.style.overflow=""; }
+  function showLogin(){ if(gate) gate.classList.remove("hidden"); }
+  const sb = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SB_URL,SB_KEY) : null;
+
+  function addSignout(email){
+    if(document.getElementById("signoutBtn")) return;
+    const hdr=document.querySelector("header .wrap"); if(!hdr) return;
+    const b=document.createElement("button");
+    b.id="signoutBtn"; b.className="auth-signout"; b.textContent="Sign out";
+    b.title="Signed in as "+(email||"");
+    b.onclick=async()=>{ try{ if(sb) await sb.auth.signOut(); }catch(e){} location.reload(); };
+    hdr.appendChild(b);
+  }
+  async function authorize(session){
+    if(!session){ showLogin(); return; }
+    const email=session.user&&session.user.email;
+    try{
+      const blk=await sb.from("blocked_emails").select("email").limit(1);
+      if(blk.error) throw blk.error;
+      if(blk.data&&blk.data.length){ await sb.auth.signOut(); showLogin(); setMsg("This account's access has been removed. Contact the administrator.","err"); return; }
+      const al=await sb.from("allowed_emails").select("email").limit(1);
+      const ad=await sb.from("admins").select("email").limit(1);
+      const approved=((al.data&&al.data.length)||(ad.data&&ad.data.length));
+      if(!approved){ await sb.auth.signOut(); showLogin();
+        setMsg("Thanks — your request for access has been received. An administrator needs to approve "+(email||"your account")+" before you can sign in. You'll get in once you're approved.","ok"); return; }
+      addSignout(email); showApp();
+    }catch(e){
+      // offline or transient — trust the persisted session so the app still works at sea
+      addSignout(email); showApp();
+    }
+  }
+  if(!sb){
+    showLogin(); setMsg("You need an internet connection to sign in the first time.","err");
+    if(sendBtn) sendBtn.disabled=true;
+    return;
+  }
+  sb.auth.getSession().then(({data})=>authorize(data.session));
+  sb.auth.onAuthStateChange((_e,session)=>{ if(session) authorize(session); });
+  if(sendBtn) sendBtn.onclick=async()=>{
+    const email=(emailIn.value||"").trim();
+    if(!email||email.indexOf("@")<1){ setMsg("Please enter a valid email address.","err"); return; }
+    sendBtn.disabled=true; setMsg("Sending…","");
+    try{
+      const { error } = await sb.auth.signInWithOtp({ email, options:{ emailRedirectTo: location.origin } });
+      if(error) setMsg(error.message,"err");
+      else{
+        if(codeBox) codeBox.style.display="block";
+        if(codeIn){ codeIn.focus(); }
+        setMsg("Check your inbox — we've emailed a 6-digit code to "+email+". Enter it below to sign in (or tap the link in the same email).","ok");
+        sendBtn.textContent="Resend code";
+      }
+    }catch(e){ setMsg("Something went wrong sending the code. Try again.","err"); }
+    sendBtn.disabled=false;
+  };
+  async function doVerify(){
+    const email=(emailIn.value||"").trim();
+    const token=(codeIn.value||"").replace(/\D/g,"").trim();
+    if(token.length<6){ setMsg("Enter the 6-digit code from your email.","err"); return; }
+    verifyBtn.disabled=true; setMsg("Verifying…","");
+    try{
+      const { error } = await sb.auth.verifyOtp({ email, token, type:"email" });
+      if(error){ setMsg("That code didn't work — check it and try again, or resend.","err"); verifyBtn.disabled=false; return; }
+    }catch(e){ setMsg("Couldn't verify the code. Try again.","err"); verifyBtn.disabled=false; }
+  }
+  if(verifyBtn) verifyBtn.onclick=doVerify;
+  if(codeIn) codeIn.addEventListener("keydown",function(e){ if(e.key==="Enter") doVerify(); });
+})();
+</script>
+<script>
+/* ===== Suggestion box — available to all signed-in users ===== */
+(function(){
+  const SB_URL="https://xjjpgdhcavmewelzmvbs.supabase.co";
+  const SB_KEY="sb_publishable_jFybpsD7SVOZ2x5dg7kF5A_PhRWuD3v";
+  const APP_VER="v21";
+  const sb=(window.supabase&&window.supabase.createClient)?window.supabase.createClient(SB_URL,SB_KEY):null;
+  const modal=document.getElementById("suggModal");
+  const catWrap=document.getElementById("suggCat");
+  const msgIn=document.getElementById("suggMsg");
+  const ctx=document.getElementById("suggCtx");
+  const sendBtn=document.getElementById("suggSend");
+  const out=document.getElementById("suggMsgOut");
+  const openBtn=document.getElementById("suggOpen");
+  const closeBtn=document.getElementById("suggClose");
+  const CATS=["💡 Idea","📋 Data correction","🐞 Problem / bug","🐟 Add a species","Other"];
+  let cat=CATS[0];
+  if(catWrap){
+    catWrap.innerHTML=CATS.map((c,i)=>'<div class="opt'+(i===0?' on':'')+'" data-c="'+c+'">'+c+'</div>').join("");
+    catWrap.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{ cat=b.dataset.c; catWrap.querySelectorAll('[data-c]').forEach(x=>x.classList.remove('on')); b.classList.add('on'); });
+  }
+  function setOut(t,c){ if(out){ out.textContent=t||""; out.className="auth-msg "+(c||""); } }
+  function region(){
+    try{ if(typeof activeJur!=="undefined" && activeJur && activeJur.region) return activeJur.region; }catch(e){}
+    try{ const p=document.getElementById("regionPill"); if(p) return (p.textContent||"").replace(/^📍\s*/,"").trim(); }catch(e){}
+    return "";
+  }
+  function openM(){ if(!modal) return; setOut("",""); if(msgIn) msgIn.value=""; if(ctx) ctx.textContent="We'll include your region ("+(region()||"not set")+") and app version so we can find the issue."; modal.classList.add("show"); document.body.style.overflow="hidden"; }
+  function closeM(){ if(!modal) return; modal.classList.remove("show"); document.body.style.overflow=""; }
+  if(openBtn) openBtn.onclick=openM;
+  if(closeBtn) closeBtn.onclick=closeM;
+  if(modal) modal.addEventListener("click",e=>{ if(e.target===modal) closeM(); });
+  if(sendBtn) sendBtn.onclick=async()=>{
+    const message=(msgIn&&msgIn.value||"").trim();
+    if(message.length<3){ setOut("Please type your suggestion first.","err"); return; }
+    sendBtn.disabled=true; setOut("Sending…","");
+    const payload={ category:cat, message:message, region:region(), app_version:APP_VER };
+    let token=null, email="";
+    try{ const {data}=await sb.auth.getSession(); if(data&&data.session){ token=data.session.access_token; email=(data.session.user&&data.session.user.email)||""; } }catch(e){}
+    payload.email=email;
+    let ok=false;
+    try{
+      const r=await fetch(SB_URL+"/functions/v1/notify-suggestion",{ method:"POST", headers:{ "content-type":"application/json", apikey:SB_KEY, authorization:"Bearer "+(token||SB_KEY) }, body:JSON.stringify(payload) });
+      const j=await r.json().catch(()=>({}));
+      ok=!!(j&&j.ok);
+    }catch(e){}
+    if(!ok){
+      try{ const {error}=await sb.from("cl_suggestions").insert([{ email:email, category:cat, message:message, region:region(), app_version:APP_VER }]); ok=!error; }catch(e){}
+    }
+    sendBtn.disabled=false;
+    if(ok){ setOut("✅ Thank you — your suggestion has been sent to the team.","ok"); if(msgIn) msgIn.value=""; setTimeout(closeM,1400); }
+    else setOut("Couldn't send right now. Please check your connection and try again.","err");
+  };
+})();
+</script>
+<script>
+/* ===== Community catches + private sharing (opt-in, privacy-first) ===== */
+(function(){
+  var SB_URL="https://xjjpgdhcavmewelzmvbs.supabase.co";
+  var SB_KEY="sb_publishable_jFybpsD7SVOZ2x5dg7kF5A_PhRWuD3v";
+  var APP_URL="https://catch-local.netlify.app";
+  var sb=(window.supabase&&window.supabase.createClient)?window.supabase.createClient(SB_URL,SB_KEY):null;
+  function esc(x){return (x==null?"":String(x)).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+  var meEmail="";
+  function regionNow(){ try{ if(typeof activeJur!=="undefined"&&activeJur&&activeJur.region) return activeJur.region; }catch(e){} var p=document.getElementById("regionPill"); return p?(p.textContent||"").replace(/^📍\s*/,"").trim():""; }
+  function jurNow(){ try{ if(typeof activeJur!=="undefined"&&activeJur) return activeJur.id||null; }catch(e){} return null; }
+  function photoFor(nm){ try{ var s=(window.SPECIES||[]).find(function(x){return x.nm===nm;}); return s?s.img:""; }catch(e){ return ""; } }
+
+  function fillSpecies(){
+    var sel=document.getElementById("shSpecies"); if(!sel) return;
+    var list=(window.SPECIES||[]).slice().sort(function(a,b){return (a.nm||"").localeCompare(b.nm||"");});
+    var seen={}, opts='<option value="">— choose species —</option>';
+    list.forEach(function(s){ if(!s.nm||seen[s.nm])return; seen[s.nm]=1; opts+='<option value="'+esc(s.nm)+'" data-e="'+esc(s.e||"🐟")+'">'+esc(s.e||"🐟")+' '+esc(s.nm)+'</option>'; });
+    sel.innerHTML=opts;
+  }
+
+  function timeAgo(t){ var d=new Date(t), s=(Date.now()-d.getTime())/1000; if(s<3600)return Math.max(1,Math.round(s/60))+"m ago"; if(s<86400)return Math.round(s/3600)+"h ago"; return d.toLocaleDateString(); }
+  function catchHtml(c){
+    var img=photoFor(c.species_name);
+    var ava=img?'<div class="ava"><img src="'+esc(img)+'" alt=""></div>':'<div class="ava">'+esc(c.emoji||"🐟")+'</div>';
+    var len=c.length_cm?(" · "+c.length_cm+" cm"):"";
+    var del=(meEmail&&c.user_email&&meEmail.toLowerCase()===String(c.user_email).toLowerCase())?'<button class="seasonchip" data-del="'+c.id+'">Delete</button>':"";
+    return '<div class="sp" style="cursor:default;align-items:flex-start">'+ava
+      +'<div class="info"><div class="nm">'+esc(c.species_name||"Catch")+len+'</div>'
+      +'<div class="meta">📍 '+esc(c.region||"—")+' · '+esc(c.display_name||"An angler")+' · '+esc(timeAgo(c.created_at))+'</div>'
+      +(c.notes?'<div style="margin-top:5px;white-space:pre-wrap;color:var(--ink)">'+esc(c.notes)+'</div>':'')
+      +'</div><div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end">'+del+'</div></div>';
+  }
+  function bindDel(){ document.querySelectorAll('#catchList [data-del]').forEach(function(b){ b.onclick=function(){ if(!confirm("Delete this catch?"))return; sb.from("cl_catches").update({status:"deleted"}).eq("id",b.dataset.del).then(function(){ loadFeed(); }); }; }); }
+  function loadFeed(){
+    var cnt=document.getElementById("catchCount"), list=document.getElementById("catchList");
+    if(!sb||!list){ if(cnt)cnt.textContent="Sign in to see community catches."; return; }
+    if(cnt)cnt.textContent="Loading catches…";
+    sb.from("cl_catches").select("*").eq("visibility","community").eq("status","active").order("created_at",{ascending:false}).limit(100).then(function(r){
+      if(r.error){ if(cnt)cnt.textContent="Couldn't load catches — "+(r.error.message||""); return; }
+      var rows=r.data||[];
+      if(cnt)cnt.textContent=rows.length+" recent catch"+(rows.length===1?"":"es")+" · shared by region only";
+      list.innerHTML=rows.map(catchHtml).join("")||'<div class="empty">No catches shared yet — be the first!</div>';
+      bindDel();
+    });
+  }
+
+  var modal=document.getElementById("shareModal");
+  function setOut(t,c){ var o=document.getElementById("shOut"); if(o){o.textContent=t||""; o.className="auth-msg "+(c||"");} }
+  function openShare(){ if(!modal)return; fillSpecies(); var rg=document.getElementById("shRegion"); if(rg)rg.innerHTML="Region: <b>"+esc(regionNow()||"set your region first")+"</b> — shared by region only."; setOut("",""); modal.classList.add("show"); document.body.style.overflow="hidden"; }
+  function closeShare(){ if(!modal)return; modal.classList.remove("show"); document.body.style.overflow=""; }
+  function gather(){
+    var sel=document.getElementById("shSpecies"); var o=sel.options[sel.selectedIndex];
+    return { species_name:(sel.value||"").trim(), emoji:o?o.getAttribute("data-e"):"",
+      length_cm:parseFloat(document.getElementById("shLen").value)||null,
+      display_name:(document.getElementById("shName").value||"").trim()||"An angler",
+      notes:(document.getElementById("shNotes").value||"").trim().slice(0,1000),
+      region:regionNow(), jurisdiction_id:jurNow() };
+  }
+  function withSession(cb){ if(!sb){cb(null);return;} sb.auth.getSession().then(function(r){ var s=r&&r.data&&r.data.session; meEmail=(s&&s.user&&s.user.email)||meEmail; cb(s); }); }
+
+  var so=document.getElementById("shareOpen"); if(so) so.onclick=openShare;
+  var sc=document.getElementById("shareClose"); if(sc) sc.onclick=closeShare;
+  if(modal) modal.addEventListener("click",function(e){ if(e.target===modal) closeShare(); });
+
+  var pb=document.getElementById("shPostBtn");
+  if(pb) pb.onclick=function(){
+    var g=gather(); if(!g.species_name){ setOut("Pick a species first.","err"); return; }
+    pb.disabled=true; setOut("Posting…","");
+    withSession(function(s){ if(!s){ setOut("Please sign in first.","err"); pb.disabled=false; return; }
+      var row={ user_email:meEmail, visibility:"community", share_exact:false, lat:null, lng:null,
+        species_name:g.species_name, emoji:g.emoji, length_cm:g.length_cm, display_name:g.display_name, notes:g.notes, region:g.region, jurisdiction_id:g.jurisdiction_id };
+      sb.from("cl_catches").insert([row]).then(function(r){ pb.disabled=false;
+        if(r.error){ setOut("Couldn't post: "+(r.error.message||""),"err"); return; }
+        setOut("✅ Posted to the community feed!","ok"); loadFeed(); setTimeout(closeShare,1200);
+      });
+    });
+  };
+
+  var lb=document.getElementById("shLinkBtn");
+  if(lb) lb.onclick=function(){
+    var g=gather(); if(!g.species_name){ setOut("Pick a species first.","err"); return; }
+    var exact=document.getElementById("shExact").checked;
+    lb.disabled=true; setOut("Creating link…","");
+    withSession(function(s){ if(!s){ setOut("Please sign in first.","err"); lb.disabled=false; return; }
+      function insert(lat,lng){
+        var row={ user_email:meEmail, visibility:"private", share_exact:!!(exact&&lat!=null), lat:lat, lng:lng,
+          species_name:g.species_name, emoji:g.emoji, length_cm:g.length_cm, display_name:g.display_name, notes:g.notes, region:g.region, jurisdiction_id:g.jurisdiction_id };
+        sb.from("cl_catches").insert([row]).select("share_token").then(function(r){ lb.disabled=false;
+          if(r.error||!r.data||!r.data[0]){ setOut("Couldn't create the link.","err"); return; }
+          var link=APP_URL+"/?c="+r.data[0].share_token;
+          if(navigator.clipboard) navigator.clipboard.writeText(link).catch(function(){});
+          setOut("🔗 Private link copied to your clipboard — send it to one person:\n"+link,"ok");
+        });
+      }
+      if(exact && navigator.geolocation){ setOut("Getting your GPS spot…",""); navigator.geolocation.getCurrentPosition(function(p){ insert(p.coords.latitude,p.coords.longitude); }, function(){ insert(null,null); }, {enableHighAccuracy:true,timeout:8000,maximumAge:0}); }
+      else insert(null,null);
+    });
+  };
+
+  function rule2(ic,k,v){ return '<div class="rule"><div class="ic">'+ic+'</div><div><div class="k">'+k+'</div><div class="v">'+v+'</div></div></div>'; }
+  function showViewer(c){
+    var m=document.getElementById("catchView"); if(!m)return;
+    document.getElementById("cvEmoji").textContent=c.emoji||"🐟";
+    document.getElementById("cvName").textContent=c.species_name||"A catch";
+    var img=photoFor(c.species_name), h="";
+    if(img) h+='<div class="shero"><img src="'+esc(img)+'" alt=""></div>';
+    h+=rule2("👤","Shared by",esc(c.display_name||"An angler"));
+    if(c.length_cm) h+=rule2("📏","Length",c.length_cm+" cm");
+    h+=rule2("📍","Region",esc(c.region||"—"));
+    if(c.notes) h+=rule2("💬","Notes",esc(c.notes));
+    if(c.share_exact && c.lat!=null && c.lng!=null){ var ll=Number(c.lat).toFixed(5)+", "+Number(c.lng).toFixed(5); h+=rule2("🎯","Exact spot",esc(ll)+' · <a href="https://www.google.com/maps?q='+c.lat+','+c.lng+'" target="_blank" rel="noopener" style="color:var(--sea);font-weight:700">Open in Maps ↗</a>'); }
+    else h+='<div class="src">Shared by region only — the exact spot was not included.</div>';
+    h+='<div class="alert o" style="margin-top:10px">⚠️ A catch shared privately with you. This is a guide — always confirm the current local rules before fishing.</div>';
+    document.getElementById("cvBody").innerHTML=h;
+    m.classList.add("show"); document.body.style.overflow="hidden";
+  }
+  var cvc=document.getElementById("cvClose");
+  if(cvc) cvc.onclick=function(){ var m=document.getElementById("catchView"); if(m)m.classList.remove("show"); document.body.style.overflow=""; try{ history.replaceState(null,"",location.pathname); }catch(e){} };
+
+  (function(){ var mm=(location.search||"").match(/[?&]c=([0-9a-fA-F-]{36})/); if(!mm)return;
+    fetch(SB_URL+"/functions/v1/get-catch?token="+mm[1],{headers:{apikey:SB_KEY}}).then(function(r){return r.json();}).then(function(j){ if(j&&j.ok&&j.catch) showViewer(j.catch); }).catch(function(){});
+  })();
+
+  var ct=document.querySelector('.tab[data-tab="catches"]'); if(ct) ct.addEventListener("click",loadFeed);
+  withSession(function(s){ if(s) loadFeed(); });
+  if(sb) sb.auth.onAuthStateChange(function(_e,s){ if(s){ meEmail=(s.user&&s.user.email)||meEmail; loadFeed(); } });
+})();
+</script>
+</body>
+</html>
