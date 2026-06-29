@@ -320,6 +320,13 @@
     </div>
     <div class="count-line" id="suggCount">Loading suggestions…</div>
     <div id="suggList"></div>
+
+    <div class="card" style="margin-top:18px">
+      <h2>📷 Species photo submissions</h2>
+      <p class="muted">Photos submitted by users. <b>Approve</b> to make a photo that species' image, or <b>Reject</b> to discard it.</p>
+    </div>
+    <div class="count-line" id="spPhotoSubCount">Loading photo submissions…</div>
+    <div id="spPhotoSubList"></div>
   </section>
 
 </div>
@@ -338,6 +345,7 @@
 </div>
 
 <div class="lb" id="lightbox"><span class="x">✕</span><img id="lbImg" src="" alt=""><div class="cap" id="lbCap"></div></div>
+<input type="file" id="spPhotoInput" accept="image/*" style="display:none">
 
 <div class="modal" id="shareModal">
   <div class="sheet">
@@ -457,7 +465,7 @@ function buildFromRows(rows){
     limit:r.possession_limit||"", boat:r.boat_limit, sex:r.sex_rule, closed:r.closed_season, notes:r.notes,
     shape:sp.shape||"", colours:sp.colours||[], features:sp.features||[], habitats:sp.habitats||[],
     img:sp.image_url||"", imgPage:sp.image_page||"", imgCredit:sp.image_credit||"", imgLic:sp.image_license||"",
-    angling:sp.angling||null, joke:sp.dad_joke||"",
+    angling:sp.angling||null, joke:sp.dad_joke||"", sid:sp.id||null,
     peak:r.peak_months||[], source_url:r.source_url, last_verified:r.last_verified };
   });
   SEASON={}; SPECIES.forEach(s=>{SEASON[s.sci]=s.peak;});
@@ -474,7 +482,7 @@ async function loadJurisdiction(jid){
   if(sbData){
     try{
       const r=await sbData.from("rules")
-        .select("min_cm,max_cm,measure,possession_limit,boat_limit,sex_rule,closed_season,notes,peak_months,source_url,last_verified,species(common_name,scientific_name,grp,emoji,shape,colours,features,habitats,image_url,image_page,image_credit,image_license,angling,dad_joke)")
+        .select("min_cm,max_cm,measure,possession_limit,boat_limit,sex_rule,closed_season,notes,peak_months,source_url,last_verified,species(id,common_name,scientific_name,grp,emoji,shape,colours,features,habitats,image_url,image_page,image_credit,image_license,angling,dad_joke)")
         .eq("jurisdiction_id",jid);
       if(!r.error&&r.data) rows=r.data;
     }catch(e){}
@@ -608,6 +616,28 @@ function anglingHtml(a){
   if(!inner) return "";
   return '<div class="rule"><div class="ic">\uD83C\uDFA3</div><div><div class="k">How to catch it \u2014 bait, lures, tackle &amp; technique</div><div class="v">'+inner+'</div></div></div>';
 }
+async function submitSpeciesPhoto(file){
+  var s=window.CL_SHEET; var msg=document.getElementById("spPhotoMsg");
+  function say(t){ if(msg) msg.textContent=t; }
+  if(!s||!file) return;
+  if(!sbData){ say("You need to be online to add a photo."); return; }
+  try{
+    var sess=(await sbData.auth.getSession()).data.session;
+    if(!sess){ say("Please sign in first."); return; }
+    var email=(sess.user&&sess.user.email)||"";
+    if(file.size>8*1024*1024){ say("That image is too large (max 8 MB)."); return; }
+    say("Uploading\u2026");
+    var ext=((file.name||"").split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
+    var path="species/"+(s.sid||0)+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,8)+"."+ext;
+    var up=await sbData.storage.from("species-photos").upload(path,file,{contentType:file.type||"image/jpeg",upsert:false});
+    if(up.error){ say("Upload failed: "+up.error.message); return; }
+    var pub=sbData.storage.from("species-photos").getPublicUrl(path).data.publicUrl;
+    var ins=await sbData.from("cl_species_photos").insert([{species_id:s.sid||null,species_name:s.nm,user_email:email,object_path:path,public_url:pub,status:"pending"}]);
+    if(ins.error){ say("Couldn't submit: "+ins.error.message); return; }
+    say("\u2705 Thank you \u2014 your photo has been submitted for review.");
+  }catch(e){ say("Something went wrong. Please try again."); }
+}
+(function(){ var i=document.getElementById("spPhotoInput"); if(i) i.onchange=function(){ var f=this.files&&this.files[0]; submitSpeciesPhoto(f); this.value=""; }; })();
 function openSheet(s){
   if(!s)return;
   document.getElementById("dEmoji").textContent=s.e;
@@ -631,6 +661,8 @@ function openSheet(s){
   const src=s.source_url||(activeJur&&activeJur.source_url);
   const srcname=(activeJur&&activeJur.source_name)||"the official regulator";
   h+='<div class="src">Source: '+srcname+(src?' — <a href="'+src+'" target="_blank" rel="noopener">official rules</a>':'')+(s.last_verified?' (verified '+s.last_verified+')':'')+'. You are responsible for complying with the current rules in your jurisdiction.</div>';
+  window.CL_SHEET=s;
+  h+='<div style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px"><button class="btn" style="width:100%;background:#0a4a2f" onclick="document.getElementById(&#39;spPhotoInput&#39;).click()">\uD83D\uDCF7 Add a photo of this species</button><div class="muted" id="spPhotoMsg" style="margin-top:8px">Photos are reviewed by an administrator before they appear.</div></div>';
   document.getElementById("dBody").innerHTML=h;
   modal.classList.add("show");
 }
@@ -833,8 +865,43 @@ if(sbData){
       bind();
     }catch(e){ if(cnt) cnt.textContent="Couldn't load users — "+((e&&e.message)||e); }
     loadSuggestions();
+    loadPhotoSubs();
   }
 
+  async function loadPhotoSubs(){
+    const cnt=document.getElementById("spPhotoSubCount"), list=document.getElementById("spPhotoSubList");
+    if(!cnt||!list) return;
+    cnt.textContent="Loading photo submissions…";
+    try{
+      const {data,error}=await sb.from("cl_species_photos").select("*").eq("status","pending").order("created_at",{ascending:false}).limit(100);
+      if(error) throw error;
+      const rows=data||[];
+      cnt.textContent=rows.length+" pending photo"+(rows.length===1?"":"s");
+      list.innerHTML=rows.map(photoHtml).join("")||'<div class="empty">No photo submissions awaiting review.</div>';
+      bindPhoto();
+    }catch(e){ cnt.textContent="Couldn't load photo submissions — "+((e&&e.message)||e); }
+  }
+  function photoHtml(p){
+    const when=p.created_at?new Date(p.created_at).toLocaleString():"";
+    return '<div class="sp" style="cursor:default;align-items:flex-start">'
+      +'<div class="ava"><img src="'+esc(p.public_url)+'" alt=""></div>'
+      +'<div class="info"><div class="nm">'+esc(p.species_name||("Species #"+p.species_id))+'</div>'
+      +'<div class="meta">'+esc(p.user_email||"anonymous")+' · '+esc(when)+'</div>'
+      +'<div style="margin-top:6px"><a href="'+esc(p.public_url)+'" target="_blank" rel="noopener" style="color:var(--sea)">View full image ↗</a></div></div>'
+      +'<div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end">'
+      +'<button class="seasonchip" data-pha="approve" data-id="'+p.id+'">✓ Approve</button>'
+      +'<button class="seasonchip" data-pha="reject" data-id="'+p.id+'">Reject</button></div></div>';
+  }
+  function bindPhoto(){
+    document.querySelectorAll('#spPhotoSubList [data-pha]').forEach(function(b){ b.onclick=async function(){
+      const act=b.dataset.pha, id=b.dataset.id;
+      if(!confirm((act==="approve"?"Approve":"Reject")+" this photo?")) return;
+      b.disabled=true;
+      try{ const {error}=await sb.rpc(act==="approve"?"cl_approve_species_photo":"cl_reject_species_photo",{p_id:id}); if(error) throw error; }
+      catch(e){ alert("Action failed: "+((e&&e.message)||e)); }
+      loadPhotoSubs();
+    }; });
+  }
   async function loadSuggestions(){
     const cnt=document.getElementById("suggCount"), list=document.getElementById("suggList");
     if(!cnt||!list) return;
@@ -892,6 +959,7 @@ if(sbData){
     actions+=(u.is_admin
         ?'<button class="seasonchip" data-act="demote" data-em="'+em+'">Remove admin</button>'
         :'<button class="seasonchip" data-act="promote" data-em="'+em+'">Make admin</button>');
+    if(!u.is_admin) actions+='<button class="seasonchip" data-act="delete" data-em="'+em+'" style="color:#b00020;border-color:#f0b3bb">\uD83D\uDDD1 Delete</button>';
     return '<div class="sp" style="cursor:default">'
       +'<div class="ava">'+(u.is_admin?'🛡️':(pend?'⏳':'👤'))+'</div>'
       +'<div class="info"><div class="nm">'+em+b+'</div>'
@@ -901,9 +969,13 @@ if(sbData){
   function bind(){
     document.querySelectorAll('#admList [data-act]').forEach(btn=>btn.onclick=async()=>{
       const act=btn.dataset.act, em=btn.dataset.em;
-      if((act==="block"||act==="demote")&&me&&em.toLowerCase()===me.toLowerCase()){ alert("You can't "+(act==="block"?"block":"remove admin from")+" your own account."); return; }
-      const verb={approve:"Approve access for",revoke:"Revoke access for",block:"Block",unblock:"Restore access for",promote:"Make admin:",demote:"Remove admin from"}[act];
-      if(!confirm(verb+" "+em+"?")) return;
+      if((act==="block"||act==="demote"||act==="delete")&&me&&em.toLowerCase()===me.toLowerCase()){ alert("You can't do that to your own account."); return; }
+      if(act==="delete"){
+        if(!confirm("Permanently DELETE "+em+"?\n\nThis removes their account and all of their data. This cannot be undone.")) return;
+      } else {
+        const verb={approve:"Approve access for",revoke:"Revoke access for",block:"Block",unblock:"Restore access for",promote:"Make admin:",demote:"Remove admin from"}[act];
+        if(!confirm(verb+" "+em+"?")) return;
+      }
       btn.disabled=true;
       try{
         if(act==="approve") await rpc("admin_add_allowed",{p_email:em});
@@ -912,6 +984,7 @@ if(sbData){
         if(act==="unblock") await rpc("admin_unblock_user",{p_email:em});
         if(act==="promote") await rpc("admin_add_admin",{p_email:em});
         if(act==="demote")  await rpc("admin_remove_admin",{p_email:em});
+        if(act==="delete")  await rpc("admin_delete_user",{p_email:em});
       }catch(e){ alert("Action failed: "+((e&&e.message)||e)); }
       load();
     });
@@ -1021,7 +1094,7 @@ if(sbData){
 (function(){
   const SB_URL="https://xjjpgdhcavmewelzmvbs.supabase.co";
   const SB_KEY="sb_publishable_jFybpsD7SVOZ2x5dg7kF5A_PhRWuD3v";
-  const APP_VER="v21";
+  const APP_VER="v23";
   const sb=(window.supabase&&window.supabase.createClient)?window.supabase.createClient(SB_URL,SB_KEY):null;
   const modal=document.getElementById("suggModal");
   const catWrap=document.getElementById("suggCat");
