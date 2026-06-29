@@ -196,6 +196,7 @@
       <div class="auth-foot" style="margin-top:8px">Tip: you can also just tap the link in the same email. Entering the code here keeps you signed in inside the installed app.</div>
     </div>
     <div id="authMsg" class="auth-msg"></div>
+    <div class="auth-foot" style="margin-top:8px">Seeing an old version, or the code box won’t accept your full code? <a href="#" id="authReset" style="color:#7fc7e8;text-decoration:underline;cursor:pointer">Reset the app</a> — it reloads the latest version and keeps you signed in.</div>
     <div class="auth-foot">New here? Enter your email to request access — an administrator approves new users before their first sign-in. By continuing you accept that this is a guide only and you are responsible for obeying local fishing laws.</div>
   </div>
 </div>
@@ -805,7 +806,24 @@ if(sbData){
 </script>
 <script>
 (function(){
-  if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}
+  if("serviceWorker" in navigator){
+    window.addEventListener("load",function(){
+      navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(reg){ try{reg.update();}catch(e){} setInterval(function(){try{reg.update();}catch(e){}},60*60*1000); }).catch(function(){});
+    });
+    var _clReloaded=false;
+    navigator.serviceWorker.addEventListener("controllerchange",function(){ if(_clReloaded)return; _clReloaded=true; location.reload(); });
+  }
+  function _clResetApp(ev){
+    if(ev&&ev.preventDefault) ev.preventDefault();
+    if(!confirm("Reset the app? This clears the saved copy and loads the latest version. You stay signed in.")) return;
+    (async function(){
+      try{ var rs=await navigator.serviceWorker.getRegistrations(); for(var i=0;i<rs.length;i++){ await rs[i].unregister(); } }catch(e){}
+      try{ var ks=await caches.keys(); for(var j=0;j<ks.length;j++){ await caches.delete(ks[j]); } }catch(e){}
+      location.reload(true);
+    })();
+  }
+  function _clBindReset(){ var b=document.getElementById("authReset"); if(b&&!b._bound){ b._bound=true; b.addEventListener("click",_clResetApp); } }
+  document.addEventListener("DOMContentLoaded",_clBindReset); _clBindReset();
   var ua=navigator.userAgent||"";
   var isiOS=/iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && navigator.maxTouchPoints>1);
   var standalone=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone===true;
