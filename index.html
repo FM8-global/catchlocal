@@ -471,6 +471,7 @@ function buildFromRows(rows){
   });
   SEASON={}; SPECIES.forEach(s=>{SEASON[s.sci]=s.peak;});
   SPECIES.sort((a,b)=>a.nm.localeCompare(b.nm));
+  try{window.SPECIES=SPECIES;}catch(e){}
 }
 
 /* ---------- load one jurisdiction (online -> cache; offline -> cache) ---------- */
@@ -1178,6 +1179,7 @@ if(sbData){
   function fillSpecies(){
     var sel=document.getElementById("shSpecies"); if(!sel) return;
     var list=(window.SPECIES||[]).slice().sort(function(a,b){return (a.nm||"").localeCompare(b.nm||"");});
+    if(!list.length){ sel.innerHTML='<option value="">— load your region first —</option>'; return; }
     var seen={}, opts='<option value="">— choose species —</option>';
     list.forEach(function(s){ if(!s.nm||seen[s.nm])return; seen[s.nm]=1; opts+='<option value="'+esc(s.nm)+'" data-e="'+esc(s.e||"🐟")+'">'+esc(s.e||"🐟")+' '+esc(s.nm)+'</option>'; });
     sel.innerHTML=opts;
