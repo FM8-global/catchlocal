@@ -474,7 +474,10 @@ window.CL_setLang=function(l){
     try{document.documentElement.setAttribute("lang",l);}catch(e){}
     window.CL_applyI18n();
     try{var sl=document.getElementById("langSel"); if(sl) sl.value=l;}catch(e){}
-    try{renderNear();}catch(e){} try{renderSearch();}catch(e){}
+    try{
+      if(window.CL_applySpeciesLang) window.CL_applySpeciesLang().then(function(){ try{renderNear();}catch(e){} try{renderSearch();}catch(e){} });
+      else { renderNear(); renderSearch(); }
+    }catch(e){ try{renderNear();}catch(e2){} try{renderSearch();}catch(e2){} }
   }
   var have=!!window.CL_I18N[l];
   function refresh(){
@@ -569,6 +572,33 @@ function buildFromRows(rows){
   try{window.SPECIES=SPECIES;}catch(e){}
 }
 
+async function applySpeciesLang(){
+  var lang=window.CL_LANG||"en";
+  SPECIES.forEach(function(s){ if(!s._en) s._en={nm:s.nm,handling:s.handling,cooking:s.cooking,angling:s.angling,joke:s.joke}; });
+  if(lang==="en"){
+    SPECIES.forEach(function(s){ if(s._en){ s.nm=s._en.nm; s.handling=s._en.handling; s.cooking=s._en.cooking; s.angling=s._en.angling; s.joke=s._en.joke; } });
+  } else {
+    var rows=null;
+    if(sbData){ try{ var r=await sbData.from("species_i18n").select("species_id,common_name,handling,cooking,angling").eq("lang",lang); if(!r.error&&r.data) rows=r.data; }catch(e){} }
+    if(rows){ try{localStorage.setItem("cl_sp_i18n_"+lang, JSON.stringify(rows));}catch(e){} }
+    else { try{ var c=localStorage.getItem("cl_sp_i18n_"+lang); if(c) rows=JSON.parse(c); }catch(e){} }
+    if(rows){
+      var map={}; rows.forEach(function(r){ map[r.species_id]=r; });
+      SPECIES.forEach(function(s){
+        var t=map[s.sid]; if(!t) return;
+        if(t.common_name) s.nm=t.common_name;
+        if(t.handling) s.handling=t.handling;
+        if(t.cooking) s.cooking=t.cooking;
+        if(t.angling) s.angling=t.angling;
+        s.joke="";
+      });
+    }
+  }
+  SPECIES.sort(function(a,b){return (a.nm||"").localeCompare(b.nm||"");});
+  SEASON={}; SPECIES.forEach(function(s){SEASON[s.sci]=s.peak;});
+  try{window.SPECIES=SPECIES;}catch(e){}
+}
+window.CL_applySpeciesLang=applySpeciesLang;
 /* ---------- load one jurisdiction (online -> cache; offline -> cache) ---------- */
 async function loadJurisdiction(jid){
   activeJur=JURS.find(j=>j.id===jid)||activeJur;
@@ -588,6 +618,7 @@ async function loadJurisdiction(jid){
   else { const c=localStorage.getItem("cl_rows_"+jid); if(c){ try{rows=JSON.parse(c);}catch(e){} } }
   if(!rows){ if(cl) cl.textContent="Couldn't load species — connect to the internet once to download this region."; return; }
   buildFromRows(rows);
+  await applySpeciesLang();
   await loadCustomary(jid);
   const note=document.getElementById("jurNote");
   if(note&&activeJur){
