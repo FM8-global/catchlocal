@@ -241,6 +241,7 @@
         <select id="jurSel" style="flex:1;min-width:170px"><option value="">Loading…</option></select>
       </div>
       <div class="muted" id="jurNote" style="margin-top:10px"></div>
+      <div class="modeseg" id="unitSeg" style="margin-top:10px"><button class="seg" data-unit="met">Metric (cm)</button><button class="seg" data-unit="imp">Imperial (in)</button></div>
     </div>
 
     <div class="modeseg" id="modeSeg"><button class="seg active" data-mode="recreational">🎣 Recreational</button><button class="seg" data-mode="customary">🪶 Customary</button></div>
@@ -359,7 +360,7 @@
     <div class="sheet-bd">
       <label class="fld">Species</label>
       <select id="shSpecies" style="width:100%"></select>
-      <label class="fld">Length (cm, optional)</label>
+      <label class="fld" id="shLenLbl">Length (cm, optional)</label>
       <input type="number" id="shLen" inputmode="numeric" placeholder="e.g. 45" style="width:100%">
       <label class="fld">Show your name as (optional)</label>
       <input type="text" id="shName" placeholder="An angler" style="width:100%" autocomplete="off">
@@ -401,7 +402,7 @@
       <label class="fld">Reference object (something of known size in the photo)</label>
       <select id="measRef" style="width:100%"></select>
       <div id="measCustomWrap" style="display:none;margin-top:8px">
-        <label class="fld">Known length (mm)</label>
+        <label class="fld" id="measCustomLbl">Known length (mm)</label>
         <input type="number" id="measCustom" inputmode="decimal" placeholder="e.g. 100" style="width:100%">
       </div>
       <button class="btn" id="measPick" style="width:100%;margin-top:10px">📷 Add photo of the fish + reference</button>
@@ -449,10 +450,31 @@ function curMonth(){return new Date().getMonth()+1;}
 function inSeason(sp){const m=SEASON[sp.sci];return m?m.indexOf(curMonth())>=0:false;}
 function seasonText(sp){const m=SEASON[sp.sci];if(!m||!m.length)return"Year-round";
   return m.slice().sort((a,b)=>a-b).map(x=>MONTHS[x-1]).join(", ");}
+window.CL_UNIT=(function(){try{return localStorage.getItem("cl_units")==="imp"?"imp":"met";}catch(e){return "met";}})();
+window.CL_uLbl=function(){return window.CL_UNIT==="imp"?"in":"cm";};
+window.CL_fmtCm=function(cm){ if(cm==null||cm==="")return""; var n=parseFloat(cm); if(isNaN(n))return String(cm);
+  if(window.CL_UNIT==="imp"){ var i=n/2.54; return (Math.round(i*10)/10)+" in"; }
+  return (Math.round(n*10)/10)+" cm"; };
+window.CL_toCm=function(v){ var n=parseFloat(v); if(isNaN(n))return null; return window.CL_UNIT==="imp"?Math.round(n*2.54*10)/10:n; };
+window.CL_setUnits=function(u){
+  window.CL_UNIT=u; try{localStorage.setItem("cl_units",u);}catch(e){}
+  try{document.querySelectorAll("#unitSeg .seg").forEach(function(b){b.classList.toggle("active",b.dataset.unit===u);});}catch(e){}
+  try{renderNear();}catch(e){}
+  try{renderSearch();}catch(e){}
+  try{var l=document.getElementById("shLenLbl"); if(l) l.textContent="Length ("+window.CL_uLbl()+", optional)";}catch(e){}
+  try{if(window.CL_refreshRefs) window.CL_refreshRefs();}catch(e){}
+  try{if(window.CL_refreshFeed) window.CL_refreshFeed();}catch(e){}
+  try{var m=document.getElementById("modal"); if(window.CL_SHEET&&m&&m.classList.contains("show")) openSheet(window.CL_SHEET);}catch(e){}
+};
+(function(){var sg=document.getElementById("unitSeg"); if(!sg)return;
+  sg.querySelectorAll(".seg").forEach(function(b){
+    b.classList.toggle("active", b.dataset.unit===window.CL_UNIT);
+    b.onclick=function(){ window.CL_setUnits(this.dataset.unit); };
+  });})();
 function sizeText(sp){if(sp.min==null&&sp.max==null)return"No legal size limit";
-  if(sp.min!=null&&sp.max!=null)return"Min "+sp.min+" cm · Max "+sp.max+" cm ("+sp.measure+")";
-  if(sp.min!=null)return"Min "+sp.min+" cm ("+sp.measure+")";
-  return"Max "+sp.max+" cm ("+sp.measure+")";}
+  if(sp.min!=null&&sp.max!=null)return"Min "+window.CL_fmtCm(sp.min)+" · Max "+window.CL_fmtCm(sp.max)+" ("+sp.measure+")";
+  if(sp.min!=null)return"Min "+window.CL_fmtCm(sp.min)+" ("+sp.measure+")";
+  return"Max "+window.CL_fmtCm(sp.max)+" ("+sp.measure+")";}
 function esc(x){return (x||"").replace(/"/g,'&quot;');}
 
 /* ---------- identify question options ---------- */
@@ -1240,7 +1262,7 @@ if(sbData){
   function catchHtml(c){
     var img=photoFor(c.species_name);
     var ava=img?'<div class="ava"><img src="'+esc(img)+'" alt=""></div>':'<div class="ava">'+esc(c.emoji||"🐟")+'</div>';
-    var len=c.length_cm?(" · "+c.length_cm+" cm"):"";
+    var len=c.length_cm?(" · "+window.CL_fmtCm(c.length_cm)):"";
     var del=(meEmail&&c.user_email&&meEmail.toLowerCase()===String(c.user_email).toLowerCase())?'<button class="seasonchip" data-del="'+c.id+'">Delete</button>':"";
     return '<div class="sp" style="cursor:default;align-items:flex-start">'+ava
       +'<div class="info"><div class="nm">'+esc(c.species_name||"Catch")+len+'</div>'
@@ -1269,7 +1291,7 @@ if(sbData){
   function gather(){
     var sel=document.getElementById("shSpecies"); var o=sel.options[sel.selectedIndex];
     return { species_name:(sel.value||"").trim(), emoji:o?o.getAttribute("data-e"):"",
-      length_cm:parseFloat(document.getElementById("shLen").value)||null,
+      length_cm:window.CL_toCm(document.getElementById("shLen").value),
       display_name:(document.getElementById("shName").value||"").trim()||"An angler",
       notes:(document.getElementById("shNotes").value||"").trim().slice(0,1000),
       region:regionNow(), jurisdiction_id:jurNow() };
@@ -1323,7 +1345,7 @@ if(sbData){
     var img=photoFor(c.species_name), h="";
     if(img) h+='<div class="shero"><img src="'+esc(img)+'" alt=""></div>';
     h+=rule2("👤","Shared by",esc(c.display_name||"An angler"));
-    if(c.length_cm) h+=rule2("📏","Length",c.length_cm+" cm");
+    if(c.length_cm) h+=rule2("📏","Length",window.CL_fmtCm(c.length_cm));
     h+=rule2("📍","Region",esc(c.region||"—"));
     if(c.notes) h+=rule2("💬","Notes",esc(c.notes));
     if(c.share_exact && c.lat!=null && c.lng!=null){ var ll=Number(c.lat).toFixed(5)+", "+Number(c.lng).toFixed(5); h+=rule2("🎯","Exact spot",esc(ll)+' · <a href="https://www.google.com/maps?q='+c.lat+','+c.lng+'" target="_blank" rel="noopener" style="color:var(--sea);font-weight:700">Open in Maps ↗</a>'); }
@@ -1367,9 +1389,12 @@ if(sbData){
   var modal=document.getElementById("measModal");
   var cv=document.getElementById("measCanvas"), sel=document.getElementById("measRef");
   var pts=[], img=null;
-  if(sel){ sel.innerHTML=REFS.map(function(r,i){return '<option value="'+i+'">'+r.n+(r.mm?" \u2014 "+r.mm+" mm":"")+'</option>';}).join(""); }
+  function fillRefs(){ if(!sel)return; var imp=(window.CL_UNIT==="imp");
+    sel.innerHTML=REFS.map(function(r,i){ var d=r.mm?(imp?(" \u2014 "+(r.mm/25.4).toFixed(2)+" in"):(" \u2014 "+r.mm+" mm")):""; return '<option value="'+i+'">'+r.n+d+'</option>'; }).join("");
+    var cl=document.getElementById("measCustomLbl"); if(cl) cl.textContent="Known length ("+(imp?"inches":"mm")+")"; }
+  fillRefs(); window.CL_refreshRefs=fillRefs;
   function esc2(x){return (x==null?"":String(x)).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
-  function refMm(){ var r=REFS[sel.value|0]; if(r&&r.mm) return r.mm; var v=parseFloat((document.getElementById("measCustom")||{}).value); return v>0?v:0; }
+  function refMm(){ var r=REFS[sel.value|0]; if(r&&r.mm) return r.mm; var v=parseFloat((document.getElementById("measCustom")||{}).value); if(!(v>0)) return 0; return window.CL_UNIT==="imp"? v*25.4 : v; }
   function step(t){ var e=document.getElementById("measStep"); if(e){e.textContent=t||""; e.className="auth-msg ok";} }
   function out(h){ var e=document.getElementById("measOut"); if(e) e.innerHTML=h||""; }
   function reset(){ pts=[]; out(""); if(img) draw(); step(img?"Tap the two ends of your reference object.":""); }
@@ -1386,17 +1411,17 @@ if(sbData){
   }
   function compute(){
     var rmm=refMm();
-    if(!rmm){ out('<div class="alert o">Enter the reference length in millimetres first.</div>'); return; }
+    if(!rmm){ out('<div class="alert o">Enter the reference length first.</div>'); return; }
     var rpx=dist(pts[0],pts[1]), fpx=dist(pts[2],pts[3]);
     if(rpx<5){ out('<div class="alert o">The reference marks are too close together to measure.</div>'); return; }
     var cm=(fpx*(rmm/rpx))/10;
     var s=window.CL_SHEET||{}, msg="", cls="alert";
-    var v='<div style="font-size:1.5em;font-weight:700;margin-bottom:4px">\u2248 '+cm.toFixed(1)+' cm</div>';
+    var v='<div style="font-size:1.5em;font-weight:700;margin-bottom:4px">\u2248 '+window.CL_fmtCm(cm)+'</div>';
     v+='<div class="muted" style="margin-bottom:8px">Estimated '+esc2(s.measure||"total length")+(s.nm?' \u2014 '+esc2(s.nm):'')+'</div>';
-    if(s.min && cm < s.min) { cls="alert o"; msg="\u26A0\uFE0F Likely UNDERSIZE \u2014 the legal minimum is "+s.min+" cm. Measure it properly before you keep it."; }
-    else if(s.max && cm > s.max) { cls="alert o"; msg="\u26A0\uFE0F Likely OVER the maximum of "+s.max+" cm. Measure it properly before you keep it."; }
-    else if(s.min && cm < s.min*1.05) { cls="alert o"; msg="\u26A0\uFE0F Borderline \u2014 close to the "+s.min+" cm minimum. Measure it properly."; }
-    else if(s.min) { msg="Appears to be over the "+s.min+" cm minimum \u2014 still confirm with a real measure."; }
+    if(s.min && cm < s.min) { cls="alert o"; msg="\u26A0\uFE0F Likely UNDERSIZE \u2014 the legal minimum is "+window.CL_fmtCm(s.min)+". Measure it properly before you keep it."; }
+    else if(s.max && cm > s.max) { cls="alert o"; msg="\u26A0\uFE0F Likely OVER the maximum of "+window.CL_fmtCm(s.max)+". Measure it properly before you keep it."; }
+    else if(s.min && cm < s.min*1.05) { cls="alert o"; msg="\u26A0\uFE0F Borderline \u2014 close to the "+window.CL_fmtCm(s.min)+" minimum. Measure it properly."; }
+    else if(s.min) { msg="Appears to be over the "+window.CL_fmtCm(s.min)+" minimum \u2014 still confirm with a real measure."; }
     else { msg="No size limit is recorded for this species here \u2014 check the rules above."; }
     if(rpx<40) msg+=" The reference is small in the frame, so this estimate is rough \u2014 use a larger reference or move closer.";
     out(v+'<div class="'+cls+'">'+msg+'</div><div class="auth-foot" style="margin-top:8px">This is an estimate from a photo, not a legal measurement. Camera angle changes the result.</div>');
@@ -1434,7 +1459,7 @@ if(sbData){
   window.CL_openMeasure=function(){
     if(!modal) return;
     var s=window.CL_SHEET||{}, e=document.getElementById("measSpecies");
-    if(e) e.innerHTML=s.nm?('<b>'+esc2(s.nm)+'</b> \u2014 legal minimum '+(s.min?s.min+" cm":"not set")+(s.max?', maximum '+s.max+" cm":"")+'. Measured as '+esc2(s.measure||"total length")+'.'):"";
+    if(e) e.innerHTML=s.nm?('<b>'+esc2(s.nm)+'</b> \u2014 legal minimum '+(s.min?window.CL_fmtCm(s.min):"not set")+(s.max?', maximum '+window.CL_fmtCm(s.max):"")+'. Measured as '+esc2(s.measure||"total length")+'.'):"";
     pts=[]; img=null; if(cv) cv.style.display="none"; out(""); step("Choose your reference object, then add a photo.");
     var b=document.getElementById("measReset"); if(b) b.style.display="none";
     modal.classList.add("show"); document.body.style.overflow="hidden";
