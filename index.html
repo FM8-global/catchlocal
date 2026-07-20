@@ -205,9 +205,9 @@
     <div class="logo">🎣</div>
     <div>
       <h1>Catch&nbsp;Local</h1>
-      <p>An FM8 Pty Ltd application · Local seafood &amp; recreational catch rules</p>
+      <p data-i18n="app.tagline">An FM8 Pty Ltd application · Local seafood &amp; recreational catch rules</p>
     </div>
-    <div class="region-pill" id="regionPill">📍 Locating…</div>
+    <div class="region-pill" id="regionPill" data-i18n="app.locating">📍 Locating…</div>
   </div>
 </header>
 
@@ -248,38 +248,38 @@
       <div class="modeseg" id="unitSeg" style="margin-top:10px"><button class="seg" data-unit="met" data-i18n="units.metric">Metric (cm)</button><button class="seg" data-unit="imp" data-i18n="units.imperial">Imperial (in)</button></div>
     </div>
 
-    <div class="modeseg" id="modeSeg"><button class="seg active" data-mode="recreational">🎣 Recreational</button><button class="seg" data-mode="customary">🪶 Customary</button></div>
+    <div class="modeseg" id="modeSeg"><button class="seg active" data-mode="recreational" data-i18n="mode.rec">🎣 Recreational</button><button class="seg" data-mode="customary" data-i18n="mode.cust">🪶 Customary</button></div>
 
-    <div class="count-line" id="countLine">Sign in to load species…</div>
+    <div class="count-line" id="countLine" data-i18n="near.signin">Sign in to load species…</div>
     <div id="nearList"></div>
   </section>
 
   <!-- IDENTIFY -->
   <section class="panel" id="panel-id">
     <div class="card">
-      <h2>📷 Identify your catch</h2>
+      <h2 data-i18n="id.title">📷 Identify your catch</h2>
       <p class="muted">Add a photo, then answer a few quick questions. We rank the most likely local species
         and show the rules for each. <b>This is an educated guess — confirm before you keep anything.</b></p>
 
       <label for="photo" class="drop" id="dropZone">
         <div class="big">📸</div>
-        <p><b>Tap to add a photo</b><br>camera or gallery</p>
+        <p><b data-i18n="id.tap">Tap to add a photo</b><br><span data-i18n="id.camgal">camera or gallery</span></p>
       </label>
       <input type="file" id="photo" accept="image/*" style="display:none">
       <img id="preview" alt="your catch">
-      <button class="btn" id="aiGo" style="width:100%;margin-top:12px;display:none">🤖 Identify from photo (AI)</button>
+      <button class="btn" id="aiGo" style="width:100%;margin-top:12px;display:none" data-i18n="id.ai">🤖 Identify from photo (AI)</button>
       <div id="aiOut"></div>
 
-      <label class="fld">Body shape</label>
+      <label class="fld" data-i18n="id.shape">Body shape</label>
       <div class="qgrid" data-q="shape"></div>
-      <label class="fld">Main colour</label>
+      <label class="fld" data-i18n="id.colour">Main colour</label>
       <div class="qgrid" data-q="colour"></div>
-      <label class="fld">Where did you catch it?</label>
+      <label class="fld" data-i18n="id.where">Where did you catch it?</label>
       <div class="qgrid" data-q="habitat"></div>
-      <label class="fld">Standout features (optional, pick any)</label>
+      <label class="fld" data-i18n="id.features">Standout features (optional, pick any)</label>
       <div class="qgrid" data-q="feature"></div>
 
-      <button class="btn" id="idGo" style="width:100%;margin-top:16px">🔍 Identify most likely species</button>
+      <button class="btn" id="idGo" style="width:100%;margin-top:16px" data-i18n="id.run">🔍 Identify most likely species</button>
     </div>
     <div id="idResults"></div>
   </section>
@@ -287,8 +287,8 @@
   <!-- SEARCH -->
   <section class="panel" id="panel-search">
     <div class="card">
-      <h2>🔎 Look up a species</h2>
-      <p class="muted">Search by name to read the current catch rules.</p>
+      <h2 data-i18n="search.title">🔎 Look up a species</h2>
+      <p class="muted" data-i18n="search.desc">Search by name to read the current catch rules.</p>
       <input type="text" id="searchBox" placeholder="e.g. barramundi, mud crab, snapper…" style="margin-top:10px">
     </div>
     <div id="searchList"></div>
@@ -297,41 +297,41 @@
   <!-- CATCHES -->
   <section class="panel" id="panel-catches">
     <div class="card">
-      <h2>🐟 Community catches</h2>
+      <h2 data-i18n="catches.title">🐟 Community catches</h2>
       <p class="muted">See what others are landing near you — shared <b>by region only</b>, never an exact spot. Sharing is completely optional. You can also create a <b>private link</b> to send one person your catch, and (only if you choose) the exact GPS spot.</p>
-      <button class="btn" id="shareOpen" style="width:100%">＋ Share your catch</button>
+      <button class="btn" id="shareOpen" style="width:100%" data-i18n="catches.share">＋ Share your catch</button>
     </div>
-    <div class="count-line" id="catchCount">Loading catches…</div>
+    <div class="count-line" id="catchCount" data-i18n="catches.loading">Loading catches…</div>
     <div id="catchList"></div>
   </section>
 
   <!-- ADMIN -->
   <section class="panel" id="panel-admin">
     <div class="card">
-      <h2>🛡️ Admin — user management</h2>
+      <h2 data-i18n="admin.title">🛡️ Admin — user management</h2>
       <p class="muted">You're an administrator. New people who request access appear below as <b>Pending approval</b> — tap <b>Approve</b> to let them in. You can also invite people directly, promote admins, and block or revoke access at any time. Changes take effect the next time that person opens the app.</p>
-      <label class="fld">Invite a new user (pre-approved)</label>
+      <label class="fld" data-i18n="admin.invite">Invite a new user (pre-approved)</label>
       <div class="loc-row">
-        <input type="text" id="invEmail" placeholder="name@example.com" style="flex:1;min-width:180px" autocomplete="off" inputmode="email">
-        <button class="btn" id="invAdd">Add &amp; copy invite</button>
+        <input type="text" id="invEmail" data-i18n-ph="admin.invitePh" placeholder="name@example.com" style="flex:1;min-width:180px" autocomplete="off" inputmode="email">
+        <button class="btn" id="invAdd" data-i18n="admin.addcopy">Add &amp; copy invite</button>
       </div>
       <div class="muted" id="invMsg" style="margin-top:8px"></div>
     </div>
-    <div class="count-line" id="admCount">Loading users…</div>
+    <div class="count-line" id="admCount" data-i18n="admin.loadingUsers">Loading users…</div>
     <div id="admList"></div>
 
     <div class="card" style="margin-top:18px">
-      <h2>💡 Suggestions from users</h2>
+      <h2 data-i18n="admin.suggTitle">💡 Suggestions from users</h2>
       <p class="muted">Ideas, data corrections and problem reports submitted from the app. Mark each as <b>Reviewed</b> or <b>Done</b> once you've actioned it.</p>
     </div>
-    <div class="count-line" id="suggCount">Loading suggestions…</div>
+    <div class="count-line" id="suggCount" data-i18n="admin.loadingSugg">Loading suggestions…</div>
     <div id="suggList"></div>
 
     <div class="card" style="margin-top:18px">
-      <h2>📷 Species photo submissions</h2>
+      <h2 data-i18n="admin.photoTitle">📷 Species photo submissions</h2>
       <p class="muted">Photos submitted by users. <b>Approve</b> to make a photo that species' image, or <b>Reject</b> to discard it.</p>
     </div>
-    <div class="count-line" id="spPhotoSubCount">Loading photo submissions…</div>
+    <div class="count-line" id="spPhotoSubCount" data-i18n="admin.loadingPhotos">Loading photo submissions…</div>
     <div id="spPhotoSubList"></div>
   </section>
 
@@ -358,23 +358,23 @@
     <div class="sheet-hd">
       <span class="x" id="shareClose">✕</span>
       <div class="e">🎣</div>
-      <h3>Share your catch</h3>
-      <div class="sci">Region only by default — your exact spot is never shared unless you add it to a private link.</div>
+      <h3 data-i18n="share.title">Share your catch</h3>
+      <div class="sci" data-i18n="share.sub">Region only by default — your exact spot is never shared unless you add it to a private link.</div>
     </div>
     <div class="sheet-bd">
       <label class="fld">Species</label>
       <select id="shSpecies" style="width:100%"></select>
       <label class="fld" id="shLenLbl">Length (cm, optional)</label>
-      <input type="number" id="shLen" inputmode="numeric" placeholder="e.g. 45" style="width:100%">
-      <label class="fld">Show your name as (optional)</label>
-      <input type="text" id="shName" placeholder="An angler" style="width:100%" autocomplete="off">
-      <label class="fld">Notes (optional)</label>
-      <textarea id="shNotes" rows="3" placeholder="e.g. on the run-out tide, gold lure" style="width:100%;resize:vertical"></textarea>
+      <input type="number" id="shLen" inputmode="numeric" data-i18n-ph="share.lenPh" placeholder="e.g. 45" style="width:100%">
+      <label class="fld" data-i18n="share.name">Show your name as (optional)</label>
+      <input type="text" id="shName" data-i18n-ph="share.namePh" placeholder="An angler" style="width:100%" autocomplete="off">
+      <label class="fld" data-i18n="share.notes">Notes (optional)</label>
+      <textarea id="shNotes" rows="3" data-i18n-ph="share.notesPh" placeholder="e.g. on the run-out tide, gold lure" style="width:100%;resize:vertical"></textarea>
       <div class="muted" id="shRegion" style="margin-top:8px"></div>
-      <button class="btn" id="shPostBtn" style="width:100%;margin-top:12px">📣 Post to community feed (region only)</button>
+      <button class="btn" id="shPostBtn" style="width:100%;margin-top:12px" data-i18n="share.post">📣 Post to community feed (region only)</button>
       <div style="margin:14px 0 8px;border-top:1px solid var(--line);padding-top:12px">
-        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="checkbox" id="shExact"> Include my exact GPS spot in the private link</label>
-        <button class="btn" id="shLinkBtn" style="width:100%;margin-top:10px;background:#0a4a2f">🔗 Create a private one-to-one link</button>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="checkbox" id="shExact"> <span data-i18n="share.gps">Include my exact GPS spot in the private link</span></label>
+        <button class="btn" id="shLinkBtn" style="width:100%;margin-top:10px;background:#0a4a2f" data-i18n="share.link">🔗 Create a private one-to-one link</button>
       </div>
       <div class="auth-msg" id="shOut" style="margin-top:8px;white-space:pre-wrap;word-break:break-word"></div>
     </div>
@@ -387,7 +387,7 @@
       <span class="x" id="cvClose">✕</span>
       <div class="e" id="cvEmoji">🐟</div>
       <h3 id="cvName">—</h3>
-      <div class="sci">A catch shared with you via Catch Local</div>
+      <div class="sci" data-i18n="share.viewsub">A catch shared with you via Catch Local</div>
     </div>
     <div class="sheet-bd" id="cvBody"></div>
   </div>
@@ -398,23 +398,23 @@
     <div class="sheet-hd">
       <span class="x" id="measClose">✕</span>
       <div class="e">📏</div>
-      <h3>Measure from a photo</h3>
-      <div class="sci">An estimate to help you spot a borderline fish — always confirm with a real measure before keeping it.</div>
+      <h3 data-i18n="meas.title">Measure from a photo</h3>
+      <div class="sci" data-i18n="meas.sub">An estimate to help you spot a borderline fish — always confirm with a real measure before keeping it.</div>
     </div>
     <div class="sheet-bd">
       <div id="measSpecies" class="muted" style="margin-bottom:10px"></div>
-      <label class="fld">Reference object (something of known size in the photo)</label>
+      <label class="fld" data-i18n="meas.ref">Reference object (something of known size in the photo)</label>
       <select id="measRef" style="width:100%"></select>
       <div id="measCustomWrap" style="display:none;margin-top:8px">
         <label class="fld" id="measCustomLbl">Known length (mm)</label>
-        <input type="number" id="measCustom" inputmode="decimal" placeholder="e.g. 100" style="width:100%">
+        <input type="number" id="measCustom" inputmode="decimal" data-i18n-ph="meas.customPh" placeholder="e.g. 100" style="width:100%">
       </div>
-      <button class="btn" id="measPick" style="width:100%;margin-top:10px">📷 Add photo of the fish + reference</button>
+      <button class="btn" id="measPick" style="width:100%;margin-top:10px" data-i18n="meas.add">📷 Add photo of the fish + reference</button>
       <input type="file" id="measFile" accept="image/*" style="display:none">
       <div id="measStep" class="auth-msg" style="margin-top:8px"></div>
       <canvas id="measCanvas" style="width:100%;border-radius:10px;margin-top:8px;display:none;touch-action:none;cursor:crosshair"></canvas>
       <div id="measOut" style="margin-top:10px"></div>
-      <button class="btn" id="measReset" style="width:100%;margin-top:8px;display:none;background:#33475a">↺ Start over</button>
+      <button class="btn" id="measReset" style="width:100%;margin-top:8px;display:none;background:#33475a" data-i18n="meas.reset">↺ Start over</button>
       <div class="auth-foot" style="margin-top:10px">Lay the fish flat with the reference object beside it, in the same plane, and shoot straight down from directly above. Angled photos read short or long. A bigger reference gives a better estimate.</div>
     </div>
   </div>
@@ -424,22 +424,22 @@
     <div class="sheet-hd">
       <span class="x" id="suggClose">✕</span>
       <div class="e">💡</div>
-      <h3>Suggest an improvement</h3>
-      <div class="sci">Spotted a wrong rule, a missing species, or have an idea? Tell us.</div>
+      <h3 data-i18n="sugg.title">Suggest an improvement</h3>
+      <div class="sci" data-i18n="sugg.desc">Spotted a wrong rule, a missing species, or have an idea? Tell us.</div>
     </div>
     <div class="sheet-bd">
-      <label class="fld">What's this about?</label>
+      <label class="fld" data-i18n="sugg.about">What's this about?</label>
       <div class="qgrid" id="suggCat"></div>
-      <label class="fld">Your suggestion</label>
+      <label class="fld" data-i18n="sugg.body">Your suggestion</label>
       <textarea id="suggMsg" rows="5" placeholder="e.g. The size limit for snapper in my region looks out of date / please add King George whiting / the GPS picked the wrong zone…" style="width:100%;resize:vertical"></textarea>
       <div class="muted" id="suggCtx" style="margin-top:8px"></div>
-      <button class="btn" id="suggSend" style="width:100%;margin-top:12px">Send suggestion</button>
+      <button class="btn" id="suggSend" style="width:100%;margin-top:12px" data-i18n="sugg.send">Send suggestion</button>
       <div class="auth-msg" id="suggMsgOut" style="margin-top:8px"></div>
     </div>
   </div>
 </div>
 
-<footer><button id="suggOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0">💡 Suggest an improvement or report a problem</button><br>CATCH LOCAL · An FM8 Pty Ltd application · Multi-jurisdiction recreational dataset · Not affiliated with any State regulator · CONFIDENTIAL — FM8 PTY LTD</footer>
+<footer><button id="suggOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="sugg.link">💡 Suggest an improvement or report a problem</button><br>CATCH LOCAL · An FM8 Pty Ltd application · Multi-jurisdiction recreational dataset · Not affiliated with any State regulator · CONFIDENTIAL — FM8 PTY LTD</footer>
 
 <script>
 /* ===== Catch Local — Supabase-backed, multi-jurisdiction data layer ===== */
@@ -454,7 +454,7 @@ function curMonth(){return new Date().getMonth()+1;}
 function inSeason(sp){const m=SEASON[sp.sci];return m?m.indexOf(curMonth())>=0:false;}
 function seasonText(sp){const m=SEASON[sp.sci];if(!m||!m.length)return"Year-round";
   return m.slice().sort((a,b)=>a-b).map(x=>MONTHS[x-1]).join(", ");}
-window.CL_EN={"auth.sub": "Enter your email and we'll send you a secure sign-in code — no password needed.", "auth.emailPlaceholder": "you@example.com", "auth.send": "Email me a sign-in code", "auth.codePlaceholder": "Enter the code from your email", "auth.verify": "Verify code & sign in", "auth.tip": "Tip: you can also just tap the link in the same email. Entering the code here keeps you signed in inside the installed app.", "auth.newHere": "New here? Enter your email to request access — an administrator approves new users before their first sign-in. By continuing you accept that this is a guide only and you are responsible for obeying local fishing laws.", "tabs.near": "Near Me", "tabs.identify": "Identify", "tabs.search": "Search", "tabs.catches": "Catches", "tabs.admin": "Admin", "region.title": "Your region", "region.desc": "Catch Local shows the legal catch rules for your region. We detect your region automatically, or choose it below.", "region.find": "Find my region", "units.metric": "Metric (cm)", "units.imperial": "Imperial (in)", "lang.label": "Language"};
+window.CL_EN={"auth.sub": "Enter your email and we'll send you a secure sign-in code — no password needed.", "auth.emailPlaceholder": "you@example.com", "auth.send": "Email me a sign-in code", "auth.codePlaceholder": "Enter the code from your email", "auth.verify": "Verify code & sign in", "auth.tip": "Tip: you can also just tap the link in the same email. Entering the code here keeps you signed in inside the installed app.", "auth.newHere": "New here? Enter your email to request access — an administrator approves new users before their first sign-in. By continuing you accept that this is a guide only and you are responsible for obeying local fishing laws.", "tabs.near": "Near Me", "tabs.identify": "Identify", "tabs.search": "Search", "tabs.catches": "Catches", "tabs.admin": "Admin", "region.title": "Your region", "region.desc": "Catch Local shows the legal catch rules for your region. We detect your region automatically, or choose it below.", "region.find": "Find my region", "units.metric": "Metric (cm)", "units.imperial": "Imperial (in)", "lang.label": "Language", "app.tagline": "An FM8 Pty Ltd application · Local seafood &amp; recreational catch rules", "app.locating": "📍 Locating…", "mode.rec": "🎣 Recreational", "mode.cust": "🪶 Customary", "near.signin": "Sign in to load species…", "id.title": "📷 Identify your catch", "id.tap": "Tap to add a photo", "id.camgal": "camera or gallery", "id.ai": "🤖 Identify from photo (AI)", "id.shape": "Body shape", "id.colour": "Main colour", "id.where": "Where did you catch it?", "id.features": "Standout features (optional, pick any)", "id.run": "🔍 Identify most likely species", "search.title": "🔎 Look up a species", "search.desc": "Search by name to read the current catch rules.", "catches.title": "🐟 Community catches", "catches.loading": "Loading catches…", "catches.share": "＋ Share your catch", "share.title": "Share your catch", "share.sub": "Region only by default — your exact spot is never shared unless you add it to a private link.", "share.name": "Show your name as (optional)", "share.notes": "Notes (optional)", "share.post": "📣 Post to community feed (region only)", "share.gps": "Include my exact GPS spot in the private link", "share.link": "🔗 Create a private one-to-one link", "share.viewsub": "A catch shared with you via Catch Local", "sugg.link": "💡 Suggest an improvement or report a problem", "sugg.title": "Suggest an improvement", "sugg.desc": "Spotted a wrong rule, a missing species, or have an idea? Tell us.", "sugg.about": "What's this about?", "sugg.body": "Your suggestion", "sugg.send": "Send suggestion", "admin.title": "🛡️ Admin — user management", "admin.invite": "Invite a new user (pre-approved)", "admin.addcopy": "Add &amp; copy invite", "admin.loadingUsers": "Loading users…", "admin.suggTitle": "💡 Suggestions from users", "admin.loadingSugg": "Loading suggestions…", "admin.photoTitle": "📷 Species photo submissions", "admin.loadingPhotos": "Loading photo submissions…", "meas.title": "Measure from a photo", "meas.sub": "An estimate to help you spot a borderline fish — always confirm with a real measure before keeping it.", "meas.ref": "Reference object (something of known size in the photo)", "meas.add": "📷 Add photo of the fish + reference", "meas.reset": "↺ Start over", "share.lenPh": "e.g. 45", "share.namePh": "An angler", "share.notesPh": "e.g. on the run-out tide, gold lure", "admin.invitePh": "name@example.com", "meas.customPh": "e.g. 100"};
 window.CL_LANGS=["en","fr"];
 window.CL_I18N={en:window.CL_EN};
 (function(){ try{ var c=localStorage.getItem("cl_i18n_fr"); if(c) window.CL_I18N.fr=JSON.parse(c); }catch(e){} })();
@@ -465,6 +465,7 @@ window.t=function(k,vars){ var d=window.CL_I18N[window.CL_LANG]||{}; var s=d[k];
 window.CL_applyI18n=function(){
   try{ document.querySelectorAll("[data-i18n]").forEach(function(el){ el.textContent=window.t(el.getAttribute("data-i18n")); }); }catch(e){}
   try{ document.querySelectorAll("[data-i18n-ph]").forEach(function(el){ el.setAttribute("placeholder", window.t(el.getAttribute("data-i18n-ph"))); }); }catch(e){}
+  try{ document.querySelectorAll("[data-i18n-html]").forEach(function(el){ el.innerHTML=window.t(el.getAttribute("data-i18n-html")); }); }catch(e){}
 };
 window.CL_setLang=function(l){
   if(window.CL_LANGS.indexOf(l)<0) l="en";
