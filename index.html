@@ -187,17 +187,17 @@
   <div class="auth-box">
     <div class="auth-logo">🎣</div>
     <h2>Catch Local</h2>
-    <p class="auth-sub">Enter your email and we'll send you a secure sign-in code — no password needed.</p>
-    <input type="email" id="authEmail" placeholder="you@example.com" autocomplete="email" inputmode="email">
-    <button class="btn" id="authSend" style="width:100%">Email me a sign-in code</button>
+    <p class="auth-sub" data-i18n="auth.sub">Enter your email and we'll send you a secure sign-in code — no password needed.</p>
+    <input type="email" id="authEmail" data-i18n-ph="auth.emailPlaceholder" placeholder="you@example.com" autocomplete="email" inputmode="email">
+    <button class="btn" id="authSend" style="width:100%" data-i18n="auth.send">Email me a sign-in code</button>
     <div id="authCodeBox" style="display:none;margin-top:12px">
-      <input type="text" id="authCode" placeholder="Enter the code from your email" autocomplete="one-time-code" inputmode="numeric" maxlength="8" style="text-align:center;letter-spacing:.3em;font-size:1.2em">
-      <button class="btn" id="authVerify" style="width:100%;margin-top:8px">Verify code &amp; sign in</button>
-      <div class="auth-foot" style="margin-top:8px">Tip: you can also just tap the link in the same email. Entering the code here keeps you signed in inside the installed app.</div>
+      <input type="text" id="authCode" data-i18n-ph="auth.codePlaceholder" placeholder="Enter the code from your email" autocomplete="one-time-code" inputmode="numeric" maxlength="8" style="text-align:center;letter-spacing:.3em;font-size:1.2em">
+      <button class="btn" id="authVerify" style="width:100%;margin-top:8px" data-i18n="auth.verify">Verify code &amp; sign in</button>
+      <div class="auth-foot" style="margin-top:8px" data-i18n="auth.tip">Tip: you can also just tap the link in the same email. Entering the code here keeps you signed in inside the installed app.</div>
     </div>
     <div id="authMsg" class="auth-msg"></div>
     <div class="auth-foot" style="margin-top:8px">Seeing an old version, or the code box won’t accept your full code? <a href="#" id="authReset" style="color:#7fc7e8;text-decoration:underline;cursor:pointer">Reset the app</a> — it reloads the latest version and keeps you signed in.</div>
-    <div class="auth-foot">New here? Enter your email to request access — an administrator approves new users before their first sign-in. By continuing you accept that this is a guide only and you are responsible for obeying local fishing laws.</div>
+    <div class="auth-foot" data-i18n="auth.newHere">New here? Enter your email to request access — an administrator approves new users before their first sign-in. By continuing you accept that this is a guide only and you are responsible for obeying local fishing laws.</div>
   </div>
 </div>
 <header>
@@ -224,24 +224,28 @@
   </div>
 
   <div class="tabs">
-    <button class="tab active" data-tab="near"><span class="ic">🗺️</span>Near Me</button>
-    <button class="tab" data-tab="id"><span class="ic">📷</span>Identify</button>
-    <button class="tab" data-tab="search"><span class="ic">🔎</span>Search</button>
-    <button class="tab" data-tab="catches"><span class="ic">🐟</span>Catches</button>
-    <button class="tab" data-tab="admin" id="adminTab" style="display:none"><span class="ic">🛡️</span>Admin</button>
+    <button class="tab active" data-tab="near"><span class="ic">🗺️</span><span data-i18n="tabs.near">Near Me</span></button>
+    <button class="tab" data-tab="id"><span class="ic">📷</span><span data-i18n="tabs.identify">Identify</span></button>
+    <button class="tab" data-tab="search"><span class="ic">🔎</span><span data-i18n="tabs.search">Search</span></button>
+    <button class="tab" data-tab="catches"><span class="ic">🐟</span><span data-i18n="tabs.catches">Catches</span></button>
+    <button class="tab" data-tab="admin" id="adminTab" style="display:none"><span class="ic">🛡️</span><span data-i18n="tabs.admin">Admin</span></button>
   </div>
 
   <!-- NEAR ME -->
   <section class="panel active" id="panel-near">
     <div class="card">
-      <h2>📍 Your region</h2>
-      <p class="muted">Catch Local shows the legal catch rules for your region. We detect your region automatically, or choose it below.</p>
+      <h2>📍 <span data-i18n="region.title">Your region</span></h2>
+      <p class="muted" data-i18n="region.desc">Catch Local shows the legal catch rules for your region. We detect your region automatically, or choose it below.</p>
       <div class="loc-row">
-        <button class="btn" id="geoBtn">📡 Find my region</button>
+        <button class="btn" id="geoBtn">📡 <span data-i18n="region.find">Find my region</span></button>
         <select id="jurSel" style="flex:1;min-width:170px"><option value="">Loading…</option></select>
       </div>
       <div class="muted" id="jurNote" style="margin-top:10px"></div>
-      <div class="modeseg" id="unitSeg" style="margin-top:10px"><button class="seg" data-unit="met">Metric (cm)</button><button class="seg" data-unit="imp">Imperial (in)</button></div>
+      <div style="margin-top:10px;display:flex;align-items:center;gap:8px">
+        <label class="fld" style="margin:0" data-i18n="lang.label">Language</label>
+        <select id="langSel" style="flex:1"><option value="en">English</option><option value="fr">Français</option></select>
+      </div>
+      <div class="modeseg" id="unitSeg" style="margin-top:10px"><button class="seg" data-unit="met" data-i18n="units.metric">Metric (cm)</button><button class="seg" data-unit="imp" data-i18n="units.imperial">Imperial (in)</button></div>
     </div>
 
     <div class="modeseg" id="modeSeg"><button class="seg active" data-mode="recreational">🎣 Recreational</button><button class="seg" data-mode="customary">🪶 Customary</button></div>
@@ -450,6 +454,35 @@ function curMonth(){return new Date().getMonth()+1;}
 function inSeason(sp){const m=SEASON[sp.sci];return m?m.indexOf(curMonth())>=0:false;}
 function seasonText(sp){const m=SEASON[sp.sci];if(!m||!m.length)return"Year-round";
   return m.slice().sort((a,b)=>a-b).map(x=>MONTHS[x-1]).join(", ");}
+window.CL_EN={"auth.sub": "Enter your email and we'll send you a secure sign-in code — no password needed.", "auth.emailPlaceholder": "you@example.com", "auth.send": "Email me a sign-in code", "auth.codePlaceholder": "Enter the code from your email", "auth.verify": "Verify code & sign in", "auth.tip": "Tip: you can also just tap the link in the same email. Entering the code here keeps you signed in inside the installed app.", "auth.newHere": "New here? Enter your email to request access — an administrator approves new users before their first sign-in. By continuing you accept that this is a guide only and you are responsible for obeying local fishing laws.", "tabs.near": "Near Me", "tabs.identify": "Identify", "tabs.search": "Search", "tabs.catches": "Catches", "tabs.admin": "Admin", "region.title": "Your region", "region.desc": "Catch Local shows the legal catch rules for your region. We detect your region automatically, or choose it below.", "region.find": "Find my region", "units.metric": "Metric (cm)", "units.imperial": "Imperial (in)", "lang.label": "Language"};
+window.CL_LANGS=["en","fr"];
+window.CL_I18N={en:window.CL_EN};
+(function(){ try{ var c=localStorage.getItem("cl_i18n_fr"); if(c) window.CL_I18N.fr=JSON.parse(c); }catch(e){} })();
+window.CL_LANG=(function(){ try{ var v=localStorage.getItem("cl_lang"); if(v&&window.CL_LANGS.indexOf(v)>=0) return v; }catch(e){}
+  var n=((navigator.language||"en").toLowerCase().split("-")[0]); return window.CL_LANGS.indexOf(n)>=0?n:"en"; })();
+window.t=function(k,vars){ var d=window.CL_I18N[window.CL_LANG]||{}; var s=d[k]; if(s==null) s=window.CL_EN[k]; if(s==null) return k;
+  if(vars) Object.keys(vars).forEach(function(n){ s=s.split("{{"+n+"}}").join(vars[n]); }); return s; };
+window.CL_applyI18n=function(){
+  try{ document.querySelectorAll("[data-i18n]").forEach(function(el){ el.textContent=window.t(el.getAttribute("data-i18n")); }); }catch(e){}
+  try{ document.querySelectorAll("[data-i18n-ph]").forEach(function(el){ el.setAttribute("placeholder", window.t(el.getAttribute("data-i18n-ph"))); }); }catch(e){}
+};
+window.CL_setLang=function(l){
+  if(window.CL_LANGS.indexOf(l)<0) l="en";
+  function done(){
+    window.CL_LANG=l; try{localStorage.setItem("cl_lang",l);}catch(e){}
+    try{document.documentElement.setAttribute("lang",l);}catch(e){}
+    window.CL_applyI18n();
+    try{var sl=document.getElementById("langSel"); if(sl) sl.value=l;}catch(e){}
+    try{renderNear();}catch(e){} try{renderSearch();}catch(e){}
+  }
+  if(l!=="en" && !window.CL_I18N[l] && typeof fetch==="function"){
+    fetch("./locales/"+l+".json").then(function(r){ return r.ok?r.json():null; })
+      .then(function(j){ if(j){ window.CL_I18N[l]=j; try{localStorage.setItem("cl_i18n_"+l,JSON.stringify(j));}catch(e){} } done(); })
+      .catch(function(){ done(); });
+  } else done();
+};
+(function(){ var sl=document.getElementById("langSel"); if(sl){ sl.value=window.CL_LANG; sl.onchange=function(){ window.CL_setLang(this.value); }; }
+  window.CL_setLang(window.CL_LANG); })();
 window.CL_UNIT=(function(){try{return localStorage.getItem("cl_units")==="imp"?"imp":"met";}catch(e){return "met";}})();
 window.CL_uLbl=function(){return window.CL_UNIT==="imp"?"in":"cm";};
 window.CL_fmtCm=function(cm){ if(cm==null||cm==="")return""; var n=parseFloat(cm); if(isNaN(n))return String(cm);
