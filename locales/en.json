@@ -1,0 +1,20 @@
+{
+ "auth.sub": "Enter your email and we'll send you a secure sign-in code — no password needed.",
+ "auth.emailPlaceholder": "you@example.com",
+ "auth.send": "Email me a sign-in code",
+ "auth.codePlaceholder": "Enter the code from your email",
+ "auth.verify": "Verify code & sign in",
+ "auth.tip": "Tip: you can also just tap the link in the same email. Entering the code here keeps you signed in inside the installed app.",
+ "auth.newHere": "New here? Enter your email to request access — an administrator approves new users before their first sign-in. By continuing you accept that this is a guide only and you are responsible for obeying local fishing laws.",
+ "tabs.near": "Near Me",
+ "tabs.identify": "Identify",
+ "tabs.search": "Search",
+ "tabs.catches": "Catches",
+ "tabs.admin": "Admin",
+ "region.title": "Your region",
+ "region.desc": "Catch Local shows the legal catch rules for your region. We detect your region automatically, or choose it below.",
+ "region.find": "Find my region",
+ "units.metric": "Metric (cm)",
+ "units.imperial": "Imperial (in)",
+ "lang.label": "Language"
+}

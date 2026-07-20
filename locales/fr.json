@@ -1,0 +1,20 @@
+{
+ "auth.sub": "Saisissez votre adresse e-mail et nous vous enverrons un code de connexion sécurisé — aucun mot de passe requis.",
+ "auth.emailPlaceholder": "vous@exemple.com",
+ "auth.send": "Envoyez-moi un code de connexion",
+ "auth.codePlaceholder": "Saisissez le code reçu par e-mail",
+ "auth.verify": "Vérifier le code et se connecter",
+ "auth.tip": "Astuce : vous pouvez aussi appuyer sur le lien dans le même e-mail. Saisir le code ici vous maintient connecté dans l'application installée.",
+ "auth.newHere": "Nouveau ? Saisissez votre adresse e-mail pour demander l'accès — un administrateur approuve les nouveaux utilisateurs avant leur première connexion. En continuant, vous acceptez qu'il s'agit d'un guide uniquement et que vous êtes responsable du respect de la réglementation de pêche locale.",
+ "tabs.near": "À proximité",
+ "tabs.identify": "Identifier",
+ "tabs.search": "Rechercher",
+ "tabs.catches": "Prises",
+ "tabs.admin": "Admin",
+ "region.title": "Votre région",
+ "region.desc": "Catch Local affiche les règles de capture applicables à votre région. Nous la détectons automatiquement, ou choisissez-la ci-dessous.",
+ "region.find": "Trouver ma région",
+ "units.metric": "Métrique (cm)",
+ "units.imperial": "Impérial (po)",
+ "lang.label": "Langue"
+}
