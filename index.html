@@ -467,6 +467,7 @@ function buildFromRows(rows){
     shape:sp.shape||"", colours:sp.colours||[], features:sp.features||[], habitats:sp.habitats||[],
     img:sp.image_url||"", imgPage:sp.image_page||"", imgCredit:sp.image_credit||"", imgLic:sp.image_license||"",
     angling:sp.angling||null, joke:sp.dad_joke||"", sid:sp.id||null,
+    handling:sp.handling||null, cooking:sp.cooking||null,
     peak:r.peak_months||[], source_url:r.source_url, last_verified:r.last_verified };
   });
   SEASON={}; SPECIES.forEach(s=>{SEASON[s.sci]=s.peak;});
@@ -484,7 +485,7 @@ async function loadJurisdiction(jid){
   if(sbData){
     try{
       const r=await sbData.from("rules")
-        .select("min_cm,max_cm,measure,possession_limit,boat_limit,sex_rule,closed_season,notes,peak_months,source_url,last_verified,species(id,common_name,scientific_name,grp,emoji,shape,colours,features,habitats,image_url,image_page,image_credit,image_license,angling,dad_joke)")
+        .select("min_cm,max_cm,measure,possession_limit,boat_limit,sex_rule,closed_season,notes,peak_months,source_url,last_verified,species(id,common_name,scientific_name,grp,emoji,shape,colours,features,habitats,image_url,image_page,image_credit,image_license,angling,dad_joke,handling,cooking)")
         .eq("jurisdiction_id",jid);
       if(!r.error&&r.data) rows=r.data;
     }catch(e){}
@@ -618,6 +619,28 @@ function anglingHtml(a){
   if(!inner) return "";
   return '<div class="rule"><div class="ic">\uD83C\uDFA3</div><div><div class="k">How to catch it \u2014 bait, lures, tackle &amp; technique</div><div class="v">'+inner+'</div></div></div>';
 }
+function careHtml(hd, ck){
+  var out="";
+  function li(arr){ return '<ul style="margin:4px 0 0 18px;padding:0">'+arr.map(function(t){return '<li style="margin:3px 0">'+esc(t)+'</li>';}).join("")+'</ul>'; }
+  if(hd){
+    var inner="";
+    if(hd.bleed)   inner+='<div style="margin:5px 0;line-height:1.5"><b>\uD83E\uDE78 Bleed:</b> '+esc(hd.bleed)+'</div>';
+    if(hd.chill)   inner+='<div style="margin:5px 0;line-height:1.5"><b>\uD83E\uDDCA Chill:</b> '+esc(hd.chill)+'</div>';
+    if(hd.gut)     inner+='<div style="margin:5px 0;line-height:1.5"><b>\uD83D\uDD2A Gut:</b> '+esc(hd.gut)+'</div>';
+    if(hd.tips&&hd.tips.length) inner+='<div style="margin:5px 0;line-height:1.5"><b>\u2705 Tips:</b>'+li(hd.tips)+'</div>';
+    if(hd.release) inner+='<div style="margin:5px 0;line-height:1.5"><b>\u21A9\uFE0F Release:</b> '+esc(hd.release)+'</div>';
+    if(inner) out+='<div class="rule"><div class="ic">\uD83E\uDDCA</div><div><div class="k">Looking after your catch</div><div class="v">'+inner+'</div></div></div>';
+  }
+  if(ck){
+    var ci="";
+    if(ck.profile) ci+='<div style="margin:5px 0;line-height:1.5">'+esc(ck.profile)+'</div>';
+    if(ck.methods&&ck.methods.length) ci+='<div style="margin:6px 0;line-height:1.5"><b>Best methods:</b> '+ck.methods.map(esc).join(" \u00B7 ")+'</div>';
+    if(ck.dishes&&ck.dishes.length) ci+='<div style="margin:5px 0;line-height:1.5"><b>\uD83C\uDF7D\uFE0F Dishes to try:</b>'+li(ck.dishes)+'</div>';
+    if(ck.safety) ci+='<div class="alert o" style="margin-top:8px">\u26A0\uFE0F '+esc(ck.safety)+'</div>';
+    if(ci) out+='<div class="rule"><div class="ic">\uD83C\uDF7D\uFE0F</div><div><div class="k">In the kitchen</div><div class="v">'+ci+'</div></div></div>';
+  }
+  return out;
+}
 async function submitSpeciesPhoto(file){
   var s=window.CL_SHEET; var msg=document.getElementById("spPhotoMsg");
   function say(t){ if(msg) msg.textContent=t; }
@@ -659,6 +682,7 @@ function openSheet(s){
   if(s.notes)h+=rule("💡","Field notes",s.notes);
   h+=rule("🗓️","Best season"+(activeJur?" ("+activeJur.region+")":""),seasonText(s)+(inSeason(s)?" — in season now":""));
   h+=anglingHtml(s.angling);
+  h+=careHtml(s.handling,s.cooking);
   h+='<div class="alert o">⚠️ <b>A guide only.</b> Identification is an educated estimate. Confirm the species, measure carefully, and verify the current rules before keeping anything.</div>';
   const src=s.source_url||(activeJur&&activeJur.source_url);
   const srcname=(activeJur&&activeJur.source_name)||"the official regulator";
