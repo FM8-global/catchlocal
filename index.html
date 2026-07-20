@@ -388,6 +388,32 @@
   </div>
 </div>
 
+<div class="modal" id="measModal" style="z-index:9998">
+  <div class="sheet">
+    <div class="sheet-hd">
+      <span class="x" id="measClose">✕</span>
+      <div class="e">📏</div>
+      <h3>Measure from a photo</h3>
+      <div class="sci">An estimate to help you spot a borderline fish — always confirm with a real measure before keeping it.</div>
+    </div>
+    <div class="sheet-bd">
+      <div id="measSpecies" class="muted" style="margin-bottom:10px"></div>
+      <label class="fld">Reference object (something of known size in the photo)</label>
+      <select id="measRef" style="width:100%"></select>
+      <div id="measCustomWrap" style="display:none;margin-top:8px">
+        <label class="fld">Known length (mm)</label>
+        <input type="number" id="measCustom" inputmode="decimal" placeholder="e.g. 100" style="width:100%">
+      </div>
+      <button class="btn" id="measPick" style="width:100%;margin-top:10px">📷 Add photo of the fish + reference</button>
+      <input type="file" id="measFile" accept="image/*" style="display:none">
+      <div id="measStep" class="auth-msg" style="margin-top:8px"></div>
+      <canvas id="measCanvas" style="width:100%;border-radius:10px;margin-top:8px;display:none;touch-action:none;cursor:crosshair"></canvas>
+      <div id="measOut" style="margin-top:10px"></div>
+      <button class="btn" id="measReset" style="width:100%;margin-top:8px;display:none;background:#33475a">↺ Start over</button>
+      <div class="auth-foot" style="margin-top:10px">Lay the fish flat with the reference object beside it, in the same plane, and shoot straight down from directly above. Angled photos read short or long. A bigger reference gives a better estimate.</div>
+    </div>
+  </div>
+</div>
 <div class="modal" id="suggModal">
   <div class="sheet">
     <div class="sheet-hd">
@@ -688,6 +714,7 @@ function openSheet(s){
   const srcname=(activeJur&&activeJur.source_name)||"the official regulator";
   h+='<div class="src">Source: '+srcname+(src?' — <a href="'+src+'" target="_blank" rel="noopener">official rules</a>':'')+(s.last_verified?' (verified '+s.last_verified+')':'')+'. You are responsible for complying with the current rules in your jurisdiction.</div>';
   window.CL_SHEET=s;
+  h+='<div style="margin-top:12px"><button class="btn" style="width:100%;background:#123a5a" onclick="window.CL_openMeasure&&window.CL_openMeasure()">\uD83D\uDCCF Measure this fish from a photo</button></div>';
   h+='<div style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px"><button class="btn" style="width:100%;background:#0a4a2f" onclick="document.getElementById(&#39;spPhotoInput&#39;).click()">\uD83D\uDCF7 Add a photo of this species</button><div class="muted" id="spPhotoMsg" style="margin-top:8px">Photos are reviewed by an administrator before they appear.</div></div>';
   document.getElementById("dBody").innerHTML=h;
   modal.classList.add("show");
@@ -1315,6 +1342,103 @@ if(sbData){
   var ct=document.querySelector('.tab[data-tab="catches"]'); if(ct) ct.addEventListener("click",loadFeed);
   withSession(function(s){ if(s) loadFeed(); });
   if(sb) sb.auth.onAuthStateChange(function(_e,s){ if(s){ meEmail=(s.user&&s.user.email)||meEmail; loadFeed(); } });
+})();
+</script>
+
+<script>
+/* ---------- measure a fish from a photo using a known reference object ---------- */
+(function(){
+  var REFS=[
+    {n:"Bank card \u2014 long edge (recommended)",mm:85.6},
+    {n:"Bank card \u2014 short edge",mm:53.98},
+    {n:"A4 paper \u2014 long edge",mm:297},
+    {n:"US dollar bill \u2014 long edge",mm:155.96},
+    {n:"Australian $1 coin",mm:25.0},
+    {n:"Australian $2 coin",mm:20.5},
+    {n:"Australian 50c coin (across flats)",mm:31.65},
+    {n:"New Zealand $2 coin",mm:26.5},
+    {n:"New Zealand $1 coin",mm:23.0},
+    {n:"US quarter",mm:24.26},
+    {n:"UK \u00A32 coin",mm:28.4},
+    {n:"UK \u00A31 coin",mm:23.43},
+    {n:"Euro \u20AC2 coin",mm:25.75},
+    {n:"Custom \u2014 enter length",mm:0}
+  ];
+  var modal=document.getElementById("measModal");
+  var cv=document.getElementById("measCanvas"), sel=document.getElementById("measRef");
+  var pts=[], img=null;
+  if(sel){ sel.innerHTML=REFS.map(function(r,i){return '<option value="'+i+'">'+r.n+(r.mm?" \u2014 "+r.mm+" mm":"")+'</option>';}).join(""); }
+  function esc2(x){return (x==null?"":String(x)).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+  function refMm(){ var r=REFS[sel.value|0]; if(r&&r.mm) return r.mm; var v=parseFloat((document.getElementById("measCustom")||{}).value); return v>0?v:0; }
+  function step(t){ var e=document.getElementById("measStep"); if(e){e.textContent=t||""; e.className="auth-msg ok";} }
+  function out(h){ var e=document.getElementById("measOut"); if(e) e.innerHTML=h||""; }
+  function reset(){ pts=[]; out(""); if(img) draw(); step(img?"Tap the two ends of your reference object.":""); }
+  function dist(a,b){ return Math.sqrt(Math.pow(a.x-b.x,2)+Math.pow(a.y-b.y,2)); }
+  function draw(){
+    if(!img) return; var c=cv.getContext("2d");
+    c.clearRect(0,0,cv.width,cv.height); c.drawImage(img,0,0,cv.width,cv.height);
+    var pairs=[[0,1,"#ffd166","REF"],[2,3,"#4cc9f0","FISH"]];
+    pairs.forEach(function(p){
+      var a=pts[p[0]], b=pts[p[1]];
+      [a,b].forEach(function(q){ if(!q)return; c.beginPath(); c.arc(q.x,q.y,Math.max(6,cv.width/110),0,6.3); c.fillStyle=p[2]; c.fill(); c.lineWidth=2; c.strokeStyle="#00121f"; c.stroke(); });
+      if(a&&b){ c.beginPath(); c.moveTo(a.x,a.y); c.lineTo(b.x,b.y); c.lineWidth=Math.max(3,cv.width/300); c.strokeStyle=p[2]; c.stroke(); }
+    });
+  }
+  function compute(){
+    var rmm=refMm();
+    if(!rmm){ out('<div class="alert o">Enter the reference length in millimetres first.</div>'); return; }
+    var rpx=dist(pts[0],pts[1]), fpx=dist(pts[2],pts[3]);
+    if(rpx<5){ out('<div class="alert o">The reference marks are too close together to measure.</div>'); return; }
+    var cm=(fpx*(rmm/rpx))/10;
+    var s=window.CL_SHEET||{}, msg="", cls="alert";
+    var v='<div style="font-size:1.5em;font-weight:700;margin-bottom:4px">\u2248 '+cm.toFixed(1)+' cm</div>';
+    v+='<div class="muted" style="margin-bottom:8px">Estimated '+esc2(s.measure||"total length")+(s.nm?' \u2014 '+esc2(s.nm):'')+'</div>';
+    if(s.min && cm < s.min) { cls="alert o"; msg="\u26A0\uFE0F Likely UNDERSIZE \u2014 the legal minimum is "+s.min+" cm. Measure it properly before you keep it."; }
+    else if(s.max && cm > s.max) { cls="alert o"; msg="\u26A0\uFE0F Likely OVER the maximum of "+s.max+" cm. Measure it properly before you keep it."; }
+    else if(s.min && cm < s.min*1.05) { cls="alert o"; msg="\u26A0\uFE0F Borderline \u2014 close to the "+s.min+" cm minimum. Measure it properly."; }
+    else if(s.min) { msg="Appears to be over the "+s.min+" cm minimum \u2014 still confirm with a real measure."; }
+    else { msg="No size limit is recorded for this species here \u2014 check the rules above."; }
+    if(rpx<40) msg+=" The reference is small in the frame, so this estimate is rough \u2014 use a larger reference or move closer.";
+    out(v+'<div class="'+cls+'">'+msg+'</div><div class="auth-foot" style="margin-top:8px">This is an estimate from a photo, not a legal measurement. Camera angle changes the result.</div>');
+  }
+  function place(ev){
+    if(!img) return; var r=cv.getBoundingClientRect();
+    var x=(ev.clientX-r.left)*(cv.width/r.width), y=(ev.clientY-r.top)*(cv.height/r.height);
+    if(pts.length>=4){ return; }
+    pts.push({x:x,y:y}); draw();
+    if(pts.length===1) step("Now tap the other end of the reference object.");
+    else if(pts.length===2) step("Reference set. Now tap the nose of the fish.");
+    else if(pts.length===3) step("Now tap the tail of the fish.");
+    else { step("Done."); compute(); }
+    var rb=document.getElementById("measReset"); if(rb) rb.style.display=pts.length?"block":"none";
+  }
+  if(cv) cv.addEventListener("pointerdown",place);
+  var pick=document.getElementById("measPick"), file=document.getElementById("measFile");
+  if(pick&&file){ pick.onclick=function(){ file.click(); };
+    file.onchange=function(){
+      var f=this.files&&this.files[0]; this.value=""; if(!f) return;
+      var url=URL.createObjectURL(f); var im=new Image();
+      im.onload=function(){
+        var maxw=1200, sc=Math.min(1,maxw/im.naturalWidth);
+        cv.width=Math.round(im.naturalWidth*sc); cv.height=Math.round(im.naturalHeight*sc);
+        img=im; cv.style.display="block"; pts=[]; draw(); out("");
+        step("Tap the two ends of your reference object.");
+        URL.revokeObjectURL(url);
+      };
+      im.src=url;
+    };
+  }
+  if(sel) sel.onchange=function(){ var w=document.getElementById("measCustomWrap"); if(w) w.style.display=(REFS[this.value|0].mm?"none":"block"); if(pts.length===4) compute(); };
+  var rb=document.getElementById("measReset"); if(rb) rb.onclick=reset;
+  var cl=document.getElementById("measClose"); if(cl) cl.onclick=function(){ modal.classList.remove("show"); document.body.style.overflow=""; };
+  window.CL_openMeasure=function(){
+    if(!modal) return;
+    var s=window.CL_SHEET||{}, e=document.getElementById("measSpecies");
+    if(e) e.innerHTML=s.nm?('<b>'+esc2(s.nm)+'</b> \u2014 legal minimum '+(s.min?s.min+" cm":"not set")+(s.max?', maximum '+s.max+" cm":"")+'. Measured as '+esc2(s.measure||"total length")+'.'):"";
+    pts=[]; img=null; if(cv) cv.style.display="none"; out(""); step("Choose your reference object, then add a photo.");
+    var b=document.getElementById("measReset"); if(b) b.style.display="none";
+    modal.classList.add("show"); document.body.style.overflow="hidden";
+  };
 })();
 </script>
 </body>
