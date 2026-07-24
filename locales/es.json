@@ -67,5 +67,19 @@
  "share.namePh": "Un pescador",
  "share.notesPh": "p. ej. con marea saliente, señuelo dorado",
  "admin.invitePh": "nombre@ejemplo.com",
- "meas.customPh": "p. ej. 100"
+ "meas.customPh": "p. ej. 100",
+ "support.link": "🤝 Ayuda a construir Catch Local",
+ "support.title": "Ayuda a construir Catch Local",
+ "support.intro": "Catch Local es gratuita. Lo más difícil es mantener al día las normas de 53 regiones: cuando un regulador cambia una talla o un cupo, alguien tiene que detectarlo.",
+ "support.waysTitle": "Formas de ayudar — sin dinero",
+ "support.wayRules": "¿Has visto una norma desactualizada o incorrecta? Cuéntanoslo: es lo más valioso que puedes hacer.",
+ "support.wayPhotos": "Añade una foto de una especie que hayas pescado. Abre cualquier especie y elige «Añadir una foto de esta especie».",
+ "support.wayTranslate": "¿Hablas otro idioma? Ayúdanos a revisar o mejorar una traducción.",
+ "support.reportBtn": "Informar de una norma o enviar una sugerencia",
+ "support.moneyTitle": "Colabora",
+ "support.moneyIntro": "Las aportaciones cubren el alojamiento, la fototeca de especies y el trabajo de revisar las normas cuando los reguladores las actualizan.",
+ "support.notDeductible": "Catch Local está hecha por FM8 Pty Ltd, una empresa, así que esto es apoyo, no una donación benéfica, y no es deducible de impuestos. No se desbloquea ni se retiene nada: la aplicación es igual para todos.",
+ "support.soon": "Estamos configurando los métodos de pago; mientras tanto, informar de una norma desactualizada ayuda más de lo que crees.",
+ "support.oneoff": "Aportar una vez",
+ "support.monthly": "Aportar cada mes"
 }

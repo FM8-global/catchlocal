@@ -67,5 +67,19 @@
  "share.namePh": "An angler",
  "share.notesPh": "e.g. on the run-out tide, gold lure",
  "admin.invitePh": "name@example.com",
- "meas.customPh": "e.g. 100"
+ "meas.customPh": "e.g. 100",
+ "support.link": "🤝 Help build Catch Local",
+ "support.title": "Help build Catch Local",
+ "support.intro": "Catch Local is free. Its hardest job is keeping the rules current across 53 regions — when a regulator changes a size or bag limit, someone has to catch it.",
+ "support.waysTitle": "Ways to help — no money needed",
+ "support.wayRules": "Spotted a rule that looks out of date or wrong? Tell us — this is the single most valuable thing you can do.",
+ "support.wayPhotos": "Add a photo of a species you've caught. Open any species and choose “Add a photo of this species”.",
+ "support.wayTranslate": "Speak another language? Help check or improve a translation.",
+ "support.reportBtn": "Report a rule or send a suggestion",
+ "support.moneyTitle": "Chip in",
+ "support.moneyIntro": "Contributions cover hosting, the species photo library, and the work of re-checking rules when regulators update them.",
+ "support.notDeductible": "Catch Local is made by FM8 Pty Ltd, a company — so this is support, not a charitable donation, and it is not tax deductible. Nothing is unlocked or withheld either way: the app is the same for everyone.",
+ "support.soon": "Payment options are being set up — in the meantime, reporting an out-of-date rule helps more than you'd think.",
+ "support.oneoff": "Give once",
+ "support.monthly": "Give monthly"
 }

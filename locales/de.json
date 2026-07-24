@@ -67,5 +67,19 @@
  "share.namePh": "Ein Angler",
  "share.notesPh": "z. B. bei ablaufendem Wasser, goldener Köder",
  "admin.invitePh": "name@beispiel.com",
- "meas.customPh": "z. B. 100"
+ "meas.customPh": "z. B. 100",
+ "support.link": "🤝 Hilf mit, Catch Local aufzubauen",
+ "support.title": "Hilf mit, Catch Local aufzubauen",
+ "support.intro": "Catch Local ist kostenlos. Das Schwierigste ist, die Vorschriften in 53 Regionen aktuell zu halten — wenn eine Behörde ein Mindestmaß oder ein Fanglimit ändert, muss das jemand bemerken.",
+ "support.waysTitle": "So kannst du helfen — ohne Geld",
+ "support.wayRules": "Eine veraltete oder falsche Regel entdeckt? Sag uns Bescheid — das ist das Wertvollste, was du tun kannst.",
+ "support.wayPhotos": "Füge ein Foto einer Art hinzu, die du gefangen hast. Öffne eine Art und wähle „Foto dieser Art hinzufügen“.",
+ "support.wayTranslate": "Sprichst du eine weitere Sprache? Hilf mit, eine Übersetzung zu prüfen oder zu verbessern.",
+ "support.reportBtn": "Regel melden oder Vorschlag senden",
+ "support.moneyTitle": "Unterstützen",
+ "support.moneyIntro": "Beiträge decken Hosting, die Artenfotobibliothek und die Arbeit, Regeln nach Änderungen durch die Behörden erneut zu prüfen.",
+ "support.notDeductible": "Catch Local wird von FM8 Pty Ltd hergestellt, einem Unternehmen — dies ist also Unterstützung und keine gemeinnützige Spende, und sie ist nicht steuerlich absetzbar. Es wird nichts freigeschaltet oder vorenthalten: Die App ist für alle gleich.",
+ "support.soon": "Die Zahlungsmöglichkeiten werden gerade eingerichtet — bis dahin hilft das Melden einer veralteten Regel mehr, als du denkst.",
+ "support.oneoff": "Einmalig geben",
+ "support.monthly": "Monatlich geben"
 }

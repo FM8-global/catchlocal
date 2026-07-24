@@ -67,5 +67,19 @@
  "share.namePh": "낚시인",
  "share.notesPh": "예: 날물에, 골드 루어",
  "admin.invitePh": "name@example.com",
- "meas.customPh": "예: 100"
+ "meas.customPh": "예: 100",
+ "support.link": "🤝 Catch Local 만들기에 참여",
+ "support.title": "Catch Local 만들기에 참여",
+ "support.intro": "Catch Local은 무료입니다. 가장 어려운 일은 53개 지역의 규정을 최신으로 유지하는 것입니다 — 규제 기관이 체장이나 마릿수 제한을 바꾸면 누군가는 알아채야 합니다.",
+ "support.waysTitle": "돈 없이도 도울 수 있는 방법",
+ "support.wayRules": "오래되었거나 잘못된 규정을 발견하셨나요? 알려주세요 — 가장 가치 있는 도움입니다.",
+ "support.wayPhotos": "잡으신 어종의 사진을 추가해 주세요. 어종을 열고 “이 어종의 사진 추가”를 선택하시면 됩니다.",
+ "support.wayTranslate": "다른 언어를 하시나요? 번역 검토나 개선을 도와주세요.",
+ "support.reportBtn": "규정 신고 또는 제안 보내기",
+ "support.moneyTitle": "후원하기",
+ "support.moneyIntro": "후원금은 호스팅, 어종 사진 자료실, 규제 기관이 규정을 바꿀 때 이를 다시 확인하는 작업에 쓰입니다.",
+ "support.notDeductible": "Catch Local은 회사인 FM8 Pty Ltd가 만듭니다 — 따라서 이것은 후원이며 자선 기부가 아니고 세금 공제 대상도 아닙니다. 후원 여부와 관계없이 잠기거나 제한되는 기능은 없으며, 앱은 모두에게 동일합니다.",
+ "support.soon": "결제 수단을 준비 중입니다 — 그동안 오래된 규정을 알려주시는 것이 생각보다 큰 도움이 됩니다.",
+ "support.oneoff": "한 번 후원",
+ "support.monthly": "매달 후원"
 }

@@ -67,5 +67,19 @@
  "share.namePh": "一位钓友",
  "share.notesPh": "例如 退潮时，金色拟饵",
  "admin.invitePh": "name@example.com",
- "meas.customPh": "例如 100"
+ "meas.customPh": "例如 100",
+ "support.link": "🤝 帮助共建 Catch Local",
+ "support.title": "帮助共建 Catch Local",
+ "support.intro": "Catch Local 是免费的。最难的是让 53 个区域的规定保持最新——当监管机构调整尺寸或捕获限额时，必须有人发现。",
+ "support.waysTitle": "无需花钱也能帮忙",
+ "support.wayRules": "发现规定过时或有误？请告诉我们——这是您能做的最有价值的事。",
+ "support.wayPhotos": "上传您捕获鱼种的照片。打开任一鱼种，选择“添加该鱼种的照片”。",
+ "support.wayTranslate": "会其他语言？欢迎帮忙校对或改进翻译。",
+ "support.reportBtn": "报告规定问题或提交建议",
+ "support.moneyTitle": "出一份力",
+ "support.moneyIntro": "捐助用于服务器托管、鱼种图库，以及在监管机构更新规定后重新核查的工作。",
+ "support.notDeductible": "Catch Local 由公司 FM8 Pty Ltd 开发——因此这是支持，而非慈善捐赠，不可抵税。无论是否支持，都不会解锁或限制任何功能：应用对所有人完全相同。",
+ "support.soon": "支付方式正在设置中——在此期间，报告一条过时的规定比您想象的更有帮助。",
+ "support.oneoff": "单次支持",
+ "support.monthly": "按月支持"
 }

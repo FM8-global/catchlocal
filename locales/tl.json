@@ -67,5 +67,19 @@
  "share.namePh": "Isang mangingisda",
  "share.notesPh": "hal. sa kati, gintong pain",
  "admin.invitePh": "pangalan@halimbawa.com",
- "meas.customPh": "hal. 100"
+ "meas.customPh": "hal. 100",
+ "support.link": "🤝 Tumulong sa pagbuo ng Catch Local",
+ "support.title": "Tumulong sa pagbuo ng Catch Local",
+ "support.intro": "Libre ang Catch Local. Ang pinakamahirap ay panatilihing napapanahon ang mga patakaran sa 53 rehiyon — kapag binago ng regulator ang sukat o limitasyon, may kailangang makapansin.",
+ "support.waysTitle": "Mga paraan para tumulong — walang gastos",
+ "support.wayRules": "May napansing lumang o maling patakaran? Sabihin sa amin — ito ang pinakamahalagang maitutulong mo.",
+ "support.wayPhotos": "Magdagdag ng larawan ng species na nahuli mo. Buksan ang alinmang species at piliin ang “Add a photo of this species”.",
+ "support.wayTranslate": "Marunong ka ba ng ibang wika? Tumulong suriin o pagbutihin ang isang pagsasalin.",
+ "support.reportBtn": "Mag-ulat ng patakaran o magpadala ng mungkahi",
+ "support.moneyTitle": "Mag-ambag",
+ "support.moneyIntro": "Ang mga ambag ay para sa hosting, sa aklatan ng larawan ng species, at sa pagsusuri muli ng mga patakaran kapag inupdate ng mga regulator.",
+ "support.notDeductible": "Ang Catch Local ay gawa ng FM8 Pty Ltd, isang kompanya — kaya suporta ito, hindi donasyong pangkawanggawa, at hindi ito tax deductible. Walang binubuksan o pinipigil: pareho ang app para sa lahat.",
+ "support.soon": "Inaayos pa ang mga paraan ng pagbabayad — samantala, ang pag-uulat ng lumang patakaran ay mas nakakatulong kaysa sa inaakala mo.",
+ "support.oneoff": "Mag-ambag nang minsan",
+ "support.monthly": "Mag-ambag buwan-buwan"
 }

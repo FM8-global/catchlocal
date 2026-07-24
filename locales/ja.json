@@ -67,5 +67,19 @@
  "share.namePh": "釣り人",
  "share.notesPh": "例：下げ潮、ゴールドのルアー",
  "admin.invitePh": "name@example.com",
- "meas.customPh": "例：100"
+ "meas.customPh": "例：100",
+ "support.link": "🤝 Catch Local づくりを手伝う",
+ "support.title": "Catch Local づくりを手伝う",
+ "support.intro": "Catch Local は無料です。最も大変なのは 53 地域のルールを最新に保つことです。規制当局が体長制限や尾数制限を変更したら、誰かが気づかなければなりません。",
+ "support.waysTitle": "お金をかけずにできる協力",
+ "support.wayRules": "古い、または誤ったルールを見つけましたか？ぜひお知らせください。最も価値のある協力です。",
+ "support.wayPhotos": "釣った魚種の写真を追加してください。魚種を開き「この魚種の写真を追加」を選びます。",
+ "support.wayTranslate": "他の言語がお使いになれますか？翻訳の確認や改善にご協力ください。",
+ "support.reportBtn": "ルールの報告・ご提案を送る",
+ "support.moneyTitle": "支援する",
+ "support.moneyIntro": "ご支援はサーバー費用、魚種写真ライブラリ、規制変更時のルール再確認作業に充てられます。",
+ "support.notDeductible": "Catch Local は株式会社 FM8 Pty Ltd が制作しています。したがってこれは支援であり慈善寄付ではなく、税控除の対象にもなりません。支援の有無で機能が解放・制限されることはなく、アプリは全員同じです。",
+ "support.soon": "決済手段を準備中です。それまでの間、古いルールをご報告いただくことが想像以上の助けになります。",
+ "support.oneoff": "1回支援する",
+ "support.monthly": "毎月支援する"
 }

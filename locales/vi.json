@@ -67,5 +67,19 @@
  "share.namePh": "Một cần thủ",
  "share.notesPh": "vd. lúc nước ròng, mồi giả vàng",
  "admin.invitePh": "ten@vidu.com",
- "meas.customPh": "vd. 100"
+ "meas.customPh": "vd. 100",
+ "support.link": "🤝 Cùng xây dựng Catch Local",
+ "support.title": "Cùng xây dựng Catch Local",
+ "support.intro": "Catch Local miễn phí. Việc khó nhất là cập nhật quy định của 53 khu vực — khi cơ quan quản lý thay đổi kích thước hay hạn ngạch, phải có người phát hiện ra.",
+ "support.waysTitle": "Cách giúp đỡ — không cần tiền",
+ "support.wayRules": "Phát hiện quy định lỗi thời hoặc sai? Hãy báo cho chúng tôi — đây là điều giá trị nhất bạn có thể làm.",
+ "support.wayPhotos": "Thêm ảnh một loài bạn đã bắt được. Mở một loài bất kỳ và chọn “Thêm ảnh loài này”.",
+ "support.wayTranslate": "Bạn biết ngôn ngữ khác? Hãy giúp kiểm tra hoặc cải thiện bản dịch.",
+ "support.reportBtn": "Báo quy định hoặc gửi góp ý",
+ "support.moneyTitle": "Đóng góp",
+ "support.moneyIntro": "Đóng góp giúp chi trả lưu trữ, thư viện ảnh loài và công việc rà soát quy định khi cơ quan quản lý cập nhật.",
+ "support.notDeductible": "Catch Local do FM8 Pty Ltd, một công ty, phát triển — vì vậy đây là sự ủng hộ, không phải quyên góp từ thiện, và không được khấu trừ thuế. Không có gì được mở khóa hay giữ lại: ứng dụng giống nhau với mọi người.",
+ "support.soon": "Các phương thức thanh toán đang được thiết lập — trong lúc đó, báo một quy định lỗi thời giúp ích hơn bạn nghĩ.",
+ "support.oneoff": "Ủng hộ một lần",
+ "support.monthly": "Ủng hộ hằng tháng"
 }
