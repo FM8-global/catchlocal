@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Updating Catch Local…</title>
+<style>
+  html,body{margin:0;height:100%}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#0a1b29;color:#eaf3f8;
+       display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
+  .card{max-width:440px}
+  .spin{width:44px;height:44px;border:4px solid rgba(255,255,255,.25);border-top-color:#4cc9f0;border-radius:50%;
+        margin:0 auto 18px;animation:s 1s linear infinite}
+  @keyframes s{to{transform:rotate(360deg)}}
+  h1{font-size:20px;margin:0 0 10px;font-weight:700}
+  p{color:#9fb4c0;line-height:1.5;font-size:15px;margin:0}
+  .ok .spin{border-top-color:#54d18c;animation:none;border-color:#54d18c}
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="spin" id="spin"></div>
+    <h1 id="msg">Updating Catch Local…</h1>
+    <p id="sub">Clearing the old saved copy and loading the latest version. This only takes a few seconds — please don't close this page.</p>
+  </div>
+<script>
+(async function(){
+  try{
+    if('serviceWorker' in navigator){
+      var regs = await navigator.serviceWorker.getRegistrations();
+      for (var i=0;i<regs.length;i++){ try{ await regs[i].unregister(); }catch(e){} }
+    }
+  }catch(e){}
+  try{
+    if(window.caches){
+      var keys = await caches.keys();
+      for (var j=0;j<keys.length;j++){ try{ await caches.delete(keys[j]); }catch(e){} }
+    }
+  }catch(e){}
+  try{ document.getElementById('card').className='card ok'; }catch(e){}
+  document.getElementById('msg').textContent='Updated ✓';
+  document.getElementById('sub').textContent='Opening the latest version…';
+  setTimeout(function(){ location.replace('./index.html?u=' + Date.now()); }, 1300);
+})();
+</script>
+</body>
+</html>
