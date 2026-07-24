@@ -1,4 +1,4 @@
-const CACHE = "catchlocal-v32";
+const CACHE = "catchlocal-v33";
 const ASSETS = ["./","./index.html","./manifest.webmanifest",
   "./icon-192.png","./icon-512.png","./icon-maskable-512.png","./apple-touch-icon.png","./locales/en.json","./locales/fr.json","./locales/es.json","./locales/pt.json","./locales/it.json","./locales/de.json","./locales/vi.json","./locales/zh.json","./locales/ja.json","./locales/ko.json","./locales/th.json","./locales/tl.json"];
 self.addEventListener("install", e => {
