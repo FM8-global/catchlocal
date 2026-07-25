@@ -796,8 +796,8 @@ async function CL_getModel(){
   window.CL_modelP=(async function(){
     if(typeof tf==="undefined") await CL_loadScript("https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js");
     if(typeof nsfwjs==="undefined") await CL_loadScript("https://cdn.jsdelivr.net/npm/nsfwjs@2.4.2/dist/nsfwjs.min.js");
-    try{ return await nsfwjs.load("https://cdn.jsdelivr.net/gh/infinitered/nsfwjs@master/example/nsfw_demo/public/model/", {size:299}); }
-    catch(e){ return await nsfwjs.load(); }
+    try{ return await nsfwjs.load("https://cdn.jsdelivr.net/gh/infinitered/nsfwjs@master/models/mobilenet_v2/", {size:224}); }
+    catch(e){ return await nsfwjs.load("https://cdn.jsdelivr.net/gh/infinitered/nsfwjs@master/models/inception_v3/", {size:299}); }
   })();
   return window.CL_modelP;
 }
