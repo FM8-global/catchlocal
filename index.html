@@ -789,6 +789,30 @@ function careHtml(hd, ck){
   }
   return out;
 }
+window.CL_modelP=null;
+function CL_loadScript(src){ return new Promise(function(res,rej){ var el=document.createElement("script"); el.src=src; el.onload=res; el.onerror=rej; document.head.appendChild(el); }); }
+async function CL_getModel(){
+  if(window.CL_modelP) return window.CL_modelP;
+  window.CL_modelP=(async function(){
+    if(typeof tf==="undefined") await CL_loadScript("https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js");
+    if(typeof nsfwjs==="undefined") await CL_loadScript("https://cdn.jsdelivr.net/npm/nsfwjs@2.4.2/dist/nsfwjs.min.js");
+    try{ return await nsfwjs.load("https://cdn.jsdelivr.net/gh/infinitered/nsfwjs@master/example/nsfw_demo/public/model/", {size:299}); }
+    catch(e){ return await nsfwjs.load(); }
+  })();
+  return window.CL_modelP;
+}
+window.CL_screenImage=async function(file){
+  try{
+    var model=await Promise.race([ CL_getModel(), new Promise(function(_,r){ setTimeout(function(){r(new Error("timeout"));},15000); }) ]);
+    var url=URL.createObjectURL(file); var im=new Image(); im.src=url;
+    await (im.decode?im.decode():new Promise(function(res){ im.onload=res; }));
+    var preds=await model.classify(im); URL.revokeObjectURL(url);
+    var sc={}; preds.forEach(function(pp){ sc[pp.className]=Math.round(pp.probability*1000)/1000; });
+    var porn=(sc.Porn||0), hentai=(sc.Hentai||0), sexy=(sc.Sexy||0);
+    var block=(porn+hentai)>=0.6 || sexy>=0.85 || porn>=0.55;
+    return { block:block, scores:sc, reason: block?("porn="+porn+" hentai="+hentai+" sexy="+sexy):"", screened:true };
+  }catch(e){ return { block:false, screened:false, reason:"screen-unavailable" }; }
+};
 async function submitSpeciesPhoto(file){
   var s=window.CL_SHEET; var msg=document.getElementById("spPhotoMsg");
   function say(t){ if(msg) msg.textContent=t; }
@@ -799,6 +823,13 @@ async function submitSpeciesPhoto(file){
     if(!sess){ say("Please sign in first."); return; }
     var email=(sess.user&&sess.user.email)||"";
     if(file.size>8*1024*1024){ say("That image is too large (max 8 MB)."); return; }
+    say("Checking image…");
+    var verdict=await window.CL_screenImage(file);
+    if(verdict.block){
+      try{ await sbData.from("cl_flagged_uploads").insert([{user_email:email, species_id:s.sid||null, species_name:s.nm, reason:verdict.reason, scores:verdict.scores}]); }catch(e){}
+      say("⚠️ This image was flagged as inappropriate and has been isolated — it was not uploaded. Catch Local is for photos of fish. This attempt has been recorded; repeated misuse may result in your access being removed.");
+      return;
+    }
     say("Uploading\u2026");
     var ext=((file.name||"").split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
     var path="species/"+(s.sid||0)+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,8)+"."+ext;
