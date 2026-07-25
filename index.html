@@ -801,9 +801,10 @@ async function CL_getModel(){
   })();
   return window.CL_modelP;
 }
-window.CL_screenImage=async function(file){
-  try{
-    var model=await Promise.race([ CL_getModel(), new Promise(function(_,r){ setTimeout(function(){r(new Error("timeout"));},15000); }) ]);
+window.CL_screenImage=function(file){
+  function withTimeout(pr,ms){ return Promise.race([ pr, new Promise(function(_,r){ setTimeout(function(){ r(new Error("timeout")); }, ms); }) ]); }
+  var work=(async function(){
+    var model=await CL_getModel();
     var url=URL.createObjectURL(file); var im=new Image(); im.src=url;
     await (im.decode?im.decode():new Promise(function(res){ im.onload=res; }));
     var preds=await model.classify(im); URL.revokeObjectURL(url);
@@ -811,7 +812,8 @@ window.CL_screenImage=async function(file){
     var porn=(sc.Porn||0), hentai=(sc.Hentai||0), sexy=(sc.Sexy||0);
     var block=(porn+hentai)>=0.6 || sexy>=0.85 || porn>=0.55;
     return { block:block, scores:sc, reason: block?("porn="+porn+" hentai="+hentai+" sexy="+sexy):"", screened:true };
-  }catch(e){ return { block:false, screened:false, reason:"screen-unavailable" }; }
+  })();
+  return withTimeout(work, 12000).catch(function(){ return { block:false, screened:false, reason:"screen-unavailable" }; });
 };
 async function submitSpeciesPhoto(file){
   var s=window.CL_SHEET; var msg=document.getElementById("spPhotoMsg");
