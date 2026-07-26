@@ -462,7 +462,7 @@
   </div>
 </div>
 
-<footer><button id="supportOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="support.link">🤝 Help build Catch Local</button> &nbsp;·&nbsp; <button id="suggOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="sugg.link">💡 Suggest an improvement or report a problem</button><br>CATCH LOCAL · An FM8 Pty Ltd application · Multi-jurisdiction recreational dataset · Not affiliated with any State regulator · CONFIDENTIAL — FM8 PTY LTD · <span id="buildStamp" style="opacity:.75">Build 36</span></footer>
+<footer><button id="supportOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="support.link">🤝 Help build Catch Local</button> &nbsp;·&nbsp; <button id="suggOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="sugg.link">💡 Suggest an improvement or report a problem</button><br>CATCH LOCAL · An FM8 Pty Ltd application · Multi-jurisdiction recreational dataset · Not affiliated with any State regulator · CONFIDENTIAL — FM8 PTY LTD · <span id="buildStamp" style="opacity:.75">Build v36</span></footer>
 
 <script>
 /* ===== Catch Local — Supabase-backed, multi-jurisdiction data layer ===== */
@@ -1623,6 +1623,20 @@ if(sbData){
   var sg=document.getElementById("supportSuggest");
   if(sg) sg.onclick=function(){ close(); var l=document.getElementById("suggOpen")||document.querySelector('[data-i18n="sugg.link"]'); if(l&&l.click) l.click(); };
   window.CL_renderSupport=render;
+})();
+</script>
+<script>
+(function(){
+  var el=document.getElementById("buildStamp"); if(!el) return;
+  fetch("./sw.js",{cache:"no-store"}).then(function(r){
+    var lm=r.headers.get("last-modified");
+    return r.text().then(function(t){
+      var v=(t.match(/catchlocal-v(\d+)/)||[])[1];
+      var d="";
+      if(lm){ try{ d=new Date(lm).toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"}); }catch(e){} }
+      el.textContent="Build v"+(v||"?")+(d?" \u00B7 updated "+d:"");
+    });
+  }).catch(function(){});
 })();
 </script>
 </body>
