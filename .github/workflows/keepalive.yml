@@ -1,0 +1,41 @@
+name: Supabase keep-alive (watchdog)
+
+# Prevents the CatchLocal database from being auto-paused on Supabase's free
+# tier. Free-tier projects pause after 7 days with no activity; this pings the
+# live database every 2 days so the inactivity clock never runs down.
+#
+# Target: FM8 Project (xjjpgdhcavmewelzmvbs) — the project the live app uses.
+# The ping calls public.cl_keepalive(), a tiny SECURITY DEFINER function that
+# just returns now(). The anon key below is the same publishable key already
+# shipped in the public app, so it is safe to store here.
+
+on:
+  schedule:
+    - cron: '23 5 */2 * *'   # every 2 days at 05:23 UTC (well inside the 7-day window)
+  workflow_dispatch: {}       # lets you run it manually from the Actions tab
+
+concurrency:
+  group: supabase-keepalive
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping CatchLocal database
+        env:
+          SUPA_URL: https://xjjpgdhcavmewelzmvbs.supabase.co
+          SUPA_ANON: sb_publishable_jFybpsD7SVOZ2x5dg7kF5A_PhRWuD3v
+        run: |
+          set -euo pipefail
+          code=$(curl -s -o /tmp/out.txt -w "%{http_code}" -X POST \
+            "$SUPA_URL/rest/v1/rpc/cl_keepalive" \
+            -H "apikey: $SUPA_ANON" \
+            -H "Authorization: Bearer $SUPA_ANON" \
+            -H "Content-Type: application/json" -d '{}')
+          echo "HTTP $code — $(cat /tmp/out.txt)"
+          if [ "$code" != "200" ]; then
+            echo "::error::Keep-alive ping failed (HTTP $code)"
+            exit 1
+          fi
+          echo "Keep-alive OK — database is awake."
