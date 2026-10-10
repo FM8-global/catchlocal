@@ -473,7 +473,7 @@
   </div>
 </div>
 
-<footer><button id="supportOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="support.link">🤝 Help build Catch Local</button> &nbsp;·&nbsp; <button id="suggOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="sugg.link">💡 Suggest an improvement or report a problem</button><br>CATCH LOCAL · An FM8 Pty Ltd application · Multi-jurisdiction recreational dataset · Not affiliated with any State regulator · CONFIDENTIAL — FM8 PTY LTD · <span id="buildStamp" style="opacity:.75">Build v39</span></footer>
+<footer><button id="supportOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="support.link">🤝 Help build Catch Local</button> &nbsp;·&nbsp; <button id="suggOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="sugg.link">💡 Suggest an improvement or report a problem</button><br>CATCH LOCAL · An FM8 Pty Ltd application · Multi-jurisdiction recreational dataset · Not affiliated with any State regulator · CONFIDENTIAL — FM8 PTY LTD · <span id="buildStamp" style="opacity:.75">Build v41</span></footer>
 
 <script>
 /* ===== Catch Local — Supabase-backed, multi-jurisdiction data layer ===== */
@@ -486,9 +486,9 @@ const sel={shape:null,colour:null,habitat:null,feature:new Set()};
 const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 function curMonth(){return new Date().getMonth()+1;}
 function inSeason(sp){const m=SEASON[sp.sci];return m?m.indexOf(curMonth())>=0:false;}
-function seasonText(sp){const m=SEASON[sp.sci];if(!m||!m.length)return"Year-round";
-  return m.slice().sort((a,b)=>a-b).map(x=>MONTHS[x-1]).join(", ");}
-window.CL_EN={"auth.sub": "Enter your email and we'll send you a secure sign-in code — no password needed.", "auth.emailPlaceholder": "you@example.com", "auth.send": "Email me a sign-in code", "auth.codePlaceholder": "Enter the code from your email", "auth.verify": "Verify code & sign in", "auth.tip": "Tip: you can also just tap the link in the same email. Entering the code here keeps you signed in inside the installed app.", "auth.newHere": "New here? Enter your email to request access — an administrator approves new users before their first sign-in. By continuing you accept that this is a guide only and you are responsible for obeying local fishing laws.", "tabs.near": "Near Me", "tabs.identify": "Identify", "tabs.search": "Search", "tabs.catches": "Catches", "tabs.admin": "Admin", "region.title": "Your region", "region.desc": "Catch Local shows the legal catch rules for your region. We detect your region automatically, or choose it below.", "region.find": "Find my region", "units.metric": "Metric (cm)", "units.imperial": "Imperial (in)", "lang.label": "Language", "app.tagline": "An FM8 Pty Ltd application · Local seafood &amp; recreational catch rules", "app.locating": "📍 Locating…", "mode.rec": "🎣 Recreational", "mode.cust": "🪶 Customary", "near.signin": "Sign in to load species…", "id.title": "📷 Identify your catch", "id.tap": "Tap to add a photo", "id.camgal": "camera or gallery", "id.ai": "🤖 Identify from photo (AI)", "id.shape": "Body shape", "id.colour": "Main colour", "id.where": "Where did you catch it?", "id.features": "Standout features (optional, pick any)", "id.run": "🔍 Identify most likely species", "search.title": "🔎 Look up a species", "search.desc": "Search by name to read the current catch rules.", "catches.title": "🐟 Community catches", "catches.loading": "Loading catches…", "catches.share": "＋ Share your catch", "share.title": "Share your catch", "share.sub": "Region only by default — your exact spot is never shared unless you add it to a private link.", "share.name": "Show your name as (optional)", "share.notes": "Notes (optional)", "share.post": "📣 Post to community feed (region only)", "share.gps": "Include my exact GPS spot in the private link", "share.link": "🔗 Create a private one-to-one link", "share.viewsub": "A catch shared with you via Catch Local", "sugg.link": "💡 Suggest an improvement or report a problem", "sugg.title": "Suggest an improvement", "sugg.desc": "Spotted a wrong rule, a missing species, or have an idea? Tell us.", "sugg.about": "What's this about?", "sugg.body": "Your suggestion", "sugg.send": "Send suggestion", "admin.title": "🛡️ Admin — user management", "admin.invite": "Invite a new user (pre-approved)", "admin.addcopy": "Add &amp; copy invite", "admin.loadingUsers": "Loading users…", "admin.suggTitle": "💡 Suggestions from users", "admin.loadingSugg": "Loading suggestions…", "admin.photoTitle": "📷 Species photo submissions", "admin.loadingPhotos": "Loading photo submissions…", "meas.title": "Measure from a photo", "meas.sub": "An estimate to help you spot a borderline fish — always confirm with a real measure before keeping it.", "meas.ref": "Reference object (something of known size in the photo)", "meas.add": "📷 Add photo of the fish + reference", "meas.reset": "↺ Start over", "share.lenPh": "e.g. 45", "share.namePh": "An angler", "share.notesPh": "e.g. on the run-out tide, gold lure", "admin.invitePh": "name@example.com", "meas.customPh": "e.g. 100", "support.link": "🤝 Help build Catch Local", "support.title": "Help build Catch Local", "support.intro": "Catch Local is free. Its hardest job is keeping the rules current across 60+ regions — when a regulator changes a size or bag limit, someone has to catch it.", "support.waysTitle": "Ways to help — no money needed", "support.wayRules": "Spotted a rule that looks out of date or wrong? Tell us — this is the single most valuable thing you can do.", "support.wayPhotos": "Add a photo of a species you've caught. Open any species and choose “Add a photo of this species”.", "support.wayTranslate": "Speak another language? Help check or improve a translation.", "support.reportBtn": "Report a rule or send a suggestion", "support.moneyTitle": "Chip in", "support.moneyIntro": "Contributions cover hosting, the species photo library, and the work of re-checking rules when regulators update them.", "support.notDeductible": "Catch Local is made by FM8 Pty Ltd, a company — so this is support, not a charitable donation, and it is not tax deductible. Nothing is unlocked or withheld either way: the app is the same for everyone.", "support.soon": "Payment options are being set up — in the meantime, reporting an out-of-date rule helps more than you'd think.", "support.oneoff": "Give once", "support.monthly": "Give monthly"};
+function seasonText(sp){const m=SEASON[sp.sci];if(!m||!m.length)return window.t("sheet.yearRound");
+  return m.slice().sort((a,b)=>a-b).map(x=>{try{return new Date(2000,x-1,1).toLocaleString(window.CL_LANG||"en",{month:"short"});}catch(e){return MONTHS[x-1];}}).join(", ");}
+window.CL_EN={"auth.sub": "Enter your email and we'll send you a secure sign-in code — no password needed.", "auth.emailPlaceholder": "you@example.com", "auth.send": "Email me a sign-in code", "auth.codePlaceholder": "Enter the code from your email", "auth.verify": "Verify code & sign in", "auth.tip": "Tip: you can also just tap the link in the same email. Entering the code here keeps you signed in inside the installed app.", "auth.newHere": "New here? Enter your email to request access — an administrator approves new users before their first sign-in. By continuing you accept that this is a guide only and you are responsible for obeying local fishing laws.", "tabs.near": "Near Me", "tabs.identify": "Identify", "tabs.search": "Search", "tabs.catches": "Catches", "tabs.admin": "Admin", "region.title": "Your region", "region.desc": "Catch Local shows the legal catch rules for your region. We detect your region automatically, or choose it below.", "region.find": "Find my region", "units.metric": "Metric (cm)", "units.imperial": "Imperial (in)", "lang.label": "Language", "app.tagline": "An FM8 Pty Ltd application · Local seafood &amp; recreational catch rules", "app.locating": "📍 Locating…", "mode.rec": "🎣 Recreational", "mode.cust": "🪶 Customary", "near.signin": "Sign in to load species…", "id.title": "📷 Identify your catch", "id.tap": "Tap to add a photo", "id.camgal": "camera or gallery", "id.ai": "🤖 Identify from photo (AI)", "id.shape": "Body shape", "id.colour": "Main colour", "id.where": "Where did you catch it?", "id.features": "Standout features (optional, pick any)", "id.run": "🔍 Identify most likely species", "search.title": "🔎 Look up a species", "search.desc": "Search by name to read the current catch rules.", "catches.title": "🐟 Community catches", "catches.loading": "Loading catches…", "catches.share": "＋ Share your catch", "share.title": "Share your catch", "share.sub": "Region only by default — your exact spot is never shared unless you add it to a private link.", "share.name": "Show your name as (optional)", "share.notes": "Notes (optional)", "share.post": "📣 Post to community feed (region only)", "share.gps": "Include my exact GPS spot in the private link", "share.link": "🔗 Create a private one-to-one link", "share.viewsub": "A catch shared with you via Catch Local", "sugg.link": "💡 Suggest an improvement or report a problem", "sugg.title": "Suggest an improvement", "sugg.desc": "Spotted a wrong rule, a missing species, or have an idea? Tell us.", "sugg.about": "What's this about?", "sugg.body": "Your suggestion", "sugg.send": "Send suggestion", "admin.title": "🛡️ Admin — user management", "admin.invite": "Invite a new user (pre-approved)", "admin.addcopy": "Add &amp; copy invite", "admin.loadingUsers": "Loading users…", "admin.suggTitle": "💡 Suggestions from users", "admin.loadingSugg": "Loading suggestions…", "admin.photoTitle": "📷 Species photo submissions", "admin.loadingPhotos": "Loading photo submissions…", "meas.title": "Measure from a photo", "meas.sub": "An estimate to help you spot a borderline fish — always confirm with a real measure before keeping it.", "meas.ref": "Reference object (something of known size in the photo)", "meas.add": "📷 Add photo of the fish + reference", "meas.reset": "↺ Start over", "share.lenPh": "e.g. 45", "share.namePh": "An angler", "share.notesPh": "e.g. on the run-out tide, gold lure", "admin.invitePh": "name@example.com", "meas.customPh": "e.g. 100", "support.link": "🤝 Help build Catch Local", "support.title": "Help build Catch Local", "support.intro": "Catch Local is free. Its hardest job is keeping the rules current across 60+ regions — when a regulator changes a size or bag limit, someone has to catch it.", "support.waysTitle": "Ways to help — no money needed", "support.wayRules": "Spotted a rule that looks out of date or wrong? Tell us — this is the single most valuable thing you can do.", "support.wayPhotos": "Add a photo of a species you've caught. Open any species and choose “Add a photo of this species”.", "support.wayTranslate": "Speak another language? Help check or improve a translation.", "support.reportBtn": "Report a rule or send a suggestion", "support.moneyTitle": "Chip in", "support.moneyIntro": "Contributions cover hosting, the species photo library, and the work of re-checking rules when regulators update them.", "support.notDeductible": "Catch Local is made by FM8 Pty Ltd, a company — so this is support, not a charitable donation, and it is not tax deductible. Nothing is unlocked or withheld either way: the app is the same for everyone.", "support.soon": "Payment options are being set up — in the meantime, reporting an out-of-date rule helps more than you'd think.", "support.oneoff": "Give once", "support.monthly": "Give monthly", "sheet.size": "Size limit", "sheet.bag": "Possession / bag limit", "sheet.boat": "Boat limit", "sheet.sex": "Sex restriction", "sheet.closed": "Closed season / waters", "sheet.notes": "Field notes", "sheet.season": "Best season", "sheet.inSeason": " — in season now", "sheet.yearRound": "Year-round", "sheet.noSize": "No legal size limit", "sheet.min": "Min", "sheet.max": "Max", "sheet.totalLength": "total length", "sheet.guide": "<b>A guide only.</b> Identification is an educated estimate. Confirm the species, measure carefully, and verify the current rules before keeping anything.", "sheet.howTo": "How to catch it", "sheet.howToFull": "How to catch it — bait, lures, tackle & technique", "ang.bait": "Bait", "ang.lures": "Lures", "ang.tackle": "Tackle / line", "ang.rig": "Rig", "ang.technique": "Technique", "ang.where": "Where to find", "ang.timing": "Best timing", "care.title": "Looking after your catch", "care.bleed": "Bleed", "care.chill": "Chill", "care.gut": "Gut", "care.tips": "Tips", "care.release": "Release", "cook.title": "In the kitchen", "cook.methods": "Best methods", "cook.dishes": "Dishes to try", "near.loading": "Loading species…", "near.loadFail": "Couldn't load species — connect to the internet once to download this region.", "near.showing": "Showing <b>{{r}}</b> rules · source verified {{d}}. Saved on this device for offline use.", "near.official": "Official rules ↗", "near.count": "{{n}} species", "near.countSeason": "{{n}} species in season", "near.chip": "In season now", "near.none": "No species.", "near.noneSeason": "No species in season right now.", "badge.season": "In season", "badge.closed": "Closed season/waters", "badge.sex": "Sex rule", "id.pick": "Pick at least a body shape or colour so we can estimate.", "id.none": "No close match. Try different attributes.", "id.matches": "Most likely matches", "id.ranked": "Ranked by your description", "id.for": " for {{r}}", "id.guess": "<b>Educated guess only</b> — tap one to read its rules, then confirm the species yourself.", "id.match": "{{n}}% match", "sheet.tapEnlarge": "Tap to enlarge", "sheet.source": "Source", "sheet.officialLink": "official rules", "sheet.verified": "verified", "sheet.regulator": "the official regulator", "sheet.responsible": "You are responsible for complying with the current rules in your jurisdiction.", "sheet.measure": "Measure this fish from a photo", "sheet.addPhoto": "Add a photo of this species", "sheet.photoReview": "Photos are reviewed by an administrator before they appear.", "q.shape.elongated": "Long / slender", "q.shape.oval-deep": "Deep / oval", "q.shape.torpedo": "Torpedo pelagic", "q.shape.flat-bottom": "Flat-bodied", "q.shape.crab": "Crab", "q.shape.bug-lobster": "Bug / lobster", "q.shape.squid": "Squid", "q.shape.shrimp": "Prawn", "q.shape.shell": "Shellfish", "q.colour.silver": "Silver", "q.colour.pink-red": "Red / pink", "q.colour.green-olive": "Green / olive", "q.colour.dark": "Dark / black", "q.colour.blue": "Blue", "q.colour.yellow": "Yellow", "q.colour.gold": "Gold", "q.colour.spotted": "Spotted", "q.habitat.reef": "Reef", "q.habitat.estuary-mangrove": "Estuary / mangrove", "q.habitat.open-ocean": "Open ocean", "q.habitat.beach-surf": "Beach / surf", "q.habitat.sand-flats": "Sand flats / bay", "q.habitat.rocks-headland": "Rocks / headland", "q.habitat.freshwater-tidal": "Freshwater (river, lake, tidal)", "q.feature.spots": "Spots", "q.feature.stripes": "Stripes / bars", "q.feature.forked-tail": "Forked tail", "q.feature.large-mouth": "Large mouth", "q.feature.claws": "Claws", "q.feature.spiny-fins": "Spiny", "q.feature.tentacles": "Tentacles", "q.feature.long-snout": "Long snout"};
 window.CL_LANGS=["en", "fr", "es", "pt", "it", "de", "cs", "vi", "zh", "ja", "ko", "th", "tl"];
 window.CL_I18N={en:window.CL_EN};
 (function(){ window.CL_LANGS.forEach(function(L){ if(L==="en")return; try{ var c=localStorage.getItem("cl_i18n_"+L); if(c) window.CL_I18N[L]=JSON.parse(c); }catch(e){} }); })();
@@ -507,6 +507,7 @@ window.CL_setLang=function(l){
     window.CL_LANG=l; try{localStorage.setItem("cl_lang",l);}catch(e){}
     try{document.documentElement.setAttribute("lang",l);}catch(e){}
     window.CL_applyI18n();
+    try{ if(window.CL_relabelOpts) window.CL_relabelOpts(); }catch(e){}
     try{var sl=document.getElementById("langSel"); if(sl) sl.value=l;}catch(e){}
     try{
       if(window.CL_applySpeciesLang) window.CL_applySpeciesLang().then(function(){ try{renderNear();}catch(e){} try{renderSearch();}catch(e){} });
@@ -554,10 +555,11 @@ window.CL_setUnits=function(u){
     b.classList.toggle("active", b.dataset.unit===window.CL_UNIT);
     b.onclick=function(){ window.CL_setUnits(this.dataset.unit); };
   });})();
-function sizeText(sp){if(sp.min==null&&sp.max==null)return"No legal size limit";
-  if(sp.min!=null&&sp.max!=null)return"Min "+window.CL_fmtCm(sp.min)+" · Max "+window.CL_fmtCm(sp.max)+" ("+sp.measure+")";
-  if(sp.min!=null)return"Min "+window.CL_fmtCm(sp.min)+" ("+sp.measure+")";
-  return"Max "+window.CL_fmtCm(sp.max)+" ("+sp.measure+")";}
+function CL_measure(m){return (!m||m==="total length")?window.t("sheet.totalLength"):m;}
+function sizeText(sp){if(sp.min==null&&sp.max==null)return window.t("sheet.noSize");
+  if(sp.min!=null&&sp.max!=null)return window.t("sheet.min")+" "+window.CL_fmtCm(sp.min)+" · "+window.t("sheet.max")+" "+window.CL_fmtCm(sp.max)+" ("+CL_measure(sp.measure)+")";
+  if(sp.min!=null)return window.t("sheet.min")+" "+window.CL_fmtCm(sp.min)+" ("+CL_measure(sp.measure)+")";
+  return window.t("sheet.max")+" "+window.CL_fmtCm(sp.max)+" ("+CL_measure(sp.measure)+")";}
 function esc(x){return (x||"").replace(/"/g,'&quot;');}
 
 /* ---------- identify question options ---------- */
@@ -608,9 +610,9 @@ function buildFromRows(rows){
 
 async function applySpeciesLang(){
   var lang=window.CL_LANG||"en";
-  SPECIES.forEach(function(s){ if(!s._en) s._en={nm:s.nm,handling:s.handling,cooking:s.cooking,angling:s.angling,joke:s.joke}; });
+  SPECIES.forEach(function(s){ if(!s._en) s._en={nm:s.nm,handling:s.handling,cooking:s.cooking,angling:s.angling,joke:s.joke,limit:s.limit,closed:s.closed,notes:s.notes}; });
   if(lang==="en"){
-    SPECIES.forEach(function(s){ if(s._en){ s.nm=s._en.nm; s.handling=s._en.handling; s.cooking=s._en.cooking; s.angling=s._en.angling; s.joke=s._en.joke; } });
+    SPECIES.forEach(function(s){ if(s._en){ s.nm=s._en.nm; s.handling=s._en.handling; s.cooking=s._en.cooking; s.angling=s._en.angling; s.joke=s._en.joke; s.limit=s._en.limit; s.closed=s._en.closed; s.notes=s._en.notes; } });
   } else {
     var rows=null;
     if(sbData){ try{ var r=await sbData.from("species_i18n").select("species_id,common_name,handling,cooking,angling").eq("lang",lang); if(!r.error&&r.data) rows=r.data; }catch(e){} }
@@ -627,6 +629,20 @@ async function applySpeciesLang(){
         s.joke="";
       });
     }
+    var jid=activeJur&&activeJur.id, rr=null;
+    if(jid){
+      if(sbData){ try{ var q=await sbData.from("rules_i18n").select("species_id,possession_limit,closed_season,notes").eq("lang",lang).eq("jurisdiction_id",jid); if(!q.error&&q.data) rr=q.data; }catch(e){} }
+      if(rr){ try{localStorage.setItem("cl_ru_i18n_"+lang+"_"+jid, JSON.stringify(rr));}catch(e){} }
+      else { try{ var c2=localStorage.getItem("cl_ru_i18n_"+lang+"_"+jid); if(c2) rr=JSON.parse(c2); }catch(e){} }
+    }
+    SPECIES.forEach(function(s){ if(s._en){ s.limit=s._en.limit; s.closed=s._en.closed; s.notes=s._en.notes; } });
+    if(rr&&rr.length){
+      var rm={}; rr.forEach(function(r){ rm[r.species_id]=r; });
+      SPECIES.forEach(function(s){ var t=rm[s.sid]; if(!t) return;
+        if(t.possession_limit) s.limit=t.possession_limit;
+        if(t.closed_season) s.closed=t.closed_season;
+        if(t.notes) s.notes=t.notes; });
+    }
   }
   SPECIES.sort(function(a,b){return (a.nm||"").localeCompare(b.nm||"");});
   SEASON={}; SPECIES.forEach(function(s){SEASON[s.sci]=s.peak;});
@@ -638,7 +654,7 @@ async function loadJurisdiction(jid){
   activeJur=JURS.find(j=>j.id===jid)||activeJur;
   localStorage.setItem("cl_active_jur",jid);
   setRegion(activeJur?activeJur.region:jid);
-  const cl=document.getElementById("countLine"); if(cl) cl.textContent="Loading species…";
+  const cl=document.getElementById("countLine"); if(cl) cl.textContent=window.t("near.loading");
   let rows=null;
   if(sbData){
     try{
@@ -650,14 +666,14 @@ async function loadJurisdiction(jid){
   }
   if(rows){ try{localStorage.setItem("cl_rows_"+jid,JSON.stringify(rows));}catch(e){} }
   else { const c=localStorage.getItem("cl_rows_"+jid); if(c){ try{rows=JSON.parse(c);}catch(e){} } }
-  if(!rows){ if(cl) cl.textContent="Couldn't load species — connect to the internet once to download this region."; return; }
+  if(!rows){ if(cl) cl.textContent=window.t("near.loadFail"); return; }
   buildFromRows(rows);
   await applySpeciesLang();
   await loadCustomary(jid);
   const note=document.getElementById("jurNote");
   if(note&&activeJur){
-    let h="Showing <b>"+activeJur.region+"</b> rules · source verified "+(activeJur.last_verified||"")+". Saved on this device for offline use.";
-    if(activeJur.source_url) h+=' &middot; <a href="'+activeJur.source_url+'" target="_blank" rel="noopener" style="color:var(--sea)">Official rules \u2197</a>';
+    let h=window.t("near.showing",{r:activeJur.region,d:(activeJur.last_verified||"")});
+    if(activeJur.source_url) h+=' &middot; <a href="'+activeJur.source_url+'" target="_blank" rel="noopener" style="color:var(--sea)">'+window.t("near.official")+'</a>';
     if(activeJur.licence_required) h+='<div style="margin-top:7px;color:#0a4a2f;background:#eafaf0;border:1px solid #b9e6cc;border-radius:8px;padding:8px 10px;font-size:11.5px;line-height:1.45">\uD83C\uDFAB <b>Licence:</b> '+activeJur.licence_required+(activeJur.licence_url?' &middot; <a href="'+activeJur.licence_url+'" target="_blank" rel="noopener" style="color:#138a55;font-weight:700">Get your licence \u2197</a>':'')+'</div>';
     if(activeJur.data_note) h+='<div style="margin-top:7px;color:#7a541a;background:#fff6e6;border:1px solid #f3d79a;border-radius:8px;padding:8px 10px;font-size:11.5px;line-height:1.45">\u26A0\uFE0F '+activeJur.data_note+'</div>';
     note.innerHTML=h;
@@ -741,15 +757,15 @@ function renderNear(){
   if(viewMode==="customary"){ renderCustomary(list,cl); return; }
   let arr=SPECIES.slice();
   if(seasonOnly) arr=arr.filter(inSeason);
-  const chip='<div class="seasonchip'+(seasonOnly?" on":"")+'" id="seasonChip">🗓️ In season now'+(seasonOnly?" ✓":"")+'</div>';
-  if(cl) cl.textContent=arr.length+" species"+(seasonOnly?" in season":"")+(activeJur?(" · "+activeJur.region):"");
-  list.innerHTML=chip+(arr.length?arr.map(spRow).join(""):'<div class="empty">No species'+(seasonOnly?" in season right now":"")+'.</div>');
+  const chip='<div class="seasonchip'+(seasonOnly?" on":"")+'" id="seasonChip">🗓️ '+window.t("near.chip")+''+(seasonOnly?" ✓":"")+'</div>';
+  if(cl) cl.textContent=window.t(seasonOnly?"near.countSeason":"near.count",{n:arr.length})+(activeJur?(" · "+activeJur.region):"");
+  list.innerHTML=chip+(arr.length?arr.map(spRow).join(""):'<div class="empty">'+window.t(seasonOnly?"near.noneSeason":"near.none")+'</div>');
   const sc=document.getElementById("seasonChip"); if(sc) sc.onclick=()=>{seasonOnly=!seasonOnly;renderNear();};
   bindRows(list);
 }
-function badges(s){let b="";if(inSeason(s))b+='<span class="badge b-season">🗓️ In season</span>';
-  if(s.closed)b+='<span class="badge b-closed">Closed season/waters</span>';
-  if(s.sex)b+='<span class="badge b-sex">Sex rule</span>';return b;}
+function badges(s){let b="";if(inSeason(s))b+='<span class="badge b-season">🗓️ '+window.t("badge.season")+'</span>';
+  if(s.closed)b+='<span class="badge b-closed">'+window.t("badge.closed")+'</span>';
+  if(s.sex)b+='<span class="badge b-sex">'+window.t("badge.sex")+'</span>';return b;}
 function avaHtml(s){
   return s.img
     ? '<div class="ava img" data-e="'+esc(s.e)+'"><img loading="lazy" src="'+esc(s.img)+'" alt="'+esc(s.nm)+'" onerror="avaFail(this)"></div>'
@@ -768,35 +784,36 @@ function bindRows(c){c.querySelectorAll(".sp").forEach(r=>r.onclick=()=>openShee
 const modal=document.getElementById("modal");
 document.getElementById("closeSheet").onclick=()=>modal.classList.remove("show");
 modal.onclick=e=>{if(e.target===modal)modal.classList.remove("show");};
+function esc2(x){return String(x||"").replace(/&/g,"&amp;").replace(/</g,"&lt;");}
 function rule(ic,k,v,red){return '<div class="rule"><div class="ic">'+ic+'</div><div><div class="k">'+k+'</div><div class="v'+(red?' red':'')+'">'+v+'</div></div></div>';}
 function anglingHtml(a){
   if(!a) return "";
-  if(a.note){ return '<div class="rule"><div class="ic">\uD83C\uDFA3</div><div><div class="k">How to catch it</div><div class="v">'+esc(a.note)+'</div></div></div>'; }
-  var rows=[["\uD83E\uDEB1","Bait",a.bait],["\uD83C\uDF8F","Lures",a.lures],["\uD83C\uDFA3","Tackle / line",a.tackle],["\uD83E\uDE9D","Rig",a.rig],["\uD83C\uDFAF","Technique",a.technique],["\uD83D\uDCCD","Where to find",a.where],["\uD83D\uDD51","Best timing",a.timing]];
+  if(a.note){ return '<div class="rule"><div class="ic">\uD83C\uDFA3</div><div><div class="k">'+window.t("sheet.howTo")+'</div><div class="v">'+esc(a.note)+'</div></div></div>'; }
+  var rows=[["\uD83E\uDEB1",window.t("ang.bait"),a.bait],["\uD83C\uDF8F",window.t("ang.lures"),a.lures],["\uD83C\uDFA3",window.t("ang.tackle"),a.tackle],["\uD83E\uDE9D",window.t("ang.rig"),a.rig],["\uD83C\uDFAF",window.t("ang.technique"),a.technique],["\uD83D\uDCCD",window.t("ang.where"),a.where],["\uD83D\uDD51",window.t("ang.timing"),a.timing]];
   var inner="";
   rows.forEach(function(r){ if(r[2]&&r[2]!=="\u2014") inner+='<div style="margin:5px 0;line-height:1.5"><b>'+r[0]+' '+r[1]+':</b> '+esc(r[2])+'</div>'; });
   if(!inner) return "";
-  return '<div class="rule"><div class="ic">\uD83C\uDFA3</div><div><div class="k">How to catch it \u2014 bait, lures, tackle &amp; technique</div><div class="v">'+inner+'</div></div></div>';
+  return '<div class="rule"><div class="ic">\uD83C\uDFA3</div><div><div class="k">'+esc2(window.t("sheet.howToFull"))+'</div><div class="v">'+inner+'</div></div></div>';
 }
 function careHtml(hd, ck){
   var out="";
   function li(arr){ return '<ul style="margin:4px 0 0 18px;padding:0">'+arr.map(function(t){return '<li style="margin:3px 0">'+esc(t)+'</li>';}).join("")+'</ul>'; }
   if(hd){
     var inner="";
-    if(hd.bleed)   inner+='<div style="margin:5px 0;line-height:1.5"><b>\uD83E\uDE78 Bleed:</b> '+esc(hd.bleed)+'</div>';
-    if(hd.chill)   inner+='<div style="margin:5px 0;line-height:1.5"><b>\uD83E\uDDCA Chill:</b> '+esc(hd.chill)+'</div>';
-    if(hd.gut)     inner+='<div style="margin:5px 0;line-height:1.5"><b>\uD83D\uDD2A Gut:</b> '+esc(hd.gut)+'</div>';
-    if(hd.tips&&hd.tips.length) inner+='<div style="margin:5px 0;line-height:1.5"><b>\u2705 Tips:</b>'+li(hd.tips)+'</div>';
-    if(hd.release) inner+='<div style="margin:5px 0;line-height:1.5"><b>\u21A9\uFE0F Release:</b> '+esc(hd.release)+'</div>';
-    if(inner) out+='<div class="rule"><div class="ic">\uD83E\uDDCA</div><div><div class="k">Looking after your catch</div><div class="v">'+inner+'</div></div></div>';
+    if(hd.bleed)   inner+='<div style="margin:5px 0;line-height:1.5"><b>\uD83E\uDE78 '+window.t("care.bleed")+':</b> '+esc(hd.bleed)+'</div>';
+    if(hd.chill)   inner+='<div style="margin:5px 0;line-height:1.5"><b>\uD83E\uDDCA '+window.t("care.chill")+':</b> '+esc(hd.chill)+'</div>';
+    if(hd.gut)     inner+='<div style="margin:5px 0;line-height:1.5"><b>\uD83D\uDD2A '+window.t("care.gut")+':</b> '+esc(hd.gut)+'</div>';
+    if(hd.tips&&hd.tips.length) inner+='<div style="margin:5px 0;line-height:1.5"><b>\u2705 '+window.t("care.tips")+':</b>'+li(hd.tips)+'</div>';
+    if(hd.release) inner+='<div style="margin:5px 0;line-height:1.5"><b>\u21A9\uFE0F '+window.t("care.release")+':</b> '+esc(hd.release)+'</div>';
+    if(inner) out+='<div class="rule"><div class="ic">\uD83E\uDDCA</div><div><div class="k">'+window.t("care.title")+'</div><div class="v">'+inner+'</div></div></div>';
   }
   if(ck){
     var ci="";
     if(ck.profile) ci+='<div style="margin:5px 0;line-height:1.5">'+esc(ck.profile)+'</div>';
-    if(ck.methods&&ck.methods.length) ci+='<div style="margin:6px 0;line-height:1.5"><b>Best methods:</b> '+ck.methods.map(esc).join(" \u00B7 ")+'</div>';
-    if(ck.dishes&&ck.dishes.length) ci+='<div style="margin:5px 0;line-height:1.5"><b>\uD83C\uDF7D\uFE0F Dishes to try:</b>'+li(ck.dishes)+'</div>';
+    if(ck.methods&&ck.methods.length) ci+='<div style="margin:6px 0;line-height:1.5"><b>'+window.t("cook.methods")+':</b> '+ck.methods.map(esc).join(" \u00B7 ")+'</div>';
+    if(ck.dishes&&ck.dishes.length) ci+='<div style="margin:5px 0;line-height:1.5"><b>\uD83C\uDF7D\uFE0F '+window.t("cook.dishes")+':</b>'+li(ck.dishes)+'</div>';
     if(ck.safety) ci+='<div class="alert o" style="margin-top:8px">\u26A0\uFE0F '+esc(ck.safety)+'</div>';
-    if(ci) out+='<div class="rule"><div class="ic">\uD83C\uDF7D\uFE0F</div><div><div class="k">In the kitchen</div><div class="v">'+ci+'</div></div></div>';
+    if(ci) out+='<div class="rule"><div class="ic">\uD83C\uDF7D\uFE0F</div><div><div class="k">'+window.t("cook.title")+'</div><div class="v">'+ci+'</div></div></div>';
   }
   return out;
 }
@@ -863,25 +880,25 @@ function openSheet(s){
   let h="";
   if(s.img){
     CL_HERO={src:s.img, cap:((s.joke?"\uD83D\uDE04 "+s.joke+" \u00B7 ":"")+(s.imgCredit||"Wikimedia Commons")+(s.imgLic?" \u00B7 "+s.imgLic:"")+" \u00B7 via Wikimedia")};
-    h+='<div class="shero" onclick="openLb(CL_HERO.src,CL_HERO.cap)"><img src="'+esc(s.img)+'" alt="'+esc(s.nm)+'"><span class="zoom">\u2922 Tap to enlarge</span><div class="cap">\uD83D\uDCF7 '+esc(s.imgCredit||"Wikimedia Commons")+(s.imgLic?" \u00B7 "+esc(s.imgLic):"")+'</div></div>';
+    h+='<div class="shero" onclick="openLb(CL_HERO.src,CL_HERO.cap)"><img src="'+esc(s.img)+'" alt="'+esc(s.nm)+'"><span class="zoom">\u2922 '+window.t("sheet.tapEnlarge")+'</span><div class="cap">\uD83D\uDCF7 '+esc(s.imgCredit||"Wikimedia Commons")+(s.imgLic?" \u00B7 "+esc(s.imgLic):"")+'</div></div>';
   }
   if(s.joke) h+='<div style="text-align:center;font-style:italic;color:var(--sea);margin:0 0 12px;font-size:13.5px">\uD83D\uDE04 '+esc(s.joke)+'</div>';
-  h+=rule("📏","Size limit",sizeText(s));
-  h+=rule("🪣","Possession / bag limit",s.limit);
-  if(s.boat)h+=rule("⛴️","Boat limit",s.boat);
-  if(s.sex)h+=rule("🚫","Sex restriction",s.sex,true);
-  if(s.closed)h+=rule("📅","Closed season / waters",s.closed,true);
-  if(s.notes)h+=rule("💡","Field notes",s.notes);
-  h+=rule("🗓️","Best season"+(activeJur?" ("+activeJur.region+")":""),seasonText(s)+(inSeason(s)?" — in season now":""));
+  h+=rule("📏",window.t("sheet.size"),sizeText(s));
+  h+=rule("🪣",window.t("sheet.bag"),s.limit);
+  if(s.boat)h+=rule("⛴️",window.t("sheet.boat"),s.boat);
+  if(s.sex)h+=rule("🚫",window.t("sheet.sex"),s.sex,true);
+  if(s.closed)h+=rule("📅",window.t("sheet.closed"),s.closed,true);
+  if(s.notes)h+=rule("💡",window.t("sheet.notes"),s.notes);
+  h+=rule("🗓️",window.t("sheet.season")+(activeJur?" ("+activeJur.region+")":""),seasonText(s)+(inSeason(s)?window.t("sheet.inSeason"):""));
   h+=anglingHtml(s.angling);
   h+=careHtml(s.handling,s.cooking);
-  h+='<div class="alert o">⚠️ <b>A guide only.</b> Identification is an educated estimate. Confirm the species, measure carefully, and verify the current rules before keeping anything.</div>';
+  h+='<div class="alert o">⚠️ '+window.t("sheet.guide")+'</div>';
   const src=s.source_url||(activeJur&&activeJur.source_url);
-  const srcname=(activeJur&&activeJur.source_name)||"the official regulator";
-  h+='<div class="src">Source: '+srcname+(src?' — <a href="'+src+'" target="_blank" rel="noopener">official rules</a>':'')+(s.last_verified?' (verified '+s.last_verified+')':'')+'. You are responsible for complying with the current rules in your jurisdiction.</div>';
+  const srcname=(activeJur&&activeJur.source_name)||window.t("sheet.regulator");
+  h+='<div class="src">'+window.t("sheet.source")+': '+srcname+(src?' — <a href="'+src+'" target="_blank" rel="noopener">'+window.t("sheet.officialLink")+'</a>':'')+(s.last_verified?' ('+window.t("sheet.verified")+' '+s.last_verified+')':'')+'. '+window.t("sheet.responsible")+'</div>';
   window.CL_SHEET=s;
-  h+='<div style="margin-top:12px"><button class="btn" style="width:100%;background:#123a5a" onclick="window.CL_openMeasure&&window.CL_openMeasure()">\uD83D\uDCCF Measure this fish from a photo</button></div>';
-  h+='<div style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px"><button class="btn" style="width:100%;background:#0a4a2f" onclick="document.getElementById(&#39;spPhotoInput&#39;).click()">\uD83D\uDCF7 Add a photo of this species</button><div class="muted" id="spPhotoMsg" style="margin-top:8px">Photos are reviewed by an administrator before they appear.</div></div>';
+  h+='<div style="margin-top:12px"><button class="btn" style="width:100%;background:#123a5a" onclick="window.CL_openMeasure&&window.CL_openMeasure()">\uD83D\uDCCF '+window.t("sheet.measure")+'</button></div>';
+  h+='<div style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px"><button class="btn" style="width:100%;background:#0a4a2f" onclick="document.getElementById(&#39;spPhotoInput&#39;).click()">\uD83D\uDCF7 '+window.t("sheet.addPhoto")+'</button><div class="muted" id="spPhotoMsg" style="margin-top:8px">'+window.t("sheet.photoReview")+'</div></div>';
   document.getElementById("dBody").innerHTML=h;
   modal.classList.add("show");
 }
@@ -897,7 +914,7 @@ function buildOpts(){
     const grid=document.querySelector('.qgrid[data-q="'+q+'"]');
     if(!grid)return;
     grid.innerHTML=QOPTS[q].map(o=>
-      '<div class="opt" data-q="'+q+'" data-v="'+o[0]+'"><span class="e">'+o[1]+'</span>'+o[2]+'</div>').join("");
+      '<div class="opt" data-q="'+q+'" data-v="'+o[0]+'"><span class="e">'+o[1]+'</span><span class="ol">'+window.t("q."+q+"."+o[0])+'</span></div>').join("");
   });
   document.querySelectorAll(".opt").forEach(o=>o.onclick=()=>{
     const q=o.dataset.q,v=o.dataset.v;
@@ -908,6 +925,7 @@ function buildOpts(){
   });
 }
 buildOpts();
+window.CL_relabelOpts=function(){ try{ document.querySelectorAll('.opt .ol').forEach(function(el){ var o=el.parentNode; el.textContent=window.t('q.'+o.dataset.q+'.'+o.dataset.v); }); }catch(e){} };
 
 const photo=document.getElementById("photo"),preview=document.getElementById("preview");
 document.getElementById("dropZone").onclick=e=>{e.preventDefault();photo.click();};
@@ -951,7 +969,7 @@ function renderAi(d,out){
 document.getElementById("idGo").onclick=()=>{
   const out=document.getElementById("idResults");
   if(!sel.shape&&!sel.colour&&!sel.habitat&&sel.feature.size===0){
-    out.innerHTML='<div class="empty">Pick at least a body shape or colour so we can estimate.</div>';return;}
+    out.innerHTML='<div class="empty">'+window.t("id.pick")+'</div>';return;}
   const scored=SPECIES.map(s=>{
     let sc=0,max=0;
     max+=3;if(sel.shape&&s.shape===sel.shape)sc+=3;
@@ -961,17 +979,17 @@ document.getElementById("idGo").onclick=()=>{
       sc+=2*(hit/sel.feature.size);}
     return {s:s,pct:max?sc/max:0};
   }).filter(x=>x.pct>0).sort((a,b)=>b.pct-a.pct).slice(0,4);
-  if(!scored.length){out.innerHTML='<div class="empty">No close match. Try different attributes.</div>';return;}
-  out.innerHTML='<div class="card"><h2>🎯 Most likely matches</h2>'
-    +'<p class="muted">Ranked by your description'+(activeJur?(" for "+activeJur.region):"")
-    +'. <b>Educated guess only</b> — tap one to read its rules, then confirm the species yourself.</p></div>'
+  if(!scored.length){out.innerHTML='<div class="empty">'+window.t("id.none")+'</div>';return;}
+  out.innerHTML='<div class="card"><h2>🎯 '+window.t("id.matches")+'</h2>'
+    +'<p class="muted">'+window.t("id.ranked")+(activeJur?window.t("id.for",{r:activeJur.region}):"")
+    +'. '+window.t("id.guess")+'</p></div>'
     +scored.map(x=>{const s=x.s,conf=Math.round(x.pct*100);
       return '<div class="sp" data-sci="'+esc(s.sci)+'">'
         +avaHtml(s)
         +'<div class="info"><div class="nm">'+s.nm+badges(s)+'</div>'
         +'<div class="sci">'+s.sci+'</div>'
         +'<div class="meta">'+sizeText(s)+' · '+s.limit+'</div></div>'
-        +'<div style="text-align:right"><span class="matchscore">'+conf+'% match</span><div class="chev">›</div></div></div>';
+        +'<div style="text-align:right"><span class="matchscore">'+window.t("id.match",{n:conf})+'</span><div class="chev">›</div></div></div>';
     }).join("");
   bindRows(out);
   out.scrollIntoView({behavior:"smooth",block:"start"});
