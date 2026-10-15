@@ -1,6 +1,6 @@
-const CACHE = "catchlocal-v41";
+const CACHE = "catchlocal-v42";
 const ASSETS = ["./","./index.html","./manifest.webmanifest",
-  "./icon-192.png","./icon-512.png","./icon-maskable-512.png","./apple-touch-icon.png","./locales/en.json","./locales/fr.json","./locales/es.json","./locales/pt.json","./locales/it.json","./locales/de.json","./locales/vi.json","./locales/zh.json","./locales/ja.json","./locales/ko.json","./locales/th.json","./locales/tl.json","./locales/cs.json"];
+  "./icon-192.png","./icon-512.png","./icon-maskable-512.png","./apple-touch-icon.png","./locales/en.json","./locales/fr.json","./locales/es.json","./locales/pt.json","./locales/it.json","./locales/de.json","./locales/vi.json","./locales/zh.json","./locales/ja.json","./locales/ko.json","./locales/th.json","./locales/tl.json","./locales/cs.json","./locales/nb.json","./locales/sv.json","./locales/fi.json","./locales/pl.json","./locales/hr.json","./locales/el.json"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
 });
