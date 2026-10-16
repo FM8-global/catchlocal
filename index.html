@@ -197,6 +197,7 @@
     </div>
     <div id="authMsg" class="auth-msg"></div>
     <div class="auth-foot" style="margin-top:8px">Seeing an old version, or the code box won’t accept your full code? <a href="#" id="authReset" style="color:#7fc7e8;text-decoration:underline;cursor:pointer">Reset the app</a> — it reloads the latest version and keeps you signed in.</div>
+    <div class="auth-foot" id="authVersion" style="margin-top:12px;opacity:.75;font-size:.85em">Catch Local · Build v46 · catch.fm8.global</div>
     <div class="auth-foot" data-i18n="auth.newHere">New here? Enter your email to request access — an administrator approves new users before their first sign-in. By continuing you accept that this is a guide only and you are responsible for obeying local fishing laws.</div>
   </div>
 </div>
@@ -473,7 +474,7 @@
   </div>
 </div>
 
-<footer><button id="supportOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="support.link">🤝 Help build Catch Local</button> &nbsp;·&nbsp; <button id="suggOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="sugg.link">💡 Suggest an improvement or report a problem</button><br>CATCH LOCAL · An FM8 Pty Ltd application · Multi-jurisdiction recreational dataset · Not affiliated with any State regulator · CONFIDENTIAL — FM8 PTY LTD · <span id="buildStamp" style="opacity:.75">Build v45</span></footer>
+<footer><button id="supportOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="support.link">🤝 Help build Catch Local</button> &nbsp;·&nbsp; <button id="suggOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="sugg.link">💡 Suggest an improvement or report a problem</button><br>CATCH LOCAL · An FM8 Pty Ltd application · Multi-jurisdiction recreational dataset · Not affiliated with any State regulator · CONFIDENTIAL — FM8 PTY LTD · <span id="buildStamp" style="opacity:.75">Build v46</span></footer>
 
 <script>
 /* ===== Catch Local — Supabase-backed, multi-jurisdiction data layer ===== */
@@ -1214,8 +1215,8 @@ if(sbData){
     if(st!=="reviewed"&&st!=="done") acts+='<button class="seasonchip" data-sugg="reviewed" data-id="'+s.id+'">Mark reviewed</button>';
     if(st!=="done") acts+='<button class="seasonchip" data-sugg="done" data-id="'+s.id+'">Mark done</button>';
     return '<div class="sp" style="cursor:default;align-items:flex-start">'
-      +'<div class="ava">💡</div>'
-      +'<div class="info"><div class="nm">'+esc(s.category||"Other")+' '+badge+'</div>'
+      +'<div class="ava">'+(/^rule-review/.test(s.category||"")?"📋":"💡")+'</div>'
+      +'<div class="info"><div class="nm">'+esc(s.category==="rule-review"?"Rules review due":(s.category==="rule-review-annual"?"Annual regulations review":(s.category||"Other")))+' '+badge+'</div>'
       +'<div class="meta">'+esc(s.email||"anonymous")+(s.region?(" · "+esc(s.region)):"")+' · '+esc(when)+'</div>'
       +'<div style="margin-top:6px;white-space:pre-wrap;color:var(--ink)">'+esc(s.message||"")+'</div></div>'
       +'<div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end">'+acts+'</div></div>';
@@ -1384,7 +1385,8 @@ if(sbData){
 (function(){
   const SB_URL="https://xjjpgdhcavmewelzmvbs.supabase.co";
   const SB_KEY="sb_publishable_jFybpsD7SVOZ2x5dg7kF5A_PhRWuD3v";
-  const APP_VER="v23";
+  const APP_VER=(((document.getElementById("authVersion")||{}).textContent||"").match(/Build (v\d+)/)||[])[1]||"unknown";
+  window.CL_APP_VER=APP_VER;
   const sb=(window.supabase&&window.supabase.createClient)?window.supabase.createClient(SB_URL,SB_KEY):null;
   const modal=document.getElementById("suggModal");
   const catWrap=document.getElementById("suggCat");
