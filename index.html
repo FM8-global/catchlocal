@@ -177,7 +177,7 @@
   .auth-signout{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);color:#fff;
     padding:6px 11px;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer;margin-left:8px;white-space:nowrap}
 </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -197,7 +197,7 @@
     </div>
     <div id="authMsg" class="auth-msg"></div>
     <div class="auth-foot" style="margin-top:8px">Seeing an old version, or the code box won’t accept your full code? <a href="#" id="authReset" style="color:#7fc7e8;text-decoration:underline;cursor:pointer">Reset the app</a> — it reloads the latest version and keeps you signed in.</div>
-    <div class="auth-foot" id="authVersion" style="margin-top:12px;opacity:.75;font-size:.85em">Catch Local · Build v46 · catch.fm8.global</div>
+    <div class="auth-foot" id="authVersion" style="margin-top:12px;opacity:.75;font-size:.85em">Catch Local · Build v47 · catch.fm8.global</div>
     <div class="auth-foot" data-i18n="auth.newHere">New here? Enter your email to request access — an administrator approves new users before their first sign-in. By continuing you accept that this is a guide only and you are responsible for obeying local fishing laws.</div>
   </div>
 </div>
@@ -220,8 +220,7 @@
     identification is an educated estimate, not a definitive determination, and regulations change.
     You alone are responsible for correctly identifying your catch and for complying with the current
     size, bag, sex and seasonal limits in your jurisdiction. Always confirm against the official source
-    before keeping anything. Rules shown are Queensland tidal-water recreational limits
-    (Qld Govt, reviewed 26 Mar 2026).
+    before keeping anything. The rules shown are for the region selected below; its official source is linked there.
   </div>
 
   <div class="tabs">
@@ -474,7 +473,7 @@
   </div>
 </div>
 
-<footer><button id="supportOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="support.link">🤝 Help build Catch Local</button> &nbsp;·&nbsp; <button id="suggOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="sugg.link">💡 Suggest an improvement or report a problem</button><br>CATCH LOCAL · An FM8 Pty Ltd application · Multi-jurisdiction recreational dataset · Not affiliated with any State regulator · CONFIDENTIAL — FM8 PTY LTD · <span id="buildStamp" style="opacity:.75">Build v46</span></footer>
+<footer><button id="supportOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="support.link">🤝 Help build Catch Local</button> &nbsp;·&nbsp; <button id="suggOpen" style="background:none;border:none;color:var(--sea);font:inherit;cursor:pointer;text-decoration:underline;padding:0" data-i18n="sugg.link">💡 Suggest an improvement or report a problem</button><br>CATCH LOCAL · An FM8 Pty Ltd application · Multi-jurisdiction recreational dataset · Not affiliated with any State regulator · CONFIDENTIAL — FM8 PTY LTD · <span id="buildStamp" style="opacity:.75">Build v47</span></footer>
 
 <script>
 /* ===== Catch Local — Supabase-backed, multi-jurisdiction data layer ===== */
@@ -1035,7 +1034,7 @@ async function init(){
 }
 if(sbData){
   sbData.auth.getSession().then(({data})=>{ if(data&&data.session) init(); });
-  sbData.auth.onAuthStateChange((_e,session)=>{ if(session) init(); });
+  sbData.auth.onAuthStateChange((_e,session)=>{ setTimeout(()=>{ if(session) init(); },0);});
 } else {
   init(); /* offline / no library: fall back to cached data */
 }
@@ -1297,7 +1296,8 @@ if(sbData){
   };
 
   sb.auth.getSession().then(()=>check());
-  sb.auth.onAuthStateChange((_e,s)=>{ if(s) check(); });
+  [2000,6000,15000].forEach(ms=>setTimeout(()=>{ if(!revealed) check(); },ms));
+  sb.auth.onAuthStateChange((_e,s)=>{ setTimeout(()=>{ if(s) check(); },0);});
 })();
 </script>
 <script>
@@ -1349,7 +1349,7 @@ if(sbData){
     return;
   }
   sb.auth.getSession().then(({data})=>authorize(data.session));
-  sb.auth.onAuthStateChange((_e,session)=>{ if(session) authorize(session); });
+  sb.auth.onAuthStateChange((_e,session)=>{ setTimeout(()=>{ if(session) authorize(session); },0);});
   if(sendBtn) sendBtn.onclick=async()=>{
     const email=(emailIn.value||"").trim();
     if(!email||email.indexOf("@")<1){ setMsg("Please enter a valid email address.","err"); return; }
@@ -1563,7 +1563,7 @@ if(sbData){
 
   var ct=document.querySelector('.tab[data-tab="catches"]'); if(ct) ct.addEventListener("click",loadFeed);
   withSession(function(s){ if(s) loadFeed(); });
-  if(sb) sb.auth.onAuthStateChange(function(_e,s){ if(s){ meEmail=(s.user&&s.user.email)||meEmail; loadFeed(); } });
+  if(sb) sb.auth.onAuthStateChange(function(_e,s){ setTimeout(function(){ if(s){ meEmail=(s.user&&s.user.email)||meEmail; loadFeed(); } },0);});
 })();
 </script>
 
