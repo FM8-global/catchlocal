@@ -173,5 +173,6 @@
  "q.feature.claws": "Klepetá",
  "q.feature.spiny-fins": "Pichľavá",
  "q.feature.tentacles": "Chápadlá",
- "q.feature.long-snout": "Dlhý rypák"
+ "q.feature.long-snout": "Dlhý rypák",
+ "app.disclaimer": "<b>⚠️ Len sprievodca — za dodržiavanie miestnych rybárskych predpisov napokon zodpovedáte vy.</b> CatchLocal vám pomáha, ale nenahrádza oficiálne pravidlá. Určenie druhu je odhad, nie definitívne určenie, a predpisy sa menia. Len vy zodpovedáte za správne určenie úlovku a dodržanie platných lovných mier, limitov úlovku, pravidiel podľa pohlavia a doby hájenia vo vašom revíri. Kým si niečo ponecháte, vždy si to overte v oficiálnom zdroji. Zobrazené pravidlá platia pre oblasť vybranú nižšie; nájdete tam odkaz na oficiálny zdroj."
 }

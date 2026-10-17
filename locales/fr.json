@@ -173,5 +173,6 @@
  "q.feature.claws": "Pinces",
  "q.feature.spiny-fins": "Épineux",
  "q.feature.tentacles": "Tentacules",
- "q.feature.long-snout": "Long museau"
+ "q.feature.long-snout": "Long museau",
+ "app.disclaimer": "<b>⚠️ Simple guide — vous restez seul responsable du respect de la réglementation de pêche locale.</b> CatchLocal vous aide, mais ne remplace pas les règles officielles. L'identification des espèces est une estimation, pas une détermination définitive, et la réglementation évolue. Vous seul êtes responsable de bien identifier votre prise et de respecter les tailles, quotas, règles de sexe et périodes de fermeture en vigueur dans votre zone. Vérifiez toujours auprès de la source officielle avant de garder quoi que ce soit. Les règles affichées concernent la région sélectionnée ci-dessous ; sa source officielle y est indiquée."
 }

@@ -173,5 +173,6 @@
  "q.feature.claws": "Pinças",
  "q.feature.spiny-fins": "Espinhoso",
  "q.feature.tentacles": "Tentáculos",
- "q.feature.long-snout": "Focinho comprido"
+ "q.feature.long-snout": "Focinho comprido",
+ "app.disclaimer": "<b>⚠️ Apenas um guia — você é o responsável final por cumprir a legislação de pesca local.</b> O CatchLocal ajuda, mas não substitui as regras oficiais. A identificação das espécies é uma estimativa, não uma determinação definitiva, e as regras mudam. Só você é responsável por identificar corretamente a sua captura e cumprir os tamanhos, limites, regras de sexo e defesos em vigor na sua zona. Confirme sempre na fonte oficial antes de ficar com qualquer peixe. As regras mostradas são da região selecionada abaixo; a fonte oficial está indicada lá."
 }

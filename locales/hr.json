@@ -173,5 +173,6 @@
  "q.feature.claws": "Kliješta",
  "q.feature.spiny-fins": "Bodljikava",
  "q.feature.tentacles": "Krakovi",
- "q.feature.long-snout": "Dugačka njuška"
+ "q.feature.long-snout": "Dugačka njuška",
+ "app.disclaimer": "<b>⚠️ Samo vodič — za poštivanje lokalnih propisa o ribolovu u konačnici ste odgovorni vi.</b> CatchLocal vam pomaže, ali ne zamjenjuje službena pravila. Prepoznavanje vrste je procjena, a ne konačno utvrđivanje, a propisi se mijenjaju. Samo ste vi odgovorni za ispravno prepoznavanje ulova i poštivanje važećih mjera, ograničenja ulova, pravila spola i lovostaja na svom području. Prije nego što išta zadržite, uvijek provjerite službeni izvor. Prikazana pravila odnose se na područje odabrano ispod; ondje je poveznica na službeni izvor."
 }

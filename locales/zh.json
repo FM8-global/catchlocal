@@ -173,5 +173,6 @@
  "q.feature.claws": "螯",
  "q.feature.spiny-fins": "多刺",
  "q.feature.tentacles": "触手",
- "q.feature.long-snout": "长吻"
+ "q.feature.long-snout": "长吻",
+ "app.disclaimer": "<b>⚠️ 仅供参考——遵守当地渔业法规的最终责任在于您本人。</b>CatchLocal 为您提供指引，但不能取代官方规定。物种识别只是估算，并非确定结论，而且法规会变化。正确识别渔获并遵守所在地区现行的尺寸、数量、性别和禁渔期规定，完全是您自己的责任。在留下任何渔获之前，请务必与官方来源核对。所显示的规定适用于下方所选区域，其官方来源链接也在那里。"
 }

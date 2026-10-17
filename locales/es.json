@@ -173,5 +173,6 @@
  "q.feature.claws": "Pinzas",
  "q.feature.spiny-fins": "Espinoso",
  "q.feature.tentacles": "Tentáculos",
- "q.feature.long-snout": "Hocico largo"
+ "q.feature.long-snout": "Hocico largo",
+ "app.disclaimer": "<b>⚠️ Solo una guía: tú eres el responsable final de cumplir la normativa pesquera local.</b> CatchLocal te orienta, pero no sustituye a las normas oficiales. La identificación de especies es una estimación, no una determinación definitiva, y la normativa cambia. Solo tú eres responsable de identificar correctamente tu captura y de cumplir las tallas, cupos, normas de sexo y vedas vigentes en tu zona. Confirma siempre con la fuente oficial antes de quedarte con nada. Las normas mostradas son las de la región seleccionada abajo; allí se enlaza su fuente oficial."
 }

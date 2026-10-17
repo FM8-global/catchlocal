@@ -173,5 +173,6 @@
  "q.feature.claws": "Pinces",
  "q.feature.spiny-fins": "Espinós",
  "q.feature.tentacles": "Tentacles",
- "q.feature.long-snout": "Musell llarg"
+ "q.feature.long-snout": "Musell llarg",
+ "app.disclaimer": "<b>⚠️ Només una guia — la responsabilitat final de complir la normativa de pesca local és teva.</b> CatchLocal t'ajuda, però no substitueix les normes oficials. La identificació de l'espècie és una estimació, no una determinació definitiva, i la normativa canvia. Només tu ets responsable d'identificar correctament la captura i de complir les mides, els límits de captura, les normes de sexe i les vedes vigents a la teva zona. Comprova sempre la font oficial abans de quedar-te res. Les normes mostrades són per a la regió seleccionada a sota; allà hi ha l'enllaç a la font oficial."
 }

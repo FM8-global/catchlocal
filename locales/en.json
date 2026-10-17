@@ -173,5 +173,6 @@
  "q.feature.claws": "Claws",
  "q.feature.spiny-fins": "Spiny",
  "q.feature.tentacles": "Tentacles",
- "q.feature.long-snout": "Long snout"
+ "q.feature.long-snout": "Long snout",
+ "app.disclaimer": "<b>⚠️ A guide only — you are ultimately responsible for obeying local fisheries laws.</b> CatchLocal provides guidance to help you, but it does not replace the official rules. Species identification is an educated estimate, not a definitive determination, and regulations change. You alone are responsible for correctly identifying your catch and for complying with the current size, bag, sex and seasonal limits in your jurisdiction. Always confirm against the official source before keeping anything. The rules shown are for the region selected below; its official source is linked there."
 }

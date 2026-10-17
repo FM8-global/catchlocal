@@ -173,5 +173,6 @@
  "q.feature.claws": "Ollók",
  "q.feature.spiny-fins": "Tüskés",
  "q.feature.tentacles": "Csápok",
- "q.feature.long-snout": "Hosszú orr"
+ "q.feature.long-snout": "Hosszú orr",
+ "app.disclaimer": "<b>⚠️ Csak útmutató — a helyi horgászszabályok betartásáért végső soron te felelsz.</b> A CatchLocal segít, de nem helyettesíti a hivatalos szabályokat. A fajfelismerés becslés, nem végleges megállapítás, és a szabályok változnak. Csak te felelsz azért, hogy helyesen azonosítsd a fogásodat, és betartsd a területeden érvényes méretkorlátozásokat, darabszám-korlátokat, ivari szabályokat és tilalmi időket. Mielőtt bármit megtartanál, mindig ellenőrizd a hivatalos forrást. A megjelenített szabályok a lent kiválasztott régióra vonatkoznak; ott található a hivatalos forrás linkje is."
 }

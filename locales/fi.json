@@ -173,5 +173,6 @@
  "q.feature.claws": "Sakset",
  "q.feature.spiny-fins": "Piikikäs",
  "q.feature.tentacles": "Lonkerot",
- "q.feature.long-snout": "Pitkä kuono"
+ "q.feature.long-snout": "Pitkä kuono",
+ "app.disclaimer": "<b>⚠️ Vain opas — vastaat itse viime kädessä paikallisten kalastussääntöjen noudattamisesta.</b> CatchLocal auttaa, mutta ei korvaa virallisia sääntöjä. Lajintunnistus on arvio, ei lopullinen määritys, ja säännöt muuttuvat. Vain sinä vastaat saaliin oikeasta tunnistamisesta sekä alueellasi voimassa olevien alamittojen, saaliskiintiöiden, sukupuolisääntöjen ja rauhoitusaikojen noudattamisesta. Tarkista aina virallisesta lähteestä ennen kuin otat mitään. Näytetyt säännöt koskevat alla valittua aluetta; sen virallinen lähde on linkitetty siellä."
 }
